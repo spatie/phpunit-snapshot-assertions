@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Test;
 
 use DOMDocument;
 use ReflectionClass;
-use SimpleXMLElement;
 
 class Snapshot
 {
