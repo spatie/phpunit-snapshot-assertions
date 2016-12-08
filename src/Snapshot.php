@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Snapshots\Test;
+namespace Spatie\Snapshots;
 
 use DOMDocument;
 use ReflectionClass;
