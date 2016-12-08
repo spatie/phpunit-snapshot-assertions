@@ -4,7 +4,7 @@ namespace Spatie\Snapshots\Test;
 
 use ReflectionClass;
 
-class Snapshot
+class SnapshotHandler
 {
     /** @var string */
     protected $directory, $filename, $id;
@@ -18,7 +18,7 @@ class Snapshot
         $this->filename = $filename;
         $this->id = $id;
 
-        $this->availableSnapshots = (@include $this->path()) ?: [];
+        $this->availableSnapshots = @include $this->path() ?? [];
     }
 
     public static function forTestMethod($backtrace, $count): self
@@ -27,7 +27,7 @@ class Snapshot
         $method = $backtrace['function'];
 
         $directory = dirname($class->getFileName()).'/__snapshots__';
-        $filename = $class->getShortName();
+        $filename = $class->getShortName().'.php';
         $id = "{$method} {$count}";
 
         return new self($directory, $filename, $id);
@@ -50,7 +50,7 @@ class Snapshot
 
     public function get()
     {
-        $this->availableSnapshots[$this->id];
+        return $this->availableSnapshots[$this->id];
     }
 
     public function create($serializedValue)
@@ -61,7 +61,7 @@ class Snapshot
             mkdir($this->directory);
         }
 
-        $contents = '<?php\n\n'.print_r($this->availableSnapshots, true);
+        $contents = '<?php'.PHP_EOL.PHP_EOL.'return '.var_export($this->availableSnapshots, true).';';
 
         file_put_contents($this->path(), $contents);
     }

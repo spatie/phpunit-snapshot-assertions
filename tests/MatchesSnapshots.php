@@ -10,24 +10,24 @@ trait MatchesSnapshots
     {
         $this->snapshotCount++;
 
-        $snapshot = Snapshot::forTestMethod(
+        $snapshotHandler = SnapshotHandler::forTestMethod(
             debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
             $this->snapshotCount
         );
 
-        if (! $snapshot->exists()) {
-            $snapshot->create($this->serializeForSnapshot($serializable));
+        if (! $snapshotHandler->exists()) {
+            $snapshotHandler->create($this->serializeForSnapshot($serializable));
 
-            return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
+            return $this->markTestIncomplete("Snapshot created for {$snapshotHandler->id()}");
         }
 
-        if ($this->updateSnapshots()) {
-            $snapshot->update($this->serializeForSnapshot($serializable));
+        if ($this->shouldUpdateSnapshots()) {
+            $snapshotHandler->update($this->serializeForSnapshot($serializable));
 
-            return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+            return $this->markTestIncomplete("Snapshot updated for {$snapshotHandler->id()}");
         }
 
-        return $this->assertEquals($snapshot->get(), $serializable);
+        return $this->assertEquals($snapshotHandler->get(), $serializable);
     }
 
     /** @after **/
@@ -36,27 +36,9 @@ trait MatchesSnapshots
         $this->snapshotCount = 0;
     }
 
-    protected function hasSnapshot($path, $id): bool
+    protected function shouldUpdateSnapshots(): bool
     {
-        if (! file_exists($path)) {
-            return false;
-        }
-
-        $snapshots = require $path;
-
-        return isset($snapshots[$id]);
-    }
-
-    protected function getSnapshot($path, $id)
-    {
-        $snapshots = require $path;
-
-        return $snapshots[$id];
-    }
-
-    protected function updateOrCreateSnapshot($path, $id, $serializable)
-    {
-
+        return getenv('UPDATE_SNAPSHOTS');
     }
 
     protected function serializeForSnapshot($serializable)
