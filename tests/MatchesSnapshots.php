@@ -4,45 +4,37 @@ namespace Spatie\Snapshots\Test;
 
 trait MatchesSnapshots
 {
-    private $snapshotCount = 0;
-
-    public function assertMatchesSnapshot($serializable)
+    public function assertMatchesSnapshot($actual, $type = 'var', $methodTrace = null)
     {
-        $this->snapshotCount++;
-
-        $snapshotHandler = SnapshotHandler::forTestMethod(
-            debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
-            $this->snapshotCount
+        $snapshot = Snapshot::forTestMethod(
+            $methodTrace ?? debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
+            $type
         );
 
-        if (! $snapshotHandler->exists()) {
-            $snapshotHandler->create($this->serializeForSnapshot($serializable));
+        if (! $snapshot->exists()) {
+            $snapshot->create($actual);
 
-            return $this->markTestIncomplete("Snapshot created for {$snapshotHandler->id()}");
+            return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
-        if ($this->shouldUpdateSnapshots()) {
-            $snapshotHandler->update($this->serializeForSnapshot($serializable));
-
-            return $this->markTestIncomplete("Snapshot updated for {$snapshotHandler->id()}");
+        if ($type === 'xml') {
+            return $this->assertXmlStringEqualsXmlString($snapshot->get(), $actual);
         }
 
-        return $this->assertEquals($snapshotHandler->get(), $serializable);
+        if ($type === 'json') {
+            return $this->assertJsonStringEqualsJsonString($snapshot->get(), $actual);
+        }
+
+        $this->assertEquals($snapshot->get(), $actual);
     }
 
-    /** @after **/
-    public function resetSnapshotCounter()
+    public function assertMatchesXmlSnapshot($actual)
     {
-        $this->snapshotCount = 0;
+        $this->assertMatchesSnapshot($actual, 'xml', debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
     }
 
-    protected function shouldUpdateSnapshots(): bool
+    public function assertMatchesJsonSnapshot($actual)
     {
-        return getenv('UPDATE_SNAPSHOTS');
-    }
-
-    protected function serializeForSnapshot($serializable)
-    {
-        return $serializable;
+        $this->assertMatchesSnapshot($actual, 'json', debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
     }
 }
