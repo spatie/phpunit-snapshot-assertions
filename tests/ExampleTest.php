@@ -17,7 +17,7 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function can_match_an_xml_screenshot()
+    public function can_match_an_xml_snapshot()
     {
         $data = '<foo><bar>Baz</bar></foo>';
 
@@ -25,7 +25,7 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function can_match_a_json_screenshot()
+    public function can_match_a_json_snapshot()
     {
         $data = '{"foo":"foo","bar":"bar","baz":"baz"}';
 
