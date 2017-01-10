@@ -2,6 +2,8 @@
 
 namespace Spatie\Snapshots;
 
+use PHPUnit_Framework_ExpectationFailedException;
+
 trait MatchesSnapshots
 {
     public function assertMatchesSnapshot($actual, $type = 'var', $methodTrace = null)
@@ -17,6 +19,26 @@ trait MatchesSnapshots
             return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
+        if (getenv('update_snapshots') == 1) {
+            return $this->updateSnapshot($type, $snapshot, $actual);
+        }
+
+        $this->doSnapShotAssertion($type, $snapshot, $actual);
+    }
+
+    protected function updateSnapshot($type, Snapshot $snapshot, $actual)
+    {
+        try {
+            $this->doSnapShotAssertion($type, $snapshot, $actual);
+        } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
+            $snapshot->update($actual);
+
+            $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+        }
+    }
+
+    protected function doSnapShotAssertion($type, Snapshot $snapshot, $actual)
+    {
         if ($type === 'xml') {
             return $this->assertXmlStringEqualsXmlString($snapshot->get(), $actual);
         }
