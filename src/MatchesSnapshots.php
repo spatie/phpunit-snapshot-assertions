@@ -31,7 +31,7 @@ trait MatchesSnapshots
         try {
             $this->doSnapShotAssertion($type, $snapshot, $actual);
         } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
-            $snapshot->update($actual);
+            $snapshot->create($actual);
 
             $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
         }
