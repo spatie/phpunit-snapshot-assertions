@@ -19,7 +19,7 @@ trait MatchesSnapshots
             return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
-        if (getenv('update_snapshots') == 1) {
+        if (in_array('--update', $_SERVER['argv'], true)) {
             return $this->updateSnapshot($type, $snapshot, $actual);
         }
 
