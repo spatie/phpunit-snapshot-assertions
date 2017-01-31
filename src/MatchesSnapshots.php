@@ -19,7 +19,7 @@ trait MatchesSnapshots
             return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
-        if (getenv('update_snapshots') == 1) {
+        if (in_array('--update', $_SERVER['argv'], true)) {
             return $this->updateSnapshot($type, $snapshot, $actual);
         }
 
@@ -31,7 +31,7 @@ trait MatchesSnapshots
         try {
             $this->doSnapShotAssertion($type, $snapshot, $actual);
         } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
-            $snapshot->update($actual);
+            $snapshot->create($actual);
 
             $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
         }
