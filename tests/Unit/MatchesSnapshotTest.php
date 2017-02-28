@@ -2,11 +2,10 @@
 
 namespace Spatie\Snapshots\Test\Unit;
 
-use PHPUnit_Framework_ExpectationFailedException;
-use PHPUnit_Util_XML;
-use Spatie\Snapshots\MatchesSnapshots;
 use Spatie\Snapshots\Test\TestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_ExpectationFailedException;
 
 class MatchesSnapshotTest extends TestCase
 {
@@ -44,7 +43,6 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_can_create_a_snapshot_from_xml()
     {
-        /** @var MatchesSnapshots $mockTrait */
         $mockTrait = $this->getMatchesSnapshotMock();
 
         $this->expectIncompleteMatchesSnapshotTest($mockTrait);
@@ -59,7 +57,6 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_can_create_a_snapshot_from_json()
     {
-        /** @var MatchesSnapshots $mockTrait */
         $mockTrait = $this->getMatchesSnapshotMock();
 
         $this->expectIncompleteMatchesSnapshotTest($mockTrait);
@@ -203,7 +200,7 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileEquals($this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.'snapshot.json', $snapshot);
     }
 
-    protected function expectIncompleteMatchesSnapshotTest($matchesSnapshotMock)
+    protected function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
     {
         $matchesSnapshotMock
             ->expects($this->atMost(1))

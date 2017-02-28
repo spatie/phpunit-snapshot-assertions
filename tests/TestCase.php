@@ -6,20 +6,21 @@ class TestCase extends \PHPUnit\Framework\TestCase
 {
     protected function deleteDirectory(string $path): bool
     {
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             return true;
         }
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return unlink($path);
         }
         foreach (scandir($path) as $item) {
             if ($item == '.' || $item == '..') {
                 continue;
             }
-            if (!$this->deleteDirectory($path . DIRECTORY_SEPARATOR . $item)) {
+            if (! $this->deleteDirectory($path.DIRECTORY_SEPARATOR.$item)) {
                 return false;
             }
         }
+
         return rmdir($path);
     }
 
