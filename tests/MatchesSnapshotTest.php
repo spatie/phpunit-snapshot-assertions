@@ -1,31 +1,13 @@
 <?php
 
-namespace Spatie\Snapshots\Test\Unit;
+namespace Spatie\Snapshots\Test;
 
-use Spatie\Snapshots\Test\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_ExpectationFailedException;
 
 class MatchesSnapshotTest extends TestCase
 {
-    protected $snapshotsDir = __DIR__.DIRECTORY_SEPARATOR.'__snapshots__';
-
-    protected $snapshotStubsDir = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'__snapshots__';
-
-    protected $exampleSnapshotsDir = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'example_snapshots';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->deleteDirectory($this->snapshotsDir);
-
-        $this->copyDirectory($this->snapshotStubsDir, $this->snapshotsDir);
-
-        $_SERVER['argv']['test'] = null;
-    }
-
     /** @test */
     public function it_can_create_a_snapshot_from_a_string()
     {

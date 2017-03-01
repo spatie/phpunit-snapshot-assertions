@@ -4,7 +4,7 @@ namespace Spatie\Snapshots\Test;
 
 use Spatie\Snapshots\MatchesSnapshots;
 
-class ExampleTest extends TestCase
+class AssertionTest extends TestCase
 {
     use MatchesSnapshots;
 
