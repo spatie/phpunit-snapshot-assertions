@@ -21,7 +21,7 @@ class MatchesSnapshotTest extends TestCase
 
         $this->deleteDirectory($this->snapshotsDir);
 
-        $this->recursiveCopy($this->snapshotStubsDir, $this->snapshotsDir);
+        $this->copyDirectory($this->snapshotStubsDir, $this->snapshotsDir);
 
         $_SERVER['argv']['test'] = null;
     }

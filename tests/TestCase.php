@@ -24,23 +24,21 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return rmdir($path);
     }
 
-    protected function recursiveCopy(string $src, string $dst)
+    protected function copyDirectory(string $sourcePath, string $destinationPath)
     {
-        $ds = DIRECTORY_SEPARATOR;
-        $dir = opendir($src);
+        mkdir($destinationPath);
 
-        mkdir($dst);
-
-        while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..')) {
-                if (is_dir($src.$ds.$file)) {
-                    $this->recursiveCopy($src.$ds.$file, $dst.$ds.$file);
-                } else {
-                    copy($src.$ds.$file, $dst.$ds.$file);
-                }
+        $sourceDirectory = opendir($sourcePath);
+        while (($file = readdir($sourceDirectory)) !== false) {
+            if (in_array($file, ['.', '..'])) {
+                break;
             }
+            if (is_dir($sourcePath.DIRECTORY_SEPARATOR.$file)) {
+                $this->copyDirectory($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
+                break;
+            }
+            copy($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
         }
-
-        closedir($dir);
+        closedir($sourceDirectory);
     }
 }
