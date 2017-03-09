@@ -46,16 +46,21 @@ class TestCase extends \PHPUnit\Framework\TestCase
         mkdir($destinationPath);
 
         $sourceDirectory = opendir($sourcePath);
+
         while (($file = readdir($sourceDirectory)) !== false) {
+
             if (in_array($file, ['.', '..'])) {
                 continue;
             }
+
             if (is_dir($sourcePath.DIRECTORY_SEPARATOR.$file)) {
                 $this->copyDirectory($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
                 continue;
             }
+
             copy($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
         }
+
         closedir($sourceDirectory);
     }
 }

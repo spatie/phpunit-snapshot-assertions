@@ -209,15 +209,17 @@ class MatchesSnapshotTest extends TestCase
      */
     protected function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
     {
+        $mockMethods = [
+            'assertEquals',
+            'markTestIncomplete',
+            'assertXmlStringEqualsXmlString',
+            'assertJsonStringEqualsJsonString',
+        ];
+
         return $this->getMockForTrait(
             MatchesSnapshots::class,
             [], '', true, true, true,
-            [
-                'assertEquals',
-                'markTestIncomplete',
-                'assertXmlStringEqualsXmlString',
-                'assertJsonStringEqualsJsonString',
-            ]
+            $mockMethods
         );
     }
 }
