@@ -2,7 +2,9 @@
 
 namespace Spatie\Snapshots\Test;
 
-class TestCase extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+class TestCase extends BaseTestCase
 {
     /** @var  Filesystem */
     protected $filesystem;

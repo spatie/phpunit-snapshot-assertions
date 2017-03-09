@@ -4,7 +4,7 @@ namespace Spatie\Snapshots\Test;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 
 class MatchesSnapshotTest extends TestCase
 {
@@ -91,9 +91,9 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait
             ->expects($this->once())
             ->method('assertEquals')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
-        $this->expectException(PHPUnit_Framework_ExpectationFailedException::class);
+        $this->expectException(ExpectationFailedException::class);
 
         $mockTrait->assertMatchesSnapshot('Bar');
     }
@@ -106,9 +106,9 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait
             ->expects($this->once())
             ->method('assertXmlStringEqualsXmlString')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
-        $this->expectException(PHPUnit_Framework_ExpectationFailedException::class);
+        $this->expectException(ExpectationFailedException::class);
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Foo</bar></foo>');
     }
@@ -121,9 +121,9 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait
             ->expects($this->once())
             ->method('assertJsonStringEqualsJsonString')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
-        $this->expectException(PHPUnit_Framework_ExpectationFailedException::class);
+        $this->expectException(ExpectationFailedException::class);
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
     }
@@ -175,17 +175,17 @@ class MatchesSnapshotTest extends TestCase
         $matchesSnapshotMock
             ->expects($this->atMost(1))
             ->method('assertEquals')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
         $matchesSnapshotMock
             ->expects($this->atMost(1))
             ->method('assertXmlStringEqualsXmlString')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
         $matchesSnapshotMock
             ->expects($this->atMost(1))
             ->method('assertJsonStringEqualsJsonString')
-            ->willThrowException(new PHPUnit_Framework_ExpectationFailedException(''));
+            ->willThrowException(new ExpectationFailedException(''));
 
         $matchesSnapshotMock
             ->expects($this->once())
