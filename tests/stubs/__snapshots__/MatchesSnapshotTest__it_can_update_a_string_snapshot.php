@@ -1,1 +1,1 @@
-<?php return 'Foo';
+<?php return 'Bar';

@@ -17,9 +17,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesSnapshot('Foo');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot.php';
-
-        $this->assertStringEqualsFile($snapshot, "<?php return 'Foo';");
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_match_an_existing_string_snapshot.php', 'snapshot.php');
     }
 
     /** @test */
@@ -31,9 +29,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_create_a_snapshot_from_xml.xml';
-
-        $this->assertFileEquals($this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.'snapshot.xml', $snapshot);
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_create_a_snapshot_from_xml.xml', 'snapshot.xml');
     }
 
     /** @test */
@@ -45,9 +41,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_create_a_snapshot_from_json.json';
-
-        $this->assertFileEquals($this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.'snapshot.json', $snapshot);
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_create_a_snapshot_from_json.json', 'snapshot.json');
     }
 
     /** @test */
@@ -143,11 +137,9 @@ class MatchesSnapshotTest extends TestCase
 
         $this->expectIncompleteMatchesSnapshotTest($mockTrait);
 
-        $mockTrait->assertMatchesSnapshot('Bar');
+        $mockTrait->assertMatchesSnapshot('Foo');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_update_a_string_snapshot.php';
-
-        $this->assertStringEqualsFile($snapshot, "<?php return 'Bar';");
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_update_a_string_snapshot.php', 'snapshot.php');
     }
 
     /** @test */
@@ -161,9 +153,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_update_a_xml_snapshot.xml';
-
-        $this->assertFileEquals($this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.'snapshot.xml', $snapshot);
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_update_a_xml_snapshot.xml', 'snapshot.xml');
     }
 
     /** @test */
@@ -177,9 +167,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.'MatchesSnapshotTest__it_can_update_a_json_snapshot.json';
-
-        $this->assertFileEquals($this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.'snapshot.json', $snapshot);
+        $this->filesystem->assertSnapshotMatchesExample('MatchesSnapshotTest__it_can_update_a_json_snapshot.json', 'snapshot.json');
     }
 
     protected function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
