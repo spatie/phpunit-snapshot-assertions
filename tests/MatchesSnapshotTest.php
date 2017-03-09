@@ -193,7 +193,7 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /**
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     protected function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
     {
