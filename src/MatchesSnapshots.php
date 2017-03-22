@@ -2,7 +2,7 @@
 
 namespace Spatie\Snapshots;
 
-use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 
 trait MatchesSnapshots
 {
@@ -30,7 +30,7 @@ trait MatchesSnapshots
     {
         try {
             $this->doSnapShotAssertion($type, $snapshot, $actual);
-        } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
+        } catch (ExpectationFailedException $exception) {
             $snapshot->create($actual);
 
             $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");

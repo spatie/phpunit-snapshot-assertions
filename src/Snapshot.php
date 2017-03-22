@@ -73,7 +73,7 @@ class Snapshot
             return $this->formatJson($data);
         }
 
-        return '<?php return '.var_export($data, true).';';
+        return '<?php return '.var_export($data, true).';'.PHP_EOL;
     }
 
     protected function formatXml(string $xml): string
@@ -89,6 +89,6 @@ class Snapshot
 
     protected function formatJson(string $json): string
     {
-        return json_encode(json_decode($json), JSON_PRETTY_PRINT);
+        return json_encode(json_decode($json), JSON_PRETTY_PRINT).PHP_EOL;
     }
 }
