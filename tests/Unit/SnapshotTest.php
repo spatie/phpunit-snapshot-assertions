@@ -2,10 +2,10 @@
 
 namespace Spatie\Snapshots\Test\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Driver;
-use Spatie\Snapshots\Filesystem;
 use Spatie\Snapshots\Snapshot;
+use PHPUnit\Framework\TestCase;
+use Spatie\Snapshots\Filesystem;
 
 class SnapshotTest extends TestCase
 {
@@ -40,7 +40,7 @@ class SnapshotTest extends TestCase
             ->willReturn('.php');
 
         $snapshot = new Snapshot('abc', $this->filesystem, $this->driver);
-        
+
         $this->assertEquals('abc.php', $snapshot->filename());
     }
 }
