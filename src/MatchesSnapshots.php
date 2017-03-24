@@ -9,10 +9,10 @@ use Spatie\Snapshots\Drivers\XmlDriver;
 
 trait MatchesSnapshots
 {
-    public function assertMatchesSnapshot($actual, Driver $driver = null, $methodTrace = null)
+    public function assertMatchesSnapshot($actual, Driver $driver = null, $backtrace = null)
     {
-        $snapshot = Snapshot::forTestMethod(
-            $methodTrace ?? debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
+        $snapshot = Snapshot::fromBacktrace(
+            $backtrace ?? debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
             $driver ?? new VarDriver()
         );
 

@@ -2,17 +2,17 @@
 
 namespace Spatie\Snapshots\Drivers;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\JsonMatches;
 use Spatie\Snapshots\Driver;
+use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriver implements Driver
 {
     public function serialize($data): string
     {
         if (! is_string($data)) {
-            throw new InvalidArgumentException('Only strings can be serialized to json');
+            throw new CantBeSerialized('Only strings can be serialized to json');
         }
 
         return json_encode(json_decode($data), JSON_PRETTY_PRINT).PHP_EOL;

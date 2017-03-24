@@ -26,7 +26,7 @@ class Snapshot
         $this->driver = $driver;
     }
 
-    public static function forTestMethod($backtrace, Driver $driver): self
+    public static function fromBacktrace($backtrace, Driver $driver): self
     {
         $class = new ReflectionClass($backtrace['class']);
         $method = $backtrace['function'];

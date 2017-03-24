@@ -3,17 +3,17 @@
 namespace Spatie\Snapshots\Drivers;
 
 use DOMDocument;
-use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Util\Xml;
 use Spatie\Snapshots\Driver;
+use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class XmlDriver implements Driver
 {
     public function serialize($data): string
     {
         if (! is_string($data)) {
-            throw new InvalidArgumentException('Only strings can be serialized to xml');
+            throw new CantBeSerialized('Only strings can be serialized to xml');
         }
 
         $domDocument = new DOMDocument('1.0');
