@@ -12,7 +12,7 @@ trait ComparesSnapshotFiles
 
     protected function setUpComparesSnapshotFiles()
     {
-        $this->deleteDirectory($this->snapshotsDir);
+        $this->emptyDirectory($this->snapshotsDir);
 
         $this->copyDirectory($this->snapshotStubsDir, $this->snapshotsDir);
     }
@@ -26,7 +26,7 @@ trait ComparesSnapshotFiles
         $this->assertFileEquals($example, $snapshot);
     }
 
-    protected function deleteDirectory(string $path): bool
+    protected function emptyDirectory(string $path)
     {
         if (! file_exists($path)) {
             return true;
@@ -35,20 +35,20 @@ trait ComparesSnapshotFiles
             return unlink($path);
         }
         foreach (scandir($path) as $item) {
-            if ($item == '.' || $item == '..') {
+            if ($item == '.' || $item == '..' || $item == '.gitignore') {
                 continue;
             }
-            if (! $this->deleteDirectory($path.'/'.$item)) {
+            if (! $this->emptyDirectory($path.'/'.$item)) {
                 return false;
             }
         }
-
-        return rmdir($path);
     }
 
     protected function copyDirectory(string $sourcePath, string $destinationPath)
     {
-        mkdir($destinationPath);
+        if (! file_exists($destinationPath)) {
+            mkdir($destinationPath);
+        }
 
         $sourceDirectory = opendir($sourcePath);
 
