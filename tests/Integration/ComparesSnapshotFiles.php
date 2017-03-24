@@ -53,7 +53,6 @@ trait ComparesSnapshotFiles
         $sourceDirectory = opendir($sourcePath);
 
         while (($file = readdir($sourceDirectory)) !== false) {
-
             if (in_array($file, ['.', '..'])) {
                 continue;
             }
