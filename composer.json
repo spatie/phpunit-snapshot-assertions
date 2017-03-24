@@ -3,7 +3,11 @@
     "description": "Snapshot testing with PHPUnit",
     "keywords": [
         "spatie",
-        "phpunit-snapshot-assertions"
+        "phpunit-snapshot-assertions",
+        "phpunit",
+        "snapshot",
+        "assert",
+        "testing"
     ],
     "homepage": "https://github.com/spatie/phpunit-snapshot-assertions",
     "license": "MIT",
