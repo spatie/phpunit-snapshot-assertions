@@ -36,7 +36,7 @@ interface Driver
      * `ExpectationFailedException` if it doesn't match. This happens by
      * default if you're using PHPUnit's `Assert` class for the match.
      *
-     * @param \Spatie\Snapshots\Snapshot $expected
+     * @param mixed $expected
      * @param mixed $actual
      *
      * @throws \PHPUnit\Framework\ExpectationFailedException
