@@ -3,9 +3,9 @@
 namespace Spatie\Snapshots\Drivers;
 
 use DOMDocument;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Util\Xml;
 use Spatie\Snapshots\Driver;
+use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class XmlDriver implements Driver
