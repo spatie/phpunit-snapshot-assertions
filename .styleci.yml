@@ -9,5 +9,5 @@ disabled:
   - length_ordered_imports
 
 finder:
-  exclude:
+  not-path:
     - "tests/Integration/stubs"
