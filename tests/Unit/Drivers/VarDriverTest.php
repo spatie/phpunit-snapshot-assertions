@@ -20,7 +20,7 @@ class VarDriverTest extends TestCase
     {
         $driver = new VarDriver();
 
-        $this->assertEquals("<?php return 1;".PHP_EOL, $driver->serialize(1));
+        $this->assertEquals('<?php return 1;'.PHP_EOL, $driver->serialize(1));
     }
 
     /** @test */
@@ -28,7 +28,7 @@ class VarDriverTest extends TestCase
     {
         $driver = new VarDriver();
 
-        $this->assertEquals("<?php return 1.5;".PHP_EOL, $driver->serialize(1.5));
+        $this->assertEquals('<?php return 1.5;'.PHP_EOL, $driver->serialize(1.5));
     }
 
     /** @test */
@@ -37,17 +37,17 @@ class VarDriverTest extends TestCase
         $driver = new VarDriver();
 
         $expected = implode(PHP_EOL, [
-            "<?php return array (",
+            '<?php return array (',
             "  'foo' => ",
-            "  array (",
+            '  array (',
             "    'bar' => 'baz',",
-            "  ),",
-            ");",
-            "",
+            '  ),',
+            ');',
+            '',
         ]);
 
         $this->assertEquals($expected, $driver->serialize(['foo' => ['bar' => 'baz']]));
-     }
+    }
 
     /** @test */
     public function it_can_serialize_an_object()
@@ -55,10 +55,10 @@ class VarDriverTest extends TestCase
         $driver = new VarDriver();
 
         $expected = implode(PHP_EOL, [
-            "<?php return stdClass::__set_state(array(",
+            '<?php return stdClass::__set_state(array(',
             "   'foo' => 'bar',",
-            "));",
-            "",
+            '));',
+            '',
         ]);
 
         $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
@@ -70,10 +70,10 @@ class VarDriverTest extends TestCase
         $driver = new VarDriver();
 
         $expected = implode(PHP_EOL, [
-            "<?php return Spatie\\Snapshots\\Test\\Unit\\Drivers\\Dummy::__set_state(array(",
+            '<?php return Spatie\\Snapshots\\Test\\Unit\\Drivers\\Dummy::__set_state(array(',
             "   'foo' => 'bar',",
-            "));",
-            "",
+            '));',
+            '',
         ]);
 
         $this->assertEquals($expected, $driver->serialize(new Dummy()));
