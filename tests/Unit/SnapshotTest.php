@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots\Test\Unit;
 
-use Mockery;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Filesystem;
@@ -10,23 +9,18 @@ use Spatie\Snapshots\Snapshot;
 
 class SnapshotTest extends TestCase
 {
-    /** @var \Mockery\MockInterface */
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $filesystem;
 
-    /** @var \Mockery\MockInterface */
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $driver;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->filesystem = Mockery::mock(Filesystem::class);
-        $this->driver = Mockery::mock(Driver::class);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
+        $this->filesystem = $this->createMock(Filesystem::class);
+        $this->driver = $this->createMock(Driver::class);
     }
 
     /** @test */
@@ -40,8 +34,11 @@ class SnapshotTest extends TestCase
     /** @test */
     public function it_has_a_filename_based_on_its_id_and_its_drivers_extension()
     {
-        $this->driver->shouldReceive('extension')->andReturn('.php');
-        
+        $this->driver
+            ->expects($this->once())
+            ->method('extension')
+            ->willReturn('.php');
+
         $snapshot = new Snapshot('abc', $this->filesystem, $this->driver);
         
         $this->assertEquals('abc.php', $snapshot->filename());
