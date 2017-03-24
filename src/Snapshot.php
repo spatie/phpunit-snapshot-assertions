@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots;
 
-use ReflectionClass;
 use Spatie\Snapshots\Filesystems\LocalFilesystem;
 
 class Snapshot
@@ -69,4 +68,3 @@ class Snapshot
         $this->filesystem->put($this->filename(), $this->driver->serialize($actual));
     }
 }
-
