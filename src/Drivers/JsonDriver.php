@@ -2,9 +2,9 @@
 
 namespace Spatie\Snapshots\Drivers;
 
+use Spatie\Snapshots\Driver;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\JsonMatches;
-use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriver implements Driver
