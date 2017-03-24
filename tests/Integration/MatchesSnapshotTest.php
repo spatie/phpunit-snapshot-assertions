@@ -186,12 +186,32 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockMethods = [
             'markTestIncomplete',
+            'getName',
+            'getSnapshotNamespace',
+            'getSnapshotDirectory',
         ];
 
-        return $this->getMockForTrait(
+        $matchesSnapshotMock = $this->getMockForTrait(
             MatchesSnapshots::class,
             [], '', true, true, true,
             $mockMethods
         );
+
+        $matchesSnapshotMock
+            ->expects($this->any())
+            ->method('getName')
+            ->willReturn($this->getName());
+
+        $matchesSnapshotMock
+            ->expects($this->any())
+            ->method('getSnapshotNamespace')
+            ->willReturn('MatchesSnapshotTest');
+
+        $matchesSnapshotMock
+            ->expects($this->any())
+            ->method('getSnapshotDirectory')
+            ->willReturn(__DIR__.'/__snapshots__');
+
+        return $matchesSnapshotMock;
     }
 }

@@ -3,16 +3,19 @@
 namespace Spatie\Snapshots;
 
 use PHPUnit\Framework\ExpectationFailedException;
+use ReflectionClass;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
 
 trait MatchesSnapshots
 {
-    public function assertMatchesSnapshot($actual, Driver $driver = null, $backtrace = null)
+    public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
-        $snapshot = Snapshot::fromBacktrace(
-            $backtrace ?? debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
+        $snapshot = Snapshot::forTestCase(
+            $this->getSnapshotNamespace(),
+            $this->getName(),
+            $this->getSnapshotDirectory(),
             $driver ?? new VarDriver()
         );
 
@@ -21,12 +24,24 @@ trait MatchesSnapshots
 
     public function assertMatchesXmlSnapshot($actual)
     {
-        $this->assertMatchesSnapshot($actual, new XmlDriver(), debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
+        $this->assertMatchesSnapshot($actual, new XmlDriver());
     }
 
     public function assertMatchesJsonSnapshot($actual)
     {
-        $this->assertMatchesSnapshot($actual, new JsonDriver(), debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
+        $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
+    protected function getSnapshotNamespace(): string
+    {
+        return (new ReflectionClass($this))->getShortName();
+    }
+
+    protected function getSnapshotDirectory(): string
+    {
+        return dirname((new ReflectionClass($this))->getFileName()).
+            DIRECTORY_SEPARATOR.
+            '__snapshots__';
     }
 
     protected function doSnapShotAssertion(Snapshot $snapshot, $actual)

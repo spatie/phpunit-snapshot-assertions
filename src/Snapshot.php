@@ -26,16 +26,15 @@ class Snapshot
         $this->driver = $driver;
     }
 
-    public static function fromBacktrace($backtrace, Driver $driver): self
-    {
-        $class = new ReflectionClass($backtrace['class']);
-        $method = $backtrace['function'];
+    public static function forTestCase(
+        string $namespace,
+        string $test,
+        string $directory,
+        Driver $driver
+    ): self {
+        $filesystem = LocalFilesystem::inDirectory($directory);
 
-        $filesystem = LocalFilesystem::inDirectory(
-            dirname($class->getFileName()).DIRECTORY_SEPARATOR.'__snapshots__'
-        );
-
-        $id = "{$class->getShortName()}__{$method}";
+        $id = "{$namespace}__{$test}";
 
         return new self($id, $filesystem, $driver);
     }

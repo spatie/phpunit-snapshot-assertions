@@ -22,7 +22,8 @@ trait ComparesSnapshotFiles
         $snapshot = $this->snapshotsDir.'/'.$snapshotPath;
         $example = $this->exampleSnapshotsDir.'/'.$examplePath;
 
-        return $this->assertFileEquals($example, $snapshot);
+        $this->assertFileExists($snapshot);
+        $this->assertFileEquals($example, $snapshot);
     }
 
     protected function deleteDirectory(string $path): bool
