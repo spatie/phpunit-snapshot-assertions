@@ -17,7 +17,7 @@ class VarDriver implements Driver
         return '.php';
     }
 
-    public function load(string $path)
+    public function load(string $path): string
     {
         return include $path;
     }
