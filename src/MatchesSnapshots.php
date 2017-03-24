@@ -3,60 +3,55 @@
 namespace Spatie\Snapshots;
 
 use PHPUnit\Framework\ExpectationFailedException;
+use Spatie\Snapshots\Drivers\JsonDriver;
+use Spatie\Snapshots\Drivers\VarDriver;
+use Spatie\Snapshots\Drivers\XmlDriver;
 
 trait MatchesSnapshots
 {
-    public function assertMatchesSnapshot($actual, $type = 'var', $methodTrace = null)
+    public function assertMatchesSnapshot($actual, Driver $driver = null, $methodTrace = null)
     {
         $snapshot = Snapshot::forTestMethod(
             $methodTrace ?? debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1],
-            $type
+            $driver ?? new VarDriver()
         );
 
+        $this->doSnapShotAssertion($snapshot, $actual);
+    }
+
+    public function assertMatchesXmlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new XmlDriver(), debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
+    }
+
+    public function assertMatchesJsonSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new JsonDriver(), debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
+    }
+
+    protected function doSnapShotAssertion(Snapshot $snapshot, $actual)
+    {
         if (! $snapshot->exists()) {
             $snapshot->create($actual);
 
             return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
-        if (in_array('--update', $_SERVER['argv'], true)) {
-            return $this->updateSnapshot($type, $snapshot, $actual);
+        if ($this->shouldUpdateSnapshot()) {
+            try {
+                $snapshot->assertMatches($actual);
+            } catch (ExpectationFailedException $exception) {
+                $snapshot->create($actual);
+
+                return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+            }
         }
 
-        $this->doSnapShotAssertion($type, $snapshot, $actual);
+        $snapshot->assertMatches($actual);
     }
 
-    protected function updateSnapshot($type, Snapshot $snapshot, $actual)
+    protected function shouldUpdateSnapshot(): bool
     {
-        try {
-            $this->doSnapShotAssertion($type, $snapshot, $actual);
-        } catch (ExpectationFailedException $exception) {
-            $snapshot->create($actual);
-
-            $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
-        }
-    }
-
-    protected function doSnapShotAssertion($type, Snapshot $snapshot, $actual)
-    {
-        if ($type === 'xml') {
-            return $this->assertXmlStringEqualsXmlString($snapshot->get(), $actual);
-        }
-
-        if ($type === 'json') {
-            return $this->assertJsonStringEqualsJsonString($snapshot->get(), $actual);
-        }
-
-        $this->assertEquals($snapshot->get(), $actual);
-    }
-
-    public function assertMatchesXmlSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, 'xml', debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
-    }
-
-    public function assertMatchesJsonSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, 'json', debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]);
+        return in_array('--update', $_SERVER['argv'], true);
     }
 }

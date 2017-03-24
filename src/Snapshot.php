@@ -2,22 +2,27 @@
 
 namespace Spatie\Snapshots;
 
-use DOMDocument;
 use ReflectionClass;
 
 class Snapshot
 {
     /** @var string */
-    protected $directory, $id, $type;
+    private $directory;
 
-    private function __construct(string $directory, string $id, string $type)
+    /** @var string */
+    private $id;
+
+    /** @var \Spatie\Snapshots\Driver */
+    private $driver;
+
+    private function __construct(string $directory, string $id, Driver $driver)
     {
         $this->directory = $directory;
         $this->id = $id;
-        $this->type = $type;
+        $this->driver = $driver;
     }
 
-    public static function forTestMethod($backtrace, $type): self
+    public static function forTestMethod($backtrace, Driver $driver): self
     {
         $class = new ReflectionClass($backtrace['class']);
         $method = $backtrace['function'];
@@ -25,7 +30,7 @@ class Snapshot
         $directory = dirname($class->getFileName()).'/__snapshots__';
         $id = "{$class->getShortName()}__{$method}";
 
-        return new self($directory, $id, $type);
+        return new self($directory, $id, $driver);
     }
 
     public function id(): string
@@ -35,9 +40,7 @@ class Snapshot
 
     public function path(): string
     {
-        $extension = $this->type === 'var' ? 'php' : $this->type;
-
-        return "{$this->directory}/{$this->id}.{$extension}";
+        return $this->directory.DIRECTORY_SEPARATOR.$this->id.'.'.$this->driver->extension();
     }
 
     public function exists(): bool
@@ -45,13 +48,9 @@ class Snapshot
         return file_exists($this->path());
     }
 
-    public function get()
+    public function assertMatches($actual)
     {
-        if ($this->type === 'var') {
-            return include $this->path();
-        }
-
-        return file_get_contents($this->path());
+        $this->driver->match($this->driver->load($this->path()), $actual);
     }
 
     public function create($actual)
@@ -60,35 +59,6 @@ class Snapshot
             mkdir($this->directory);
         }
 
-        file_put_contents($this->path(), $this->serializeForSnapshot($actual));
-    }
-
-    protected function serializeForSnapshot($data): string
-    {
-        if ($this->type === 'xml') {
-            return $this->formatXml($data);
-        }
-
-        if ($this->type === 'json') {
-            return $this->formatJson($data);
-        }
-
-        return '<?php return '.var_export($data, true).';'.PHP_EOL;
-    }
-
-    protected function formatXml(string $xml): string
-    {
-        $domDocument = new DOMDocument('1.0');
-        $domDocument->preserveWhiteSpace = false;
-        $domDocument->formatOutput = true;
-
-        $domDocument->loadXML($xml);
-
-        return $domDocument->saveXML();
-    }
-
-    protected function formatJson(string $json): string
-    {
-        return json_encode(json_decode($json), JSON_PRETTY_PRINT).PHP_EOL;
+        file_put_contents($this->path(), $this->driver->serialize($actual));
     }
 }

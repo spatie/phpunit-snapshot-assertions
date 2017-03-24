@@ -49,11 +49,6 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertEquals')
-            ->with('Foo', 'Foo');
-
         $mockTrait->assertMatchesSnapshot('Foo');
     }
 
@@ -61,11 +56,6 @@ class MatchesSnapshotTest extends TestCase
     public function it_can_match_an_existing_xml_snapshot()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
-
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertXmlStringEqualsXmlString')
-            ->with($this->stringContains('<bar>Baz</bar>'), '<foo><bar>Baz</bar></foo>');
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
     }
@@ -75,11 +65,6 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertJsonStringEqualsJsonString')
-            ->with($this->stringContains('"foo": "foo"'), '{"foo":"foo","bar":"bar","baz":"baz"}');
-
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
     }
 
@@ -87,11 +72,6 @@ class MatchesSnapshotTest extends TestCase
     public function it_can_mismatch_a_string_snapshot()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
-
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertEquals')
-            ->willThrowException(new ExpectationFailedException(''));
 
         $this->expectException(ExpectationFailedException::class);
 
@@ -103,11 +83,6 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertXmlStringEqualsXmlString')
-            ->willThrowException(new ExpectationFailedException(''));
-
         $this->expectException(ExpectationFailedException::class);
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Foo</bar></foo>');
@@ -118,14 +93,9 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $mockTrait
-            ->expects($this->once())
-            ->method('assertJsonStringEqualsJsonString')
-            ->willThrowException(new ExpectationFailedException(''));
-
         $this->expectException(ExpectationFailedException::class);
 
-        $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
+        $mockTrait->assertMatchesJsonSnapshot('{"foo":"baz","bar":"baz","baz":"foo"}');
     }
 
     /** @test */
