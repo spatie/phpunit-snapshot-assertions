@@ -2,11 +2,11 @@
 
 namespace Spatie\Snapshots;
 
-use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
-use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
+use Spatie\Snapshots\Drivers\JsonDriver;
+use PHPUnit\Framework\ExpectationFailedException;
 
 trait MatchesSnapshots
 {
