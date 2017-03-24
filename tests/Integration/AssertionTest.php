@@ -7,7 +7,15 @@ use Spatie\Snapshots\MatchesSnapshots;
 
 class AssertionTest extends TestCase
 {
+    use ComparesSnapshotFiles;
     use MatchesSnapshots;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setUpComparesSnapshotFiles();
+    }
 
     /** @test */
     public function can_match_a_string_snapshot()

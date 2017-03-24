@@ -13,6 +13,8 @@ class MatchesSnapshotTest extends TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->setUpComparesSnapshotFiles();
 
         $updateArgument = array_search('--update-snapshots', $_SERVER['argv']);
