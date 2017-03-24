@@ -143,21 +143,6 @@ class MatchesSnapshotTest extends TestCase
     protected function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
     {
         $matchesSnapshotMock
-            ->expects($this->atMost(1))
-            ->method('assertEquals')
-            ->willThrowException(new ExpectationFailedException(''));
-
-        $matchesSnapshotMock
-            ->expects($this->atMost(1))
-            ->method('assertXmlStringEqualsXmlString')
-            ->willThrowException(new ExpectationFailedException(''));
-
-        $matchesSnapshotMock
-            ->expects($this->atMost(1))
-            ->method('assertJsonStringEqualsJsonString')
-            ->willThrowException(new ExpectationFailedException(''));
-
-        $matchesSnapshotMock
             ->expects($this->once())
             ->method('markTestIncomplete');
     }
