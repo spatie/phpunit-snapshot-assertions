@@ -2,10 +2,10 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
-use PHPUnit\Framework\TestCase;
-use Spatie\Snapshots\MatchesSnapshots;
-use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class MatchesSnapshotTest extends TestCase
 {
