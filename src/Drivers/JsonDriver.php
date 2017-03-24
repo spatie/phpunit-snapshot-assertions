@@ -20,7 +20,7 @@ class JsonDriver implements Driver
 
     public function extension(): string
     {
-        return 'json';
+        return '.json';
     }
 
     public function load(string $path)

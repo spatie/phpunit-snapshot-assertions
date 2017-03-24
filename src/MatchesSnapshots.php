@@ -39,6 +39,9 @@ trait MatchesSnapshots
 
         if ($this->shouldUpdateSnapshot()) {
             try {
+                // We only want to update snapshots which need updating. If the snapshot doesn't
+                // match the expected output, we'll catch the failure, create a new snapshot and
+                // mark the test as incomplete.
                 $snapshot->assertMatches($actual);
             } catch (ExpectationFailedException $exception) {
                 $snapshot->create($actual);
@@ -52,6 +55,6 @@ trait MatchesSnapshots
 
     protected function shouldUpdateSnapshot(): bool
     {
-        return in_array('--update', $_SERVER['argv'], true);
+        return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 }

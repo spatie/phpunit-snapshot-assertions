@@ -1,29 +1,26 @@
 <?php
 
-namespace Spatie\Snapshots\Test;
+namespace Spatie\Snapshots\Test\Integration;
 
-
-use PHPUnit\Framework\TestCase;
-
-class Filesystem extends TestCase
+trait ComparesSnapshotFiles
 {
-    protected $snapshotsDir = __DIR__.DIRECTORY_SEPARATOR.'__snapshots__';
+    protected $snapshotsDir = __DIR__.'/__snapshots__';
 
-    protected $snapshotStubsDir = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'__snapshots__';
+    protected $snapshotStubsDir = __DIR__.'/stubs/__snapshots__';
 
-    protected $exampleSnapshotsDir = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'example_snapshots';
+    protected $exampleSnapshotsDir = __DIR__.'/stubs/example_snapshots';
 
-    public function prepareSnapshots()
+    protected function setUpComparesSnapshotFiles()
     {
         $this->deleteDirectory($this->snapshotsDir);
 
         $this->copyDirectory($this->snapshotStubsDir, $this->snapshotsDir);
     }
 
-    public function assertSnapshotMatchesExample($snapshotPath, $examplePath)
+    protected function assertSnapshotMatchesExample($snapshotPath, $examplePath)
     {
-        $snapshot = $this->snapshotsDir.DIRECTORY_SEPARATOR.$snapshotPath;
-        $example = $this->exampleSnapshotsDir.DIRECTORY_SEPARATOR.$examplePath;
+        $snapshot = $this->snapshotsDir.'/'.$snapshotPath;
+        $example = $this->exampleSnapshotsDir.'/'.$examplePath;
 
         return $this->assertFileEquals($example, $snapshot);
     }
@@ -40,7 +37,7 @@ class Filesystem extends TestCase
             if ($item == '.' || $item == '..') {
                 continue;
             }
-            if (! $this->deleteDirectory($path.DIRECTORY_SEPARATOR.$item)) {
+            if (! $this->deleteDirectory($path.'/'.$item)) {
                 return false;
             }
         }
@@ -60,12 +57,12 @@ class Filesystem extends TestCase
                 continue;
             }
 
-            if (is_dir($sourcePath.DIRECTORY_SEPARATOR.$file)) {
-                $this->copyDirectory($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
+            if (is_dir($sourcePath.'/'.$file)) {
+                $this->copyDirectory($sourcePath.'/'.$file, $destinationPath.'/'.$file);
                 continue;
             }
 
-            copy($sourcePath.DIRECTORY_SEPARATOR.$file, $destinationPath.DIRECTORY_SEPARATOR.$file);
+            copy($sourcePath.'/'.$file, $destinationPath.'/'.$file);
         }
 
         closedir($sourceDirectory);

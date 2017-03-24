@@ -27,7 +27,7 @@ class XmlDriver implements Driver
 
     public function extension(): string
     {
-        return 'xml';
+        return '.xml';
     }
 
     public function load(string $path)

@@ -1,13 +1,27 @@
 <?php
 
-namespace Spatie\Snapshots\Test;
+namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit\Framework\ExpectationFailedException;
 
 class MatchesSnapshotTest extends TestCase
 {
+    use ComparesSnapshotFiles;
+
+    public function setUp()
+    {
+        $this->setUpComparesSnapshotFiles();
+
+        $updateArgument = array_search('--update-snapshots', $_SERVER['argv']);
+
+        if ($updateArgument) {
+            unset($_SERVER['argv'][$updateArgument]);
+        }
+    }
+
     /** @test */
     public function it_can_create_a_snapshot_from_a_string()
     {
@@ -17,7 +31,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesSnapshot('Foo');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot.php',
             'snapshot.php'
         );
@@ -32,7 +46,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_create_a_snapshot_from_xml.xml',
             'snapshot.xml'
         );
@@ -47,7 +61,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_create_a_snapshot_from_json.json',
             'snapshot.json'
         );
@@ -110,7 +124,7 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_can_update_a_string_snapshot()
     {
-        $_SERVER['argv']['test'] = '--update';
+        $_SERVER['argv'][] = '--update-snapshots';
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
@@ -118,7 +132,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesSnapshot('Foo');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_string_snapshot.php',
             'snapshot.php'
         );
@@ -127,7 +141,7 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_can_update_a_xml_snapshot()
     {
-        $_SERVER['argv'][] = '--update';
+        $_SERVER['argv'][] = '--update-snapshots';
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
@@ -135,7 +149,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_xml_snapshot.xml',
             'snapshot.xml'
         );
@@ -144,7 +158,7 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_can_update_a_json_snapshot()
     {
-        $_SERVER['argv'][] = '--update';
+        $_SERVER['argv'][] = '--update-snapshots';
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
@@ -152,7 +166,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
-        $this->filesystem->assertSnapshotMatchesExample(
+        $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_json_snapshot.json',
             'snapshot.json'
         );
@@ -171,10 +185,7 @@ class MatchesSnapshotTest extends TestCase
     protected function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
     {
         $mockMethods = [
-            'assertEquals',
             'markTestIncomplete',
-            'assertXmlStringEqualsXmlString',
-            'assertJsonStringEqualsJsonString',
         ];
 
         return $this->getMockForTrait(

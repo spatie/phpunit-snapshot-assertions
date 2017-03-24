@@ -3,22 +3,26 @@
 namespace Spatie\Snapshots;
 
 use ReflectionClass;
+use Spatie\Snapshots\Filesystems\LocalFilesystem;
 
 class Snapshot
 {
     /** @var string */
-    private $directory;
-
-    /** @var string */
     private $id;
+
+    /** @var \Spatie\Snapshots\Filesystem */
+    private $filesystem;
 
     /** @var \Spatie\Snapshots\Driver */
     private $driver;
 
-    private function __construct(string $directory, string $id, Driver $driver)
-    {
-        $this->directory = $directory;
+    public function __construct(
+        string $id,
+        Filesystem $filesystem,
+        Driver $driver
+    ) {
         $this->id = $id;
+        $this->filesystem = $filesystem;
         $this->driver = $driver;
     }
 
@@ -27,10 +31,13 @@ class Snapshot
         $class = new ReflectionClass($backtrace['class']);
         $method = $backtrace['function'];
 
-        $directory = dirname($class->getFileName()).'/__snapshots__';
+        $filesystem = LocalFilesystem::inDirectory(
+            dirname($class->getFileName()).DIRECTORY_SEPARATOR.'__snapshots__'
+        );
+
         $id = "{$class->getShortName()}__{$method}";
 
-        return new self($directory, $id, $driver);
+        return new self($id, $filesystem, $driver);
     }
 
     public function id(): string
@@ -38,14 +45,19 @@ class Snapshot
         return $this->id;
     }
 
+    public function filename(): string
+    {
+        return $this->id.$this->driver->extension();
+    }
+
     public function path(): string
     {
-        return $this->directory.DIRECTORY_SEPARATOR.$this->id.'.'.$this->driver->extension();
+        return $this->filesystem->path($this->filename());
     }
 
     public function exists(): bool
     {
-        return file_exists($this->path());
+        return $this->filesystem->has($this->filename());
     }
 
     public function assertMatches($actual)
@@ -55,10 +67,7 @@ class Snapshot
 
     public function create($actual)
     {
-        if (! file_exists($this->directory)) {
-            mkdir($this->directory);
-        }
-
-        file_put_contents($this->path(), $this->driver->serialize($actual));
+        $this->filesystem->put($this->filename(), $this->driver->serialize($actual));
     }
 }
+

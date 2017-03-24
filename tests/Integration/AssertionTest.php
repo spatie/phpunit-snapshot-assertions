@@ -1,7 +1,8 @@
 <?php
 
-namespace Spatie\Snapshots\Test;
+namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class AssertionTest extends TestCase
