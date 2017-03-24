@@ -40,7 +40,7 @@ class SnapshotTest extends TestCase
             ->willReturn('.php');
 
         $snapshot = new Snapshot('abc', $this->filesystem, $this->driver);
-        
+
         $this->assertEquals('abc.php', $snapshot->filename());
     }
 }
