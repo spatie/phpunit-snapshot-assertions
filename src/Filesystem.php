@@ -2,13 +2,42 @@
 
 namespace Spatie\Snapshots;
 
-interface Filesystem
+class Filesystem
 {
-    public function path(string $filename): string;
+    /** @var string */
+    private $basePath;
 
-    public function has(string $filename): bool;
+    public function __construct(string $basePath)
+    {
+        $this->basePath = $basePath;
+    }
 
-    public function read(string $filename): bool;
+    public static function inDirectory(string $path): self
+    {
+        return new self($path);
+    }
 
-    public function put(string $filename, string $contents);
+    public function path(string $filename): string
+    {
+        return $this->basePath.DIRECTORY_SEPARATOR.$filename;
+    }
+
+    public function has(string $filename): bool
+    {
+        return file_exists($this->path($filename));
+    }
+
+    public function read(string $filename): bool
+    {
+        return file_get_contents($this->path($filename));
+    }
+
+    public function put(string $filename, string $contents)
+    {
+        if (! file_exists($this->basePath)) {
+            mkdir($this->basePath);
+        }
+
+        file_put_contents($this->path($filename), $contents);
+    }
 }

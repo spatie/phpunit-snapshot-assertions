@@ -2,8 +2,6 @@
 
 namespace Spatie\Snapshots;
 
-use Spatie\Snapshots\Filesystems\LocalFilesystem;
-
 class Snapshot
 {
     /** @var string */
@@ -31,7 +29,7 @@ class Snapshot
         string $directory,
         Driver $driver
     ): self {
-        $filesystem = LocalFilesystem::inDirectory($directory);
+        $filesystem = Filesystem::inDirectory($directory);
 
         $id = "{$namespace}__{$test}";
 
