@@ -2,8 +2,8 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\Version;
 use PHPUnit_Framework_MockObject_MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -98,7 +98,7 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectException(ExpectationFailedException::class);
+        $this->expectFailedMatchesSnapshotTest();
 
         $mockTrait->assertMatchesSnapshot('Bar');
     }
@@ -108,7 +108,7 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectException(ExpectationFailedException::class);
+        $this->expectFailedMatchesSnapshotTest();
 
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Foo</bar></foo>');
     }
@@ -118,7 +118,7 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectException(ExpectationFailedException::class);
+        $this->expectFailedMatchesSnapshotTest();
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"baz","bar":"baz","baz":"foo"}');
     }
@@ -174,17 +174,26 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
-    protected function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
+    private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
     {
         $matchesSnapshotMock
             ->expects($this->once())
             ->method('markTestIncomplete');
     }
 
+    private function expectFailedMatchesSnapshotTest()
+    {
+        if (class_exists('PHPUnit\Framework\ExpectationFailedException')) {
+            $this->expectException('PHPUnit\Framework\ExpectationFailedException');
+        } else {
+            $this->expectException('PHPUnit_Framework_ExpectationFailedException');
+        }
+    }
+
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
+    private function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
     {
         $mockMethods = [
             'markTestIncomplete',

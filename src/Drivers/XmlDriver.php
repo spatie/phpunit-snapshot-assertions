@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Drivers;
 
 use DOMDocument;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Util\Xml;
 use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
@@ -32,6 +31,6 @@ class XmlDriver implements Driver
 
     public function match($expected, $actual)
     {
-        Assert::assertEquals(Xml::load($expected), Xml::load($actual));
+        Assert::assertXmlStringEqualsXmlString($expected, $actual);
     }
 }

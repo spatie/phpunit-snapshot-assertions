@@ -25,9 +25,6 @@ class JsonDriver implements Driver
 
     public function match($expected, $actual)
     {
-        Assert::assertJson($expected);
-        Assert::assertJson($actual);
-
-        Assert::assertThat($actual, new JsonMatches($expected));
+        Assert::assertJsonStringEqualsJsonString($actual, $expected);
     }
 }

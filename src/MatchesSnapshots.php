@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots;
 
+use PHPUnit_Framework_ExpectationFailedException;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use Spatie\Snapshots\Drivers\JsonDriver;
@@ -98,6 +99,10 @@ trait MatchesSnapshots
                 // mark the test as incomplete.
                 $snapshot->assertMatches($actual);
             } catch (ExpectationFailedException $exception) {
+                $snapshot->create($actual);
+
+                return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+            } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
                 $snapshot->create($actual);
 
                 return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
