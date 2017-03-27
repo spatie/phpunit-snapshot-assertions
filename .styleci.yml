@@ -10,4 +10,5 @@ disabled:
 
 finder:
   not-path:
+    - "example/tests/__snapshots__"
     - "tests/Integration/stubs"
