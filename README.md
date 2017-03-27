@@ -12,11 +12,11 @@
 ```php
 use Spatie\Snapshots\MatchesSnapshots;
 
-class OrderSerializerTest
+class OrderTest
 {
     use MatchesSnapshot;
 
-    class test_it_serializes_an_order_json()
+    class test_it_casts_to_json()
     {
         $orderId = new Order(1);
 
@@ -32,8 +32,8 @@ On the first run, the test runner will create a new snapshot.
 
 There was 1 incomplete test:
 
-1) OrderSerializerTest::test_it_serializes_an_order_json
-Snapshot created for OrderSerializerTest__test_it_serializes_an_order_json__1
+1) OrderTest::test_it_casts_to_json
+Snapshot created for OrderTest__test_it_casts_to_json__1
 
 OK, but incomplete, skipped, or risky tests!
 Tests: 1, Assertions: 0, Incomplete: 1.
@@ -55,7 +55,7 @@ $orderId = new Order(2); // Regression! Was `1`
 ```
 > ./vendor/bin/phpunit
 
-1) OrderSerializerTest::test_it_serializes_an_order_json
+1) OrderTest::test_it_casts_to_json
 Failed asserting that two strings are equal.
 --- Expected
 +++ Actual
