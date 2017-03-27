@@ -40,4 +40,11 @@ class AssertionTest extends TestCase
 
         $this->assertMatchesJsonSnapshot($data);
     }
+
+    /** @test */
+    public function can_do_multiple_snapshot_assertions()
+    {
+        $this->assertMatchesSnapshot('Foo');
+        $this->assertMatchesSnapshot('Bar');
+    }
 }

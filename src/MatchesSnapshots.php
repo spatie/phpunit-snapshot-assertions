@@ -10,21 +10,28 @@ use Spatie\Snapshots\Drivers\XmlDriver;
 
 trait MatchesSnapshots
 {
-    public function assertMatchesSnapshot($actual, Driver $driver = null)
-    {
-        $snapshot = $this->createSnapshotWithDriver($driver ?? new VarDriver());
+    /** @var int */
+    protected $snapshotIncrementor;
 
-        $this->doSnapshotAssertion($snapshot, $actual);
+    /** @before */
+    public function setUpSnapshotIncrementor()
+    {
+        $this->snapshotIncrementor = 0;
+    }
+
+    public function assertMatchesSnapshot($actual)
+    {
+        $this->doSnapshotAssertion($actual, new VarDriver());
     }
 
     public function assertMatchesXmlSnapshot($actual)
     {
-        $this->assertMatchesSnapshot($actual, new XmlDriver());
+        $this->doSnapshotAssertion($actual, new XmlDriver());
     }
 
     public function assertMatchesJsonSnapshot($actual)
     {
-        $this->assertMatchesSnapshot($actual, new JsonDriver());
+        $this->doSnapshotAssertion($actual, new JsonDriver());
     }
 
     /**
@@ -35,7 +42,9 @@ trait MatchesSnapshots
      */
     protected function getSnapshotId(): string
     {
-        return (new ReflectionClass($this))->getShortName().'__'.$this->getName();
+        return (new ReflectionClass($this))->getShortName().'__'.
+            $this->getName().'__'.
+            $this->snapshotIncrementor;
     }
 
     /**
@@ -66,17 +75,16 @@ trait MatchesSnapshots
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 
-    protected function createSnapshotWithDriver(Driver $driver): Snapshot
+    protected function doSnapshotAssertion($actual, Driver $driver)
     {
-        return Snapshot::forTestCase(
+        $this->snapshotIncrementor++;
+
+        $snapshot = Snapshot::forTestCase(
             $this->getSnapshotId(),
             $this->getSnapshotDirectory(),
             $driver
         );
-    }
 
-    protected function doSnapshotAssertion(Snapshot $snapshot, $actual)
-    {
         if (! $snapshot->exists()) {
             $snapshot->create($actual);
 

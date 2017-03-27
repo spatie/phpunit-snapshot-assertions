@@ -34,7 +34,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Foo');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot.php',
+            'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot__1.php',
             'snapshot.php'
         );
     }
@@ -49,7 +49,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_create_a_snapshot_from_xml.xml',
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_xml__1.xml',
             'snapshot.xml'
         );
     }
@@ -64,7 +64,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_create_a_snapshot_from_json.json',
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_json__1.json',
             'snapshot.json'
         );
     }
@@ -135,7 +135,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Foo');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_update_a_string_snapshot.php',
+            'MatchesSnapshotTest__it_can_update_a_string_snapshot__1.php',
             'snapshot.php'
         );
     }
@@ -152,7 +152,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_update_a_xml_snapshot.xml',
+            'MatchesSnapshotTest__it_can_update_a_xml_snapshot__1.xml',
             'snapshot.xml'
         );
     }
@@ -169,7 +169,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_update_a_json_snapshot.json',
+            'MatchesSnapshotTest__it_can_update_a_json_snapshot__1.json',
             'snapshot.json'
         );
     }
@@ -201,7 +201,7 @@ class MatchesSnapshotTest extends TestCase
         $matchesSnapshotMock
             ->expects($this->any())
             ->method('getSnapshotId')
-            ->willReturn('MatchesSnapshotTest__'.$this->getName());
+            ->willReturn('MatchesSnapshotTest__'.$this->getName().'__1');
 
         $matchesSnapshotMock
             ->expects($this->any())
