@@ -110,7 +110,7 @@ The first time the assertion runs, it doesn't have a snapshot to compare the str
 There was 1 incomplete test:
 
 1) ExampleTest::test_it_matches_a_string
-Snapshot created for ExampleTest__test_it_matches_a_string
+Snapshot created for ExampleTest__test_it_matches_a_string__1
 
 OK, but incomplete, skipped, or risky tests!
 Tests: 1, Assertions: 0, Incomplete: 1.
