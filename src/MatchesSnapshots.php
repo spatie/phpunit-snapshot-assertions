@@ -28,25 +28,14 @@ trait MatchesSnapshots
     }
 
     /**
-     * Determines the snapshot's test, which is the first part of the ID.
-     * By default, the test class' name is used.
+     * Determines the snapshot's id. By default, the test case's class and
+     * method names are used.
      *
      * @return string
      */
-    protected function getSnapshotTestName(): string
+    protected function getSnapshotId(): string
     {
-        return (new ReflectionClass($this))->getShortName();
-    }
-
-    /**
-     * Determines the snapshot's test case, which is the second part of the ID.
-     * By default, the test case's method name is used.
-     *
-     * @return string
-     */
-    protected function getSnapshotTestCaseName(): string
-    {
-        return $this->getName();
+        return (new ReflectionClass($this))->getShortName().'__'.$this->getName();
     }
 
     /**
@@ -72,7 +61,7 @@ trait MatchesSnapshots
      *
      * @return bool
      */
-    protected function shouldUpdateSnapshot(): bool
+    protected function shouldUpdateSnapshots(): bool
     {
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
@@ -80,8 +69,7 @@ trait MatchesSnapshots
     protected function createSnapshotWithDriver(Driver $driver): Snapshot
     {
         return Snapshot::forTestCase(
-            $this->getSnapshotTestName(),
-            $this->getSnapshotTestCaseName(),
+            $this->getSnapshotId(),
             $this->getSnapshotDirectory(),
             $driver
         );
@@ -95,7 +83,7 @@ trait MatchesSnapshots
             return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
         }
 
-        if ($this->shouldUpdateSnapshot()) {
+        if ($this->shouldUpdateSnapshots()) {
             try {
                 // We only want to update snapshots which need updating. If the snapshot doesn't
                 // match the expected output, we'll catch the failure, create a new snapshot and
