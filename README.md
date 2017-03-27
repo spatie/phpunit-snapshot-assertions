@@ -22,6 +22,22 @@ class OrderSerializerTest
     }
 }
 ```
+```
+> ./vendor/bin/phpunit
+
+There was 1 incomplete test:
+
+1) ExampleTest::test_it_matches_a_string
+Snapshot created for OrderSerializerTest__test_it_serializes_an_order_json
+
+OK, but incomplete, skipped, or risky tests!
+Tests: 1, Assertions: 0, Incomplete: 1.
+```
+```
+> ./vendor/bin/phpunit
+
+OK (1 test, 1 assertion)
+```
 
 ## Postcardware
 
@@ -35,21 +51,159 @@ The best postcards are published [on our website](https://spatie.be/en/opensourc
 
 You can install the package via composer:
 
-``` bash
+```bash
 composer require spatie/phpunit-snapshot-assertions
 ```
 
 ## Usage
 
-*Todo*
+To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds three assertion methods to the class:
+
+- `assertMatchesSnapshot($actual)`
+- `assertMatchesJsonSnapshot($actual)`
+- `assertMatchesXmlSnapshot($actual)`
+
+### Snapshot Testing 101
+
+Let's do a snapshot assertion for a simple string, "foo".
+
+```php
+public function test_it_is_foo() {
+    $this->assertMatchesSnapshot('foo');
+}
+```
+
+The first time the assertion runs, it doesn't have a snapshot to compare the string with. The test runner generates a new snapshot and marks the test as incomplete.
 
 ```
-assertMatchesSnapshot
-assertMatchesJsonSnapshot
-assertMatchesXmlSnapshot
+> ./vendor/bin/phpunit
+
+There was 1 incomplete test:
+
+1) ExampleTest::test_it_matches_a_string
+Snapshot created for ExampleTest__test_it_matches_a_string
+
+OK, but incomplete, skipped, or risky tests!
+Tests: 1, Assertions: 0, Incomplete: 1.
+```
+
+Snapshot ids are generated based on the test and testcase's names. Basic snapshots return a `var_export` of the actual value.
+
+```php
+<?php return 'foo';
+```
+
+Let's rerun the test. The test runner will see that there's already a snapshot for the assertion and do a comparison.
+
+```
+> ./vendor/bin/phpunit
+
+OK (1 test, 1 assertion)
+```
+
+If we change actual value to "bar", the test will fail because the snapshot still returns "foo".
+
+```php
+public function test_it_is_foo() {
+    $this->assertMatchesSnapshot('bar');
+}
+```
+```
+> ./vendor/bin/phpunit
+
+1) ExampleTest::test_it_matches_a_string
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'foo'
++'bar'
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
+```
+
+When we expect a changed value, we need to tell the test runner to update the existing snapshots instead of failing the test. This is possible by adding  a`-d --update-snapshots` flag to the `phpunit` command.
+
+```
+> ./vendor/bin/phpunit -d --update-snapshots
+
+OK (1 test, 1 assertion)
+```
+
+As a result, our snapshot file returns "bar" instead of "foo".
+
+```php
+<?php return 'bar';
+```
+
+### Customizing Snapshot Ids and Directories
+
+Snapshot ids are generated via the `getSnapshotId` method on the `MatchesSnapshot` trait. Override the method to customize the id. By default, a snapshot id exists of the test name, the test case name and an incrementing value, e.g. `Test__my_test_case__1`.
+
+#### Example: Replacing the `__` Delimiter With `--`
+
+```php
+protected function getSnapshotId(): string
+{
+    return (new ReflectionClass($this))->getShortName().'--'.
+        $this->getName().'--'.
+        $this->snapshotIncrementor;
+}
+```
+
+By default, snapshots are stored in a `__snapshots__` directory relative to the test class. This can be changed by overriding the `getSnapshotDirectory` method.
+
+#### Example: Renaming the `__snapshots__` directory to `snapshots`
+
+```php
+protected function getSnapshotDirectory(): string
+{
+    return dirname((new ReflectionClass($this))->getFileName()).
+        DIRECTORY_SEPARATOR.
+        'snapshots';
+}
 ```
 
 ### Writing Custom Drivers
+
+Drivers ensure that different types of data can be serialized and matched in their own way. A driver is a class that implements the `Spatie\Snapshots\Driver` interface, which requires three method implementations: `serialize`, `extension` and `match`.
+
+Let's take a quick quick look at the `JsonDriver`.
+
+```php
+namespace Spatie\Snapshots\Drivers;
+
+use PHPUnit\Framework\Assert;
+use Spatie\Snapshots\Driver;
+use Spatie\Snapshots\Exceptions\CantBeSerialized;
+
+class JsonDriver implements Driver
+{
+    public function serialize($data): string
+    {
+        if (! is_string($data)) {
+            throw new CantBeSerialized('Only strings can be serialized to json');
+        }
+
+        return json_encode(json_decode($data), JSON_PRETTY_PRINT).PHP_EOL;
+    }
+
+    public function extension(): string
+    {
+        return 'json';
+    }
+
+    public function match($expected, $actual)
+    {
+        Assert::assertJsonStringEqualsJsonString($actual, $expected);
+    }
+}
+```
+
+- The `serialize` method returns a string which will be written to the snapshot file. In the `JsonDriver`, we'll decode and re-encode the json string to ensure the snapshot has pretty printing.
+- We want to save json snapshots as json files, so we'll use `json` as their file extension.
+- When matching the expected data with the actual data, we want to use PHPUnit's built in json assertions, so we'll call the specific `assertJsonStringEqualsJsonString` method.
 
 ## Changelog
 
