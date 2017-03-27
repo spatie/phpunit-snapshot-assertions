@@ -43,11 +43,6 @@ class Snapshot
         return $this->id.$this->driver->extension();
     }
 
-    public function path(): string
-    {
-        return $this->filesystem->path($this->filename());
-    }
-
     public function exists(): bool
     {
         return $this->filesystem->has($this->filename());
@@ -55,7 +50,7 @@ class Snapshot
 
     public function assertMatches($actual)
     {
-        $this->driver->match($this->driver->load($this->path()), $actual);
+        $this->driver->match($this->filesystem->read($this->filename()), $actual);
     }
 
     public function create($actual)

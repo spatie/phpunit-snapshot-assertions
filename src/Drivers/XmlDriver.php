@@ -30,11 +30,6 @@ class XmlDriver implements Driver
         return '.xml';
     }
 
-    public function load(string $path)
-    {
-        return file_get_contents($path);
-    }
-
     public function match($expected, $actual)
     {
         Assert::assertEquals(Xml::load($expected), Xml::load($actual));

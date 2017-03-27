@@ -23,11 +23,6 @@ class JsonDriver implements Driver
         return '.json';
     }
 
-    public function load(string $path)
-    {
-        return file_get_contents($path);
-    }
-
     public function match($expected, $actual)
     {
         Assert::assertJson($expected);

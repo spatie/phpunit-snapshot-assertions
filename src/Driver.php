@@ -23,15 +23,6 @@ interface Driver
     public function extension(): string;
 
     /**
-     * Load the contents of a snapshot at a path.
-     *
-     * @param string $path
-     *
-     * @return mixed
-     */
-    public function load(string $path);
-
-    /**
      * Match an expectation with a snapshot's actual contents. Should throw an
      * `ExpectationFailedException` if it doesn't match. This happens by
      * default if you're using PHPUnit's `Assert` class for the match.

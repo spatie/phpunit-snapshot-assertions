@@ -27,7 +27,7 @@ class Filesystem
         return file_exists($this->path($filename));
     }
 
-    public function read(string $filename): bool
+    public function read(string $filename): string
     {
         return file_get_contents($this->path($filename));
     }
