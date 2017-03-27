@@ -18,10 +18,9 @@ class OrderSerializerTest
 
     class test_it_serializes_an_order_json()
     {
-        $serializer = new JsonOrderSerializer();
         $orderId = new Order(1);
 
-        $this->assertMatchesJsonSnapshot($serializer->serialize($order);
+        $this->assertMatchesJsonSnapshot($order->toJson());
     }
 }
 ```
