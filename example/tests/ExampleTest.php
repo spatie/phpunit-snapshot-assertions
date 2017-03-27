@@ -9,7 +9,7 @@ class ExampleTest extends TestCase
 
     public function test_it_matches_a_string()
     {
-        $this->assertMatchesSnapshot('foo');
+        $this->assertMatchesSnapshot('bar');
     }
 
     public function test_it_matches_an_array()
