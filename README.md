@@ -7,7 +7,21 @@
 [![StyleCI](https://styleci.io/repos/75926188/shield?branch=master)](https://styleci.io/repos/75926188)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 
-**Work in progress!**
+```php
+use Spatie\Snapshots\MatchesSnapshots;
+
+class OrderSerializerTest
+{
+    use MatchesSnapshot;
+
+    class test_it_serializes_an_order_json()
+    {
+        $serializer = new JsonOrderSerializer();
+
+        $this->assertMatchesJsonSnapshot($serializer->serialize(new Order(1));
+    }
+}
+```
 
 ## Postcardware
 
@@ -28,6 +42,14 @@ composer require spatie/phpunit-snapshot-assertions
 ## Usage
 
 *Todo*
+
+```
+assertMatchesSnapshot
+assertMatchesJsonSnapshot
+assertMatchesXmlSnapshot
+```
+
+### Writing Custom Drivers
 
 ## Changelog
 
@@ -50,9 +72,11 @@ If you discover any security related issues, please email freek@spatie.be instea
 ## Credits
 
 - [Sebastian De Deyne](https://github.com/sebastiandedeyne)
+- [Alex Vanderbist](https://github.com/alexvanderbist)
 - [All Contributors](../../contributors)
 
 ## About Spatie
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## License
