@@ -14,7 +14,7 @@ trait MatchesSnapshots
     {
         $snapshot = $this->createSnapshotWithDriver($driver ?? new VarDriver());
 
-        $this->doSnapShotAssertion($snapshot, $actual);
+        $this->doSnapshotAssertion($snapshot, $actual);
     }
 
     public function assertMatchesXmlSnapshot($actual)
@@ -75,7 +75,7 @@ trait MatchesSnapshots
         );
     }
 
-    protected function doSnapShotAssertion(Snapshot $snapshot, $actual)
+    protected function doSnapshotAssertion(Snapshot $snapshot, $actual)
     {
         if (! $snapshot->exists()) {
             $snapshot->create($actual);
