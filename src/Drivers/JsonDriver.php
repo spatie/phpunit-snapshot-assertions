@@ -3,7 +3,6 @@
 namespace Spatie\Snapshots\Drivers;
 
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\Constraint\JsonMatches;
 use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
