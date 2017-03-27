@@ -20,19 +20,19 @@ trait MatchesSnapshots
         $this->snapshotIncrementor = 0;
     }
 
-    public function assertMatchesSnapshot($actual)
+    public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
-        $this->doSnapshotAssertion($actual, new VarDriver());
+        $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
     }
 
     public function assertMatchesXmlSnapshot($actual)
     {
-        $this->doSnapshotAssertion($actual, new XmlDriver());
+        $this->assertMatchesSnapshot($actual, new XmlDriver());
     }
 
     public function assertMatchesJsonSnapshot($actual)
     {
-        $this->doSnapshotAssertion($actual, new JsonDriver());
+        $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
 
     /**
