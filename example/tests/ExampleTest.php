@@ -12,6 +12,11 @@ class ExampleTest extends TestCase
         $this->assertMatchesSnapshot('foo');
     }
 
+    public function test_it_matches_an_array()
+    {
+        $this->assertMatchesSnapshot(['foo' => 'bar']);
+    }
+
     public function test_it_matches_json()
     {
         $this->assertMatchesJsonSnapshot('{"foo":"bar"}');
