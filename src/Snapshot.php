@@ -24,14 +24,14 @@ class Snapshot
     }
 
     public static function forTestCase(
-        string $namespace,
         string $test,
+        string $testCase,
         string $directory,
         Driver $driver
     ): self {
         $filesystem = Filesystem::inDirectory($directory);
 
-        $id = "{$namespace}__{$test}";
+        $id = "{$test}__{$testCase}";
 
         return new self($id, $filesystem, $driver);
     }

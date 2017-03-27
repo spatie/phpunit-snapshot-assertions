@@ -188,8 +188,8 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockMethods = [
             'markTestIncomplete',
-            'getName',
-            'getSnapshotNamespace',
+            'getSnapshotTestName',
+            'getSnapshotTestCaseName',
             'getSnapshotDirectory',
         ];
 
@@ -201,13 +201,13 @@ class MatchesSnapshotTest extends TestCase
 
         $matchesSnapshotMock
             ->expects($this->any())
-            ->method('getName')
-            ->willReturn($this->getName());
+            ->method('getSnapshotTestName')
+            ->willReturn('MatchesSnapshotTest');
 
         $matchesSnapshotMock
             ->expects($this->any())
-            ->method('getSnapshotNamespace')
-            ->willReturn('MatchesSnapshotTest');
+            ->method('getSnapshotTestCaseName')
+            ->willReturn($this->getName());
 
         $matchesSnapshotMock
             ->expects($this->any())
