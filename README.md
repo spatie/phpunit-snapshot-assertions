@@ -9,8 +9,6 @@
 
 > Snapshot testing is a way to test without writing actual test cases
 
-Write a snapshot test:
-
 ```php
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -28,7 +26,7 @@ class OrderSerializerTest
 }
 ```
 
-Creates a snapshot on first run.
+On the first run, the test runner will create a new snapshot.
 
 ```
 > ./vendor/bin/phpunit
@@ -42,7 +40,7 @@ OK, but incomplete, skipped, or risky tests!
 Tests: 1, Assertions: 0, Incomplete: 1.
 ```
 
-Passes on subsequent runs...
+On subsequent runs, the test will pass as long as the snapshot doesn't change.
 
 ```
 > ./vendor/bin/phpunit
@@ -50,7 +48,7 @@ Passes on subsequent runs...
 OK (1 test, 1 assertion)
 ```
 
-Unless there's a regression!
+If there's a regression, the test will fail!
 
 ```php
 $orderId = new Order(2); // Regression! Was `1`
