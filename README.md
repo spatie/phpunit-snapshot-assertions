@@ -7,6 +7,10 @@
 [![StyleCI](https://styleci.io/repos/75926188/shield?branch=master)](https://styleci.io/repos/75926188)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 
+> Snapshot testing is a way to test without writing actual test cases
+
+Write a snapshot test:
+
 ```php
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -17,26 +21,54 @@ class OrderSerializerTest
     class test_it_serializes_an_order_json()
     {
         $serializer = new JsonOrderSerializer();
+        $orderId = new Order(1);
 
-        $this->assertMatchesJsonSnapshot($serializer->serialize(new Order(1));
+        $this->assertMatchesJsonSnapshot($serializer->serialize($order);
     }
 }
 ```
+
+Creates a snapshot on first run.
+
 ```
 > ./vendor/bin/phpunit
 
 There was 1 incomplete test:
 
-1) ExampleTest::test_it_matches_a_string
-Snapshot created for OrderSerializerTest__test_it_serializes_an_order_json
+1) OrderSerializerTest::test_it_serializes_an_order_json
+Snapshot created for OrderSerializerTest__test_it_serializes_an_order_json__1
 
 OK, but incomplete, skipped, or risky tests!
 Tests: 1, Assertions: 0, Incomplete: 1.
 ```
+
+Passes on subsequent runs...
+
 ```
 > ./vendor/bin/phpunit
 
 OK (1 test, 1 assertion)
+```
+
+Unless there's a regression!
+
+```php
+$orderId = new Order(2); // Regression! Was `1`
+```
+```
+> ./vendor/bin/phpunit
+
+1) OrderSerializerTest::test_it_serializes_an_order_json
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+Failed asserting that '{"id":2}' matches JSON string "{
+    "id": 1
+}
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
 ```
 
 ## Postcardware
