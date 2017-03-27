@@ -1,1 +1,3 @@
-<?php return 'foo';
+<?php
+
+return 'foo';
