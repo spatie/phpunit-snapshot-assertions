@@ -234,6 +234,12 @@ class JsonDriver implements Driver
 - We want to save json snapshots as json files, so we'll use `json` as their file extension.
 - When matching the expected data with the actual data, we want to use PHPUnit's built in json assertions, so we'll call the specific `assertJsonStringEqualsJsonString` method.
 
+Drivers can be used by passing them as `assertMatchesSnapshot`'s second argument.
+
+```php
+$this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
