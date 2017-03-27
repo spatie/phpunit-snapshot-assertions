@@ -14,7 +14,7 @@ class VarDriver implements Driver
 
     public function extension(): string
     {
-        return '.php';
+        return 'php';
     }
 
     public function match($expected, $actual)

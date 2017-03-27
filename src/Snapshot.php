@@ -40,7 +40,7 @@ class Snapshot
 
     public function filename(): string
     {
-        return $this->id.$this->driver->extension();
+        return $this->id.'.'.$this->driver->extension();
     }
 
     public function exists(): bool

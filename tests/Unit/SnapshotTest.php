@@ -37,7 +37,7 @@ class SnapshotTest extends TestCase
         $this->driver
             ->expects($this->once())
             ->method('extension')
-            ->willReturn('.php');
+            ->willReturn('php');
 
         $snapshot = new Snapshot('abc', $this->filesystem, $this->driver);
 

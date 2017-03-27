@@ -26,7 +26,7 @@ class XmlDriver implements Driver
 
     public function extension(): string
     {
-        return '.xml';
+        return 'xml';
     }
 
     public function match($expected, $actual)
