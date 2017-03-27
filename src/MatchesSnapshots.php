@@ -2,8 +2,8 @@
 
 namespace Spatie\Snapshots;
 
-use PHPUnit_Framework_ExpectationFailedException;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;

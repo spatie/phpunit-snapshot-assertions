@@ -3,7 +3,6 @@
 namespace Spatie\Snapshots\Test\Integration;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\Version;
 use PHPUnit_Framework_MockObject_MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
 
