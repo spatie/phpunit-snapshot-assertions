@@ -16,7 +16,8 @@ class OrderLine
     /** @var int */
     private $quantity;
 
-    public function __construct(int $id, string $description, int $unitPrice, int $quantity) {
+    public function __construct(int $id, string $description, int $unitPrice, int $quantity)
+    {
         $this->id = $id;
         $this->description = $description;
         $this->unitPrice = $unitPrice;
