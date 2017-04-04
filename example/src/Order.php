@@ -12,11 +12,12 @@ class Order
 
     /** @var bool */
     private $paid;
-    
+
     /** @var \App\OrderLine[] */
     private $orderLines;
 
-    public function __construct(int $id, string $email, bool $paid, array $orderLines) {
+    public function __construct(int $id, string $email, bool $paid, array $orderLines)
+    {
         $this->id = $id;
         $this->email = $email;
         $this->paid = $paid;
