@@ -18,7 +18,7 @@ class OrderTest
 
     class test_it_casts_to_json()
     {
-        $orderId = new Order(1);
+        $order = new Order(1);
 
         $this->assertMatchesJsonSnapshot($order->toJson());
     }
