@@ -129,7 +129,9 @@ trait MatchesSnapshots
 
     protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception)
     {
-        $newMessage = $exception->getMessage()."\n\n".'Snapshots can be updated by passing `-d --update-snapshots` through PHPUnit\'s CLI arguments.';
+        $newMessage = $exception->getMessage()."\n\n".
+            'Snapshots can be updated by passing '.
+            '`-d --update-snapshots` through PHPUnit\'s CLI arguments.';
 
         $exceptionReflection = new ReflectionObject($exception);
 
