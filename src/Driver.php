@@ -15,8 +15,8 @@ interface Driver
     public function serialize($data): string;
 
     /**
-     * The extension that should be used to save the snapshot file, including
-     * the leading dot character.
+     * The extension that should be used to save the snapshot file, without
+     * a leading dot.
      *
      * @return string
      */
