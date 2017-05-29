@@ -5,6 +5,7 @@ namespace Spatie\Snapshots;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
+use ReflectionObject;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
@@ -87,9 +88,7 @@ trait MatchesSnapshots
         );
 
         if (! $snapshot->exists()) {
-            $snapshot->create($actual);
-
-            return $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
+            $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual);
         }
 
         if ($this->shouldUpdateSnapshots()) {
@@ -99,16 +98,45 @@ trait MatchesSnapshots
                 // mark the test as incomplete.
                 $snapshot->assertMatches($actual);
             } catch (ExpectationFailedException $exception) {
-                $snapshot->create($actual);
-
-                return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+                $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
             } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
-                $snapshot->create($actual);
-
-                return $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+                $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
             }
         }
 
-        $snapshot->assertMatches($actual);
+        try {
+            $snapshot->assertMatches($actual);
+        } catch (ExpectationFailedException $exception) {
+            $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
+        } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
+            $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
+        }
+    }
+
+    protected function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
+    {
+        $snapshot->create($actual);
+
+        $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
+    }
+
+    protected function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
+    {
+        $snapshot->create($actual);
+
+        $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+    }
+
+    protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception)
+    {
+        $newMessage = $exception->getMessage()."\n\n".'Snapshots can be updated by passing `-d --update-snapshots` through PHPUnit\'s CLI arguments.';
+
+        $exceptionReflection = new ReflectionObject($exception);
+
+        $messageReflection = $exceptionReflection->getProperty('message');
+        $messageReflection->setAccessible(true);
+        $messageReflection->setValue($exception, $newMessage);
+
+        throw $exception;
     }
 }
