@@ -9,7 +9,7 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class XmlDriver implements Driver
 {
-    public function serialize($data): string
+    public function serialize($data)
     {
         if (! is_string($data)) {
             throw new CantBeSerialized('Only strings can be serialized to xml');
@@ -24,7 +24,7 @@ class XmlDriver implements Driver
         return $domDocument->saveXML();
     }
 
-    public function extension(): string
+    public function extension()
     {
         return 'xml';
     }

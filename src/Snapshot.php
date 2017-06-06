@@ -14,7 +14,7 @@ class Snapshot
     private $driver;
 
     public function __construct(
-        string $id,
+        $id,
         Filesystem $filesystem,
         Driver $driver
     ) {
@@ -24,26 +24,26 @@ class Snapshot
     }
 
     public static function forTestCase(
-        string $id,
-        string $directory,
+        $id,
+        $directory,
         Driver $driver
-    ): self {
+    ) {
         $filesystem = Filesystem::inDirectory($directory);
 
         return new self($id, $filesystem, $driver);
     }
 
-    public function id(): string
+    public function id()
     {
         return $this->id;
     }
 
-    public function filename(): string
+    public function filename()
     {
         return $this->id.'.'.$this->driver->extension();
     }
 
-    public function exists(): bool
+    public function exists()
     {
         return $this->filesystem->has($this->filename());
     }

@@ -7,32 +7,32 @@ class Filesystem
     /** @var string */
     private $basePath;
 
-    public function __construct(string $basePath)
+    public function __construct($basePath)
     {
         $this->basePath = $basePath;
     }
 
-    public static function inDirectory(string $path): self
+    public static function inDirectory($path)
     {
         return new self($path);
     }
 
-    public function path(string $filename): string
+    public function path($filename)
     {
         return $this->basePath.DIRECTORY_SEPARATOR.$filename;
     }
 
-    public function has(string $filename): bool
+    public function has($filename)
     {
         return file_exists($this->path($filename));
     }
 
-    public function read(string $filename): string
+    public function read($filename)
     {
         return file_get_contents($this->path($filename));
     }
 
-    public function put(string $filename, string $contents)
+    public function put($filename, $contents)
     {
         if (! file_exists($this->basePath)) {
             mkdir($this->basePath);

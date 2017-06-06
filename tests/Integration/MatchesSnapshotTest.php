@@ -192,7 +192,7 @@ class MatchesSnapshotTest extends TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
+    private function getMatchesSnapshotMock()
     {
         $mockMethods = [
             'markTestIncomplete',
