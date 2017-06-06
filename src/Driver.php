@@ -12,7 +12,7 @@ interface Driver
      *
      * @return string
      */
-    public function serialize($data): string;
+    public function serialize($data);
 
     /**
      * The extension that should be used to save the snapshot file, without
@@ -20,7 +20,7 @@ interface Driver
      *
      * @return string
      */
-    public function extension(): string;
+    public function extension();
 
     /**
      * Match an expectation with a snapshot's actual contents. Should throw an

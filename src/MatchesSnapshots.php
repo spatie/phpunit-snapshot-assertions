@@ -23,7 +23,7 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
-        $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
+        $this->doSnapshotAssertion($actual, isset($driver) ? $driver : new VarDriver());
     }
 
     public function assertMatchesXmlSnapshot($actual)
@@ -42,7 +42,7 @@ trait MatchesSnapshots
      *
      * @return string
      */
-    protected function getSnapshotId(): string
+    protected function getSnapshotId()
     {
         return (new ReflectionClass($this))->getShortName().'__'.
             $this->getName().'__'.
@@ -56,7 +56,7 @@ trait MatchesSnapshots
      *
      * @return string
      */
-    protected function getSnapshotDirectory(): string
+    protected function getSnapshotDirectory()
     {
         return dirname((new ReflectionClass($this))->getFileName()).
             DIRECTORY_SEPARATOR.
@@ -72,7 +72,7 @@ trait MatchesSnapshots
      *
      * @return bool
      */
-    protected function shouldUpdateSnapshots(): bool
+    protected function shouldUpdateSnapshots()
     {
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }

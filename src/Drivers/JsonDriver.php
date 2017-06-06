@@ -8,7 +8,7 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriver implements Driver
 {
-    public function serialize($data): string
+    public function serialize($data)
     {
         if (! is_string($data)) {
             throw new CantBeSerialized('Only strings can be serialized to json');
@@ -17,7 +17,7 @@ class JsonDriver implements Driver
         return json_encode(json_decode($data), JSON_PRETTY_PRINT).PHP_EOL;
     }
 
-    public function extension(): string
+    public function extension()
     {
         return 'json';
     }

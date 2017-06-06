@@ -7,12 +7,12 @@ use Spatie\Snapshots\Driver;
 
 class VarDriver implements Driver
 {
-    public function serialize($data): string
+    public function serialize($data)
     {
         return '<?php return '.var_export($data, true).';'.PHP_EOL;
     }
 
-    public function extension(): string
+    public function extension()
     {
         return 'php';
     }

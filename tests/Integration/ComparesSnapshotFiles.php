@@ -26,7 +26,7 @@ trait ComparesSnapshotFiles
         $this->assertFileEquals($example, $snapshot);
     }
 
-    protected function emptyDirectory(string $path)
+    protected function emptyDirectory($path)
     {
         if (! file_exists($path)) {
             return true;
@@ -44,7 +44,7 @@ trait ComparesSnapshotFiles
         }
     }
 
-    protected function copyDirectory(string $sourcePath, string $destinationPath)
+    protected function copyDirectory($sourcePath, $destinationPath)
     {
         if (! file_exists($destinationPath)) {
             mkdir($destinationPath);
