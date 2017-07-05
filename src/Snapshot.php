@@ -48,9 +48,9 @@ class Snapshot
         return $this->filesystem->has($this->filename());
     }
 
-    public function assertMatches($actual)
+    public function assertMatches($actual, string $message = '')
     {
-        $this->driver->match($this->filesystem->read($this->filename()), $actual);
+        $this->driver->match($this->filesystem->read($this->filename()), $actual, $message);
     }
 
     public function create($actual)

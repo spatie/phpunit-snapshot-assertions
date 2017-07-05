@@ -21,17 +21,17 @@ trait MatchesSnapshots
         $this->snapshotIncrementor = 0;
     }
 
-    public function assertMatchesSnapshot($actual, Driver $driver = null)
+    public function assertMatchesSnapshot($actual, Driver $driver = null, string $message = '')
     {
-        $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
+        $this->doSnapshotAssertion($actual, $driver ?? new VarDriver(), $message);
     }
 
-    public function assertMatchesXmlSnapshot($actual)
+    public function assertMatchesXmlSnapshot($actual, string $message = '')
     {
         $this->assertMatchesSnapshot($actual, new XmlDriver());
     }
 
-    public function assertMatchesJsonSnapshot($actual)
+    public function assertMatchesJsonSnapshot($actual, string $message = '')
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
@@ -77,7 +77,7 @@ trait MatchesSnapshots
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 
-    protected function doSnapshotAssertion($actual, Driver $driver)
+    protected function doSnapshotAssertion($actual, Driver $driver, string $message = '')
     {
         $this->snapshotIncrementor++;
 
@@ -96,7 +96,7 @@ trait MatchesSnapshots
                 // We only want to update snapshots which need updating. If the snapshot doesn't
                 // match the expected output, we'll catch the failure, create a new snapshot and
                 // mark the test as incomplete.
-                $snapshot->assertMatches($actual);
+                $snapshot->assertMatches($actual, $message);
             } catch (ExpectationFailedException $exception) {
                 $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
             } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
@@ -105,7 +105,7 @@ trait MatchesSnapshots
         }
 
         try {
-            $snapshot->assertMatches($actual);
+            $snapshot->assertMatches($actual, $message);
         } catch (ExpectationFailedException $exception) {
             $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
         } catch (PHPUnit_Framework_ExpectationFailedException $exception) {

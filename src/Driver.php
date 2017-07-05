@@ -29,8 +29,9 @@ interface Driver
      *
      * @param mixed $expected
      * @param mixed $actual
+     * @param string $message
      *
      * @throws \PHPUnit\Framework\ExpectationFailedException
      */
-    public function match($expected, $actual);
+    public function match($expected, $actual, string $message = '');
 }
