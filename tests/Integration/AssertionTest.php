@@ -4,6 +4,7 @@ namespace Spatie\Snapshots\Test\Integration;
 
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_ExpectationFailedException;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class AssertionTest extends TestCase
@@ -59,10 +60,13 @@ class AssertionTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
             return;
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+            return;
         }
 
-        /** Mark test as failed if we don't get a ExpectationFailedException */
-        throw new ExpectationFailedException('ExpectationFailedException did not occur');
+        /* Mark test as incomplete if we don't get a ExpectationFailedException */
+        $this->markTestIncomplete('Expected exception did not occur');
     }
 
     /** @test */
@@ -75,10 +79,13 @@ class AssertionTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
             return;
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
+            return;
         }
 
-        /** Mark test as failed if we don't get a ExpectationFailedException */
-        throw new ExpectationFailedException('ExpectationFailedException did not occur');
+        /* Mark test as incomplete if we don't get a ExpectationFailedException */
+        $this->markTestIncomplete('Expected exception did not occur');
     }
 
     /** @test */
@@ -91,9 +98,12 @@ class AssertionTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
             return;
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
+            return;
         }
 
-        /** Mark test as failed if we don't get a ExpectationFailedException */
-        throw new ExpectationFailedException('ExpectationFailedException did not occur');
+        /* Mark test as incomplete if we don't get a ExpectationFailedException */
+        $this->markTestIncomplete('Expected exception did not occur');
     }
 }
