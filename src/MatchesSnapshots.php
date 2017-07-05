@@ -28,12 +28,12 @@ trait MatchesSnapshots
 
     public function assertMatchesXmlSnapshot($actual, string $message = '')
     {
-        $this->assertMatchesSnapshot($actual, new XmlDriver());
+        $this->assertMatchesSnapshot($actual, new XmlDriver(), $message);
     }
 
     public function assertMatchesJsonSnapshot($actual, string $message = '')
     {
-        $this->assertMatchesSnapshot($actual, new JsonDriver());
+        $this->assertMatchesSnapshot($actual, new JsonDriver(), $message);
     }
 
     /**
