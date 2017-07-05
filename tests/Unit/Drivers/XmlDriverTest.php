@@ -47,9 +47,11 @@ class XmlDriverTest extends TestCase
             $driver->match('<foo><bar>baz</bar></foo>', '<baz><bar>foo</bar></baz>', $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
+
             return;
         }
 

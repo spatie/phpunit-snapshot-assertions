@@ -46,9 +46,11 @@ class JsonDriverTest extends TestCase
             $driver->match('{"foo":"foo"}', '{"bar":"bar"}', $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
+
             return;
         }
 

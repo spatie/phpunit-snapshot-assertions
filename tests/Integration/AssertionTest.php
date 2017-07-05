@@ -59,9 +59,11 @@ class AssertionTest extends TestCase
             $this->assertMatchesSnapshot('Bar', null, $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
             return;
         }
 
@@ -78,9 +80,11 @@ class AssertionTest extends TestCase
             $this->assertMatchesXmlSnapshot('<baz><bar>Foo</bar></baz>', $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom XML error message');
+
             return;
         }
 
@@ -97,9 +101,11 @@ class AssertionTest extends TestCase
             $this->assertMatchesJsonSnapshot('{"bar":"bar","foo":"foo"}', $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom JSON error message');
+
             return;
         }
 

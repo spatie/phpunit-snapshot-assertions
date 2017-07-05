@@ -92,9 +92,11 @@ class VarDriverTest extends TestCase
             $driver->match('Foo', 'Bar', $customMessage);
         } catch (ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
             return;
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
             return;
         }
 
