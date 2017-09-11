@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.0.1 - 2017-09-11
+- Add `example` folder to `.gitattributes`
+
 ## 1.0.0 - 2017-05-29
 - Remind how to update snapshots when a snapshot assertion fails
 
