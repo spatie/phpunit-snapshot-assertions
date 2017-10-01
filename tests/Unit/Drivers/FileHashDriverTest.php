@@ -13,7 +13,7 @@ class FileHashDriverTest extends TestCase
     {
         $driver = new FileHashDriver();
 
-        $filePath = __DIR__ . '/files/example-file.txt';
+        $filePath = __DIR__.'/files/example-file.txt';
 
         $expected = sha1_file($filePath);
 
@@ -27,6 +27,6 @@ class FileHashDriverTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $driver->serialize(__DIR__ . '/files/fake-file-path');
+        $driver->serialize(__DIR__.'/files/fake-file-path');
     }
 }
