@@ -42,6 +42,14 @@ class AssertionTest extends TestCase
     }
 
     /** @test */
+    public function can_match_a_file_hash_snapshot()
+    {
+        $filePath = __DIR__ . '/stubs/example_snapshots/snapshot.json';
+
+        $this->assertMatchesFileHashSnapshot($filePath);
+    }
+
+    /** @test */
     public function can_do_multiple_snapshot_assertions()
     {
         $this->assertMatchesSnapshot('Foo');
