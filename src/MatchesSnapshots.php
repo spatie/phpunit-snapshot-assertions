@@ -41,7 +41,7 @@ trait MatchesSnapshots
     public function assertMatchesFileHashSnapshot($filePath)
     {
         if (! file_exists($filePath)) {
-            throw new Exception('File does not exist');
+            $this->fail('File does not exist');
         }
 
         $actual = sha1_file($filePath);
