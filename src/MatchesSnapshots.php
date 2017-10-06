@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots;
 
-use Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
