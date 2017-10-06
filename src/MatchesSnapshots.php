@@ -6,6 +6,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
+use Spatie\Snapshots\Drivers\FileHashDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
@@ -34,6 +35,17 @@ trait MatchesSnapshots
     public function assertMatchesJsonSnapshot($actual)
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
+    public function assertMatchesFileHashSnapshot($filePath)
+    {
+        if (! file_exists($filePath)) {
+            $this->fail('File does not exist');
+        }
+
+        $actual = sha1_file($filePath);
+
+        $this->assertMatchesSnapshot($actual, new FileHashDriver());
     }
 
     /**

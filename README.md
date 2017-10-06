@@ -86,11 +86,12 @@ composer require spatie/phpunit-snapshot-assertions
 
 ## Usage
 
-To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds three assertion methods to the class:
+To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds four assertion methods to the class:
 
 - `assertMatchesSnapshot($actual)`
 - `assertMatchesJsonSnapshot($actual)`
 - `assertMatchesXmlSnapshot($actual)`
+- `assertMatchesFileHashSnapshot($filePath)`
 
 ### Snapshot Testing 101
 
