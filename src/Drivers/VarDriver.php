@@ -17,10 +17,10 @@ class VarDriver implements Driver
         return 'php';
     }
 
-    public function match($expected, $actual)
+    public function match($expected, $actual, string $message = '')
     {
         $evaluated = eval(substr($expected, strlen('<?php ')));
 
-        Assert::assertEquals($evaluated, $actual);
+        Assert::assertEquals($evaluated, $actual, $message);
     }
 }

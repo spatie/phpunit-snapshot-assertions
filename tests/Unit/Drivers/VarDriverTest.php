@@ -2,7 +2,9 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_ExpectationFailedException;
 use Spatie\Snapshots\Drivers\VarDriver;
 
 class VarDriverTest extends TestCase
@@ -77,6 +79,29 @@ class VarDriverTest extends TestCase
         ]);
 
         $this->assertEquals($expected, $driver->serialize(new Dummy()));
+    }
+
+    /** @test */
+    public function it_can_set_custom_error_message()
+    {
+        $driver = new VarDriver();
+
+        $customMessage = 'custom string error message';
+
+        try {
+            $driver->match('Foo', 'Bar', $customMessage);
+        } catch (ExpectationFailedException $e) {
+            $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
+            return;
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
+            $this->assertNotSame(false, strpos($e->getMessage(), $customMessage), 'Failed to find custom string error message');
+
+            return;
+        }
+
+        /* Mark test as incomplete if we don't get a ExpectationFailedException */
+        $this->markTestIncomplete('Expected exception did not occur');
     }
 }
 

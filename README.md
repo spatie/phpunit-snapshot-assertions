@@ -216,9 +216,9 @@ class JsonDriver implements Driver
         return 'json';
     }
 
-    public function match($expected, $actual)
+    public function match($expected, $actual, string $message = '')
     {
-        Assert::assertJsonStringEqualsJsonString($actual, $expected);
+        Assert::assertJsonStringEqualsJsonString($expected, $actual, $message);
     }
 }
 ```

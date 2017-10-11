@@ -29,8 +29,8 @@ class XmlDriver implements Driver
         return 'xml';
     }
 
-    public function match($expected, $actual)
+    public function match($expected, $actual, string $message = '')
     {
-        Assert::assertXmlStringEqualsXmlString($expected, $actual);
+        Assert::assertXmlStringEqualsXmlString($expected, $actual, $message);
     }
 }
