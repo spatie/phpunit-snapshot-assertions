@@ -93,6 +93,14 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_match_an_existing_file_hash_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $mockTrait->assertMatchesFileHashSnapshot(__DIR__.'/stubs/example_snapshots/snapshot.json');
+    }
+
+    /** @test */
     public function it_can_mismatch_a_string_snapshot()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
@@ -120,6 +128,16 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFailedMatchesSnapshotTest();
 
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"baz","bar":"baz","baz":"foo"}');
+    }
+
+    /** @test */
+    public function it_can_mismatch_a_file_hash_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFailedMatchesSnapshotTest();
+
+        $mockTrait->assertMatchesFileHashSnapshot(__DIR__.'/stubs/example_snapshots/snapshot.json');
     }
 
     /** @test */
