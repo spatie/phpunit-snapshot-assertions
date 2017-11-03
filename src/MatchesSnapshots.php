@@ -33,6 +33,12 @@ trait MatchesSnapshots
 
     public function assertMatchesJsonSnapshot($actual)
     {
+        $laravelTestResponseClass = '\Illuminate\Foundation\Testing\TestResponse';
+
+        if (class_exists($laravelTestResponseClass) && is_a($actual, $laravelTestResponseClass)) {
+            $actual = $actual->getContent();
+        }
+
         $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
 
