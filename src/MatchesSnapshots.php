@@ -35,7 +35,7 @@ trait MatchesSnapshots
     {
         $laravelTestResponseClass = '\Illuminate\Foundation\Testing\TestResponse';
 
-        if(class_exists($laravelTestResponseClass) && is_a($actual, $laravelTestResponseClass)) {
+        if (class_exists($laravelTestResponseClass) && is_a($actual, $laravelTestResponseClass)) {
             $actual = $actual->getContent();
         }
         
