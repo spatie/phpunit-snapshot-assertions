@@ -38,7 +38,7 @@ trait MatchesSnapshots
         if (class_exists($laravelTestResponseClass) && is_a($actual, $laravelTestResponseClass)) {
             $actual = $actual->getContent();
         }
-        
+
         $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
 
