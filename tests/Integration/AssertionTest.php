@@ -50,6 +50,14 @@ class AssertionTest extends TestCase
     }
 
     /** @test */
+    public function can_match_a_file_snapshot()
+    {
+        $filePath = __DIR__.'/stubs/test_files/friendly_man.jpg';
+
+        $this->assertMatchesFileSnapshot($filePath);
+    }
+
+    /** @test */
     public function can_do_multiple_snapshot_assertions()
     {
         $this->assertMatchesSnapshot('Foo');

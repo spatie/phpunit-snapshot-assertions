@@ -69,6 +69,21 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_snapshot_from_a_file()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+
+        $this->assertSnapshotMatchesExample(
+            'files/MatchesSnapshotTest__it_can_create_a_snapshot_from_a_file__1.jpg',
+            'file.jpg'
+        );
+    }
+
+    /** @test */
     public function it_can_match_an_existing_string_snapshot()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
@@ -141,6 +156,65 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_mismatch_a_file_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail($mockTrait);
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
+    }
+
+    /** @test */
+    public function it_needs_a_file_extension_to_do_a_file_snapshot_assertion()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail($mockTrait);
+
+        $filePath = __DIR__.'/stubs/test_files/file_without_extension';
+
+        $this->assertFileExists($filePath);
+
+        $mockTrait->assertMatchesFileSnapshot($filePath);
+    }
+
+    /** @test */
+    public function it_persists_the_failed_file_after_mismatching_a_file_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail($mockTrait);
+
+        $mismatchedFile = __DIR__.'/stubs/test_files/troubled_man.jpg';
+
+        $mockTrait->assertMatchesFileSnapshot($mismatchedFile);
+
+        $persistedFailedFile = __DIR__.'/__snapshots__/files/MatchesSnapshotTest__it_persists_the_failed_file_after_mismatching_a_file_snapshot__1.jpg_failed.jpg';
+
+        $this->assertFileExists($persistedFailedFile);
+        $this->assertFileEquals($mismatchedFile, $persistedFailedFile);
+    }
+
+    /** @test */
+    public function it_deletes_the_persisted_failed_file_before_a_file_snapshot_assertion()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $mockTrait
+            ->expects($this->once())
+            ->method('assertTrue');
+
+        $persistedFailedFile = __DIR__.'/__snapshots__/files/MatchesSnapshotTest__it_deletes_the_persisted_failed_file_before_a_file_snapshot_assertion__1.jpg_failed.jpg';
+
+        $this->assertTrue(touch($persistedFailedFile));
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+
+        $this->assertFileNotExists($persistedFailedFile);
+    }
+
+    /** @test */
     public function it_can_update_a_string_snapshot()
     {
         $_SERVER['argv'][] = '--update-snapshots';
@@ -191,11 +265,35 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
+    public function it_can_update_a_file_snapshot()
+    {
+        $_SERVER['argv'][] = '--update-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+
+        $this->assertSnapshotMatchesExample(
+            'files/MatchesSnapshotTest__it_can_update_a_file_snapshot__1.jpg',
+            'file.jpg'
+        );
+    }
+
     private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
     {
         $matchesSnapshotMock
             ->expects($this->once())
             ->method('markTestIncomplete');
+    }
+
+    private function expectFail(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
+    {
+        $matchesSnapshotMock
+            ->expects($this->once())
+            ->method('fail');
     }
 
     private function expectFailedMatchesSnapshotTest()
@@ -216,6 +314,9 @@ class MatchesSnapshotTest extends TestCase
             'markTestIncomplete',
             'getSnapshotId',
             'getSnapshotDirectory',
+            'getFileSnapshotDirectory',
+            'fail',
+            'assertTrue',
         ];
 
         $matchesSnapshotMock = $this->getMockForTrait(
@@ -233,6 +334,11 @@ class MatchesSnapshotTest extends TestCase
             ->expects($this->any())
             ->method('getSnapshotDirectory')
             ->willReturn(__DIR__.'/__snapshots__');
+
+        $matchesSnapshotMock
+            ->expects($this->any())
+            ->method('getFileSnapshotDirectory')
+            ->willReturn(__DIR__.'/__snapshots__/files');
 
         return $matchesSnapshotMock;
     }

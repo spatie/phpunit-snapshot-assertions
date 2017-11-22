@@ -78,11 +78,12 @@ composer require spatie/phpunit-snapshot-assertions
 
 ## Usage
 
-To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds four assertion methods to the class:
+To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds five assertion methods to the class:
 
 - `assertMatchesSnapshot($actual)`
 - `assertMatchesJsonSnapshot($actual)`
 - `assertMatchesXmlSnapshot($actual)`
+- `assertMatchesFileSnapshot($filePath)`
 - `assertMatchesFileHashSnapshot($filePath)`
 
 ### Snapshot Testing 101
@@ -158,6 +159,13 @@ As a result, our snapshot file returns "bar" instead of "foo".
 ```php
 <?php return 'bar';
 ```
+
+### File snapshots
+The `MatchesSnapshots` trait offers two ways to assert that a file is identical to the snapshot that was made the first time the test was run:
+
+The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash of the file passed into the function and the hash saved in the snapshot match. This assertion is fast and uses very little disk space. The downside of this assertion is that there is no easy way to see how the two files differ if the test fails. 
+    
+The `assertMatchesFileSnapshot($filePath)` assertion works almost the same way as the file hash assertion, except that it actually saves the whole file in the snapshots directory. If the assertion fails, it places the failed file next to the snapshot file so they can easily be manually compared. The persisted failed file is automatically deleted when the test passes. This assertion is most useful when working with binary files that should be manually compared like images or pdfs.
 
 ### Customizing Snapshot Ids and Directories
 

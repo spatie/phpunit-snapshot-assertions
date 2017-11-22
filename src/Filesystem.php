@@ -40,4 +40,23 @@ class Filesystem
 
         file_put_contents($this->path($filename), $contents);
     }
+
+    public function delete(string $fileName)
+    {
+        return unlink($this->path($fileName));
+    }
+
+    public function copy(string $filePath, string $fileName)
+    {
+        if (! file_exists($this->basePath)) {
+            mkdir($this->basePath);
+        }
+
+        copy($filePath, $this->path($fileName));
+    }
+
+    public function fileEquals(string $filePath, string $fileName)
+    {
+        return sha1_file($filePath) === sha1_file($this->path($fileName));
+    }
 }
