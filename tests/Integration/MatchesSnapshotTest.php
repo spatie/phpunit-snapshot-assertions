@@ -166,6 +166,16 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_mismatch_a_file_snapshot_with_a_different_extension()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail($mockTrait);
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
+    }
+
+    /** @test */
     public function it_needs_a_file_extension_to_do_a_file_snapshot_assertion()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
@@ -280,6 +290,29 @@ class MatchesSnapshotTest extends TestCase
             'files/MatchesSnapshotTest__it_can_update_a_file_snapshot__1.jpg',
             'file.jpg'
         );
+    }
+
+    /** @test */
+    public function it_can_update_a_file_snapshot_with_a_different_extension()
+    {
+        $_SERVER['argv'][] = '--update-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
+
+        $oldSnapshot = __DIR__.'/__snapshots__/files/MatchesSnapshotTest__it_can_update_a_file_snapshot_with_a_different_extension__1.jpg';
+
+        $this->assertFileExists($oldSnapshot);
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
+
+        $this->assertSnapshotMatchesExample(
+            'files/MatchesSnapshotTest__it_can_update_a_file_snapshot_with_a_different_extension__1.png',
+            'file.png'
+        );
+
+        $this->assertFileNotExists($oldSnapshot);
     }
 
     private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)

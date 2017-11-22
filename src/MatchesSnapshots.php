@@ -161,6 +161,24 @@ trait MatchesSnapshots
 
         $snapshotId = $this->getSnapshotId().'.'.$fileExtension;
 
+        // If $filePath has a different file extension than the snapshot, the test should fail
+        if ($namesWithDifferentExtension = $fileSystem->getNamesWithDifferentExtension($snapshotId)) {
+            // There is always only one existing snapshot with a different extension
+            $existingSnapshotId = $namesWithDifferentExtension[0];
+
+            if ($this->shouldUpdateSnapshots()) {
+                $fileSystem->delete($existingSnapshotId);
+
+                $fileSystem->copy($filePath, $snapshotId);
+
+                return $this->markTestIncomplete("File snapshot updated for {$snapshotId}");
+            }
+
+            $expectedExtension = pathinfo($existingSnapshotId, PATHINFO_EXTENSION);
+
+            return $this->fail("File did not match the snapshot file extension (expected: {$expectedExtension}, was: {$fileExtension})");
+        }
+
         $failedSnapshotId = $snapshotId.'_failed.'.$fileExtension;
 
         if ($fileSystem->has($failedSnapshotId)) {

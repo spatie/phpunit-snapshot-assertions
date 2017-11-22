@@ -27,6 +27,31 @@ class Filesystem
         return file_exists($this->path($filename));
     }
 
+    /**
+     * Get all file names in this directory that have the same name
+     * as $fileName, but have a different file extension
+     * @param string $fileName
+     * @return array
+     */
+    public function getNamesWithDifferentExtension(string $fileName)
+    {
+        $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        $baseName = substr($fileName, 0, strlen($fileName) - strlen($extension) - 1);
+
+        $allNames = scandir($this->basePath);
+
+        $namesWithDifferentExtension = array_filter($allNames, function ($existingName) use ($baseName, $extension) {
+            $existingExtension = pathinfo($existingName, PATHINFO_EXTENSION);
+
+            $existingBaseName = substr($existingName, 0, strlen($existingName) - strlen($existingExtension) - 1);
+
+            return $existingBaseName === $baseName && $existingExtension !== $extension;
+        });
+
+        return array_values($namesWithDifferentExtension);
+    }
+
     public function read(string $filename): string
     {
         return file_get_contents($this->path($filename));
