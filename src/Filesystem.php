@@ -35,7 +35,7 @@ class Filesystem
      */
     public function getNamesWithDifferentExtension(string $fileName)
     {
-        if(! file_exists($this->basePath)) {
+        if (! file_exists($this->basePath)) {
             return [];
         }
 
