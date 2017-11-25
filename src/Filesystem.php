@@ -35,6 +35,10 @@ class Filesystem
      */
     public function getNamesWithDifferentExtension(string $fileName)
     {
+        if(! file_exists($this->basePath)) {
+            return [];
+        }
+
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
 
         $baseName = substr($fileName, 0, strlen($fileName) - strlen($extension) - 1);
