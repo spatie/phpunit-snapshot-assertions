@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.2.0 - 2017-11-29
+- Added `assertMatchesFileSnapshot`
+
 ## 1.1.1 - 2017-10-11
 - Fixed `assertMatchesFileHashSnapshot`
 
