@@ -47,6 +47,11 @@ trait MatchesSnapshots
         $this->assertMatchesSnapshot($actual);
     }
 
+    public function assertMatchesFileSnapshot($file)
+    {
+        $this->doFileSnapshotAssertion($file);
+    }
+
     /**
      * Determines the snapshot's id. By default, the test case's class and
      * method names are used.
@@ -72,6 +77,20 @@ trait MatchesSnapshots
         return dirname((new ReflectionClass($this))->getFileName()).
             DIRECTORY_SEPARATOR.
             '__snapshots__';
+    }
+
+    /**
+     * Determines the directory where file snapshots are stored. By default a
+     * `__snapshots__/files` directory is created at the same level as the
+     * test class.
+     *
+     * @return string
+     */
+    protected function getFileSnapshotDirectory(): string
+    {
+        return $this->getSnapshotDirectory().
+            DIRECTORY_SEPARATOR.
+            'files';
     }
 
     /**
@@ -122,6 +141,69 @@ trait MatchesSnapshots
         } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
             $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
         }
+    }
+
+    protected function doFileSnapshotAssertion(string $filePath)
+    {
+        if (! file_exists($filePath)) {
+            $this->fail('File does not exist');
+        }
+
+        $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+
+        if (empty($fileExtension)) {
+            $this->fail("Unable to make a file snapshot, file does not have a file extension ({$filePath})");
+        }
+
+        $fileSystem = Filesystem::inDirectory($this->getFileSnapshotDirectory());
+
+        $this->snapshotIncrementor++;
+
+        $snapshotId = $this->getSnapshotId().'.'.$fileExtension;
+
+        // If $filePath has a different file extension than the snapshot, the test should fail
+        if ($namesWithDifferentExtension = $fileSystem->getNamesWithDifferentExtension($snapshotId)) {
+            // There is always only one existing snapshot with a different extension
+            $existingSnapshotId = $namesWithDifferentExtension[0];
+
+            if ($this->shouldUpdateSnapshots()) {
+                $fileSystem->delete($existingSnapshotId);
+
+                $fileSystem->copy($filePath, $snapshotId);
+
+                return $this->markTestIncomplete("File snapshot updated for {$snapshotId}");
+            }
+
+            $expectedExtension = pathinfo($existingSnapshotId, PATHINFO_EXTENSION);
+
+            return $this->fail("File did not match the snapshot file extension (expected: {$expectedExtension}, was: {$fileExtension})");
+        }
+
+        $failedSnapshotId = $snapshotId.'_failed.'.$fileExtension;
+
+        if ($fileSystem->has($failedSnapshotId)) {
+            $fileSystem->delete($failedSnapshotId);
+        }
+
+        if (! $fileSystem->has($snapshotId)) {
+            $fileSystem->copy($filePath, $snapshotId);
+
+            $this->markTestIncomplete("File snapshot created for {$snapshotId}");
+        }
+
+        if (! $fileSystem->fileEquals($filePath, $snapshotId)) {
+            if ($this->shouldUpdateSnapshots()) {
+                $fileSystem->copy($filePath, $snapshotId);
+
+                $this->markTestIncomplete("File snapshot updated for {$snapshotId}");
+            }
+
+            $fileSystem->copy($filePath, $failedSnapshotId);
+
+            $this->fail("File did not match snapshot ({$snapshotId})");
+        }
+
+        $this->assertTrue(true);
     }
 
     protected function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
