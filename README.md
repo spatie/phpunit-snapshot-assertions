@@ -161,6 +161,7 @@ As a result, our snapshot file returns "bar" instead of "foo".
 ```
 
 ### File snapshots
+
 The `MatchesSnapshots` trait offers two ways to assert that a file is identical to the snapshot that was made the first time the test was run:
 
 The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash of the file passed into the function and the hash saved in the snapshot match. This assertion is fast and uses very little disk space. The downside of this assertion is that there is no easy way to see how the two files differ if the test fails. 

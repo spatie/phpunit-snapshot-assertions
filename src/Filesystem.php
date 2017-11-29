@@ -30,7 +30,9 @@ class Filesystem
     /**
      * Get all file names in this directory that have the same name
      * as $fileName, but have a different file extension.
+     *
      * @param string $fileName
+     *
      * @return array
      */
     public function getNamesWithDifferentExtension(string $fileName)
