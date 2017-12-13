@@ -14,7 +14,7 @@ use Spatie\Snapshots\MatchesSnapshots;
 
 class OrderTest
 {
-    use MatchesSnapshot;
+    use MatchesSnapshots;
 
     class test_it_casts_to_json()
     {
