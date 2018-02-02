@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.3.0 - 2018-02-02
+- Support phpunit ^7.0
+
 ## 1.2.0 - 2017-11-29
 - Added `assertMatchesFileSnapshot`
 
