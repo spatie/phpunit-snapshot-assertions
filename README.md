@@ -73,7 +73,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 You can install the package via composer:
 
 ```bash
-composer require spatie/phpunit-snapshot-assertions
+composer require --dev spatie/phpunit-snapshot-assertions
 ```
 
 ## Usage
