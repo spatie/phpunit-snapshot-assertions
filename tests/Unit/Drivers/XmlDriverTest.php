@@ -9,7 +9,7 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 class XmlDriverTest extends TestCase
 {
     /** @test */
-    public function it_can_serialize_a_json_string_to_pretty_json()
+    public function it_can_serialize_a_xml_string_to_pretty_xml()
     {
         $driver = new XmlDriver();
 

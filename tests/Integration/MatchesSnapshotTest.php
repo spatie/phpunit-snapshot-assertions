@@ -69,6 +69,21 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_plaintext_snapshot_from_a_string()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
+
+        $mockTrait->assertMatchesPlaintextSnapshot('Foo');
+
+        $this->assertSnapshotMatchesExample(
+            'MatchesSnapshotTest__it_can_create_a_plaintext_snapshot_from_a_string__1.txt',
+            'snapshot.txt'
+        );
+    }
+
+    /** @test */
     public function it_can_create_a_snapshot_from_a_file()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
