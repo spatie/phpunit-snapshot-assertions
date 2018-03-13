@@ -7,6 +7,7 @@ use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
 use Spatie\Snapshots\Drivers\JsonDriver;
+use Spatie\Snapshots\Drivers\PlaintextDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
 
@@ -34,6 +35,11 @@ trait MatchesSnapshots
     public function assertMatchesJsonSnapshot($actual)
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
+    public function assertMatchesPlaintextSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new PlaintextDriver());
     }
 
     public function assertMatchesFileHashSnapshot($filePath)

@@ -42,6 +42,14 @@ class AssertionTest extends TestCase
     }
 
     /** @test */
+    public function can_match_a_plaintext_snapshot()
+    {
+        $data = '42';
+
+        $this->assertMatchesPlaintextSnapshot($data);
+    }
+
+    /** @test */
     public function can_match_a_file_hash_snapshot()
     {
         $filePath = __DIR__.'/stubs/example_snapshots/snapshot.json';
