@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.2.2 - 2018-03-17
+- Support PHP 7.2
+
 ## 1.2.1 - 2018-02-02
 - Support phpunit ^7.0
 
