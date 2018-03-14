@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -331,11 +332,7 @@ class MatchesSnapshotTest extends TestCase
 
     private function expectFailedMatchesSnapshotTest()
     {
-        if (class_exists('PHPUnit\Framework\ExpectationFailedException')) {
-            $this->expectException('PHPUnit\Framework\ExpectationFailedException');
-        } else {
-            $this->expectException('PHPUnit_Framework_ExpectationFailedException');
-        }
+        $this->expectException(ExpectationFailedException::class);
     }
 
     /**

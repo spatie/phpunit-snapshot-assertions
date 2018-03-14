@@ -3,7 +3,6 @@
 namespace Spatie\Snapshots;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit_Framework_ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
 use Spatie\Snapshots\Drivers\JsonDriver;
@@ -129,16 +128,12 @@ trait MatchesSnapshots
                 $snapshot->assertMatches($actual);
             } catch (ExpectationFailedException $exception) {
                 $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
-            } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
-                $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
             }
         }
 
         try {
             $snapshot->assertMatches($actual);
         } catch (ExpectationFailedException $exception) {
-            $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
-        } catch (PHPUnit_Framework_ExpectationFailedException $exception) {
             $this->rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception);
         }
     }
