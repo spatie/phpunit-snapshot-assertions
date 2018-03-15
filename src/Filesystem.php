@@ -66,7 +66,7 @@ class Filesystem
     public function put(string $filename, string $contents)
     {
         if (! file_exists($this->basePath)) {
-            mkdir($this->basePath);
+            mkdir($this->basePath, 0777, true);
         }
 
         file_put_contents($this->path($filename), $contents);
