@@ -2,7 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
-## 1.2.2 - 2018-03-17
+## 1.2.3 - 2018-03-15
+- Fixed snapshot creation in recursive directories
+
+## 1.2.2 - 2018-02-17
 - Support PHP 7.2
 
 ## 1.2.1 - 2018-02-02
