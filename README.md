@@ -16,7 +16,7 @@ class OrderTest
 {
     use MatchesSnapshots;
 
-    class test_it_casts_to_json()
+    public function test_it_casts_to_json()
     {
         $order = new Order(1);
 
