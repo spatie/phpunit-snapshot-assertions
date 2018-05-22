@@ -21,7 +21,5 @@ class OrderSerializerTest extends TestCase
         ]);
 
         $this->assertMatchesJsonSnapshot($orderSerializer->serialize($order));
-        $this->assertMatchesJsonSnapshot($orderSerializer->serialize($order));
-        $this->assertMatchesJsonSnapshot($orderSerializer->serialize($order));
     }
 }
