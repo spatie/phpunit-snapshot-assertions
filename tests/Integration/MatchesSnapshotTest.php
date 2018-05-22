@@ -29,9 +29,9 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesSnapshot('Foo');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesSnapshot('Foo');
+        });
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot__1.php',
@@ -44,9 +44,9 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
+        });
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_create_a_snapshot_from_xml__1.xml',
@@ -59,9 +59,9 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
+        });
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_create_a_snapshot_from_json__1.json',
@@ -74,9 +74,9 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+        });
 
         $this->assertSnapshotMatchesExample(
             'files/MatchesSnapshotTest__it_can_create_a_snapshot_from_a_file__1.jpg',
@@ -232,9 +232,10 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesSnapshot('Foo');
+        });
 
-        $mockTrait->assertMatchesSnapshot('Foo');
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_string_snapshot__1.php',
@@ -249,9 +250,9 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
+        });
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_xml_snapshot__1.xml',
@@ -266,9 +267,9 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
+        });
 
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_json_snapshot__1.json',
@@ -283,9 +284,9 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
-        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
+        });
 
         $this->assertSnapshotMatchesExample(
             'files/MatchesSnapshotTest__it_can_update_a_file_snapshot__1.jpg',
@@ -300,13 +301,13 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectIncompleteMatchesSnapshotTest($mockTrait);
-
         $oldSnapshot = __DIR__.'/__snapshots__/files/MatchesSnapshotTest__it_can_update_a_file_snapshot_with_a_different_extension__1.jpg';
 
         $this->assertFileExists($oldSnapshot);
 
-        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
+        });
 
         $this->assertSnapshotMatchesExample(
             'files/MatchesSnapshotTest__it_can_update_a_file_snapshot_with_a_different_extension__1.png',
@@ -316,11 +317,15 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileNotExists($oldSnapshot);
     }
 
-    private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
+    private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock, callable $assertions)
     {
         $matchesSnapshotMock
             ->expects($this->once())
             ->method('markTestIncomplete');
+
+        $assertions($matchesSnapshotMock);
+
+        $matchesSnapshotMock->markTestIncompleteIfSnapshotsHaveChanged();
     }
 
     private function expectFail(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)

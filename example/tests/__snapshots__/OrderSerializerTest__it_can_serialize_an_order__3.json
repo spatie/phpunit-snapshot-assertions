@@ -1,0 +1,17 @@
+{
+    "id": 1,
+    "email": "sebastian@spatie.be",
+    "paid": 1,
+    "items": [
+        {
+            "id": 1,
+            "description": "Sublime Text License",
+            "price": 210
+        },
+        {
+            "id": 2,
+            "description": "PHPStorm License",
+            "price": 398
+        }
+    ]
+}
