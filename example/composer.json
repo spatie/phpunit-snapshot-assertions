@@ -1,6 +1,6 @@
 {
     "require": {
-        "spatie/phpunit-snapshot-assertions": "^0.4.0",
+        "spatie/phpunit-snapshot-assertions": "^1.0",
         "phpunit/phpunit": "^6.0"
     },
     "autoload": {

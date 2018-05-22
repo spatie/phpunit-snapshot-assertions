@@ -14,10 +14,33 @@ trait MatchesSnapshots
     /** @var int */
     protected $snapshotIncrementor;
 
+    /** @var string[] */
+    protected $snapshotChanges;
+
     /** @before */
     public function setUpSnapshotIncrementor()
     {
         $this->snapshotIncrementor = 0;
+    }
+
+    /** @after */
+    public function markTestIncompleteIfSnapshotsHaveChanged()
+    {
+        if (empty($this->snapshotChanges)) {
+            return;
+        }
+
+        if (count($this->snapshotChanges) === 1) {
+            $this->markTestIncomplete($this->snapshotChanges[0]);
+
+            return;
+        }
+
+        $formattedMessages = implode(PHP_EOL, array_map(function (string $message) {
+            return "- {$message}";
+        }, $this->snapshotChanges));
+
+        $this->markTestIncomplete($formattedMessages);
     }
 
     public function assertMatchesSnapshot($actual, Driver $driver = null)
@@ -166,7 +189,9 @@ trait MatchesSnapshots
 
                 $fileSystem->copy($filePath, $snapshotId);
 
-                return $this->markTestIncomplete("File snapshot updated for {$snapshotId}");
+                $this->registerSnapshotChange("File snapshot updated for {$snapshotId}");
+
+                return;
             }
 
             $expectedExtension = pathinfo($existingSnapshotId, PATHINFO_EXTENSION);
@@ -183,14 +208,14 @@ trait MatchesSnapshots
         if (! $fileSystem->has($snapshotId)) {
             $fileSystem->copy($filePath, $snapshotId);
 
-            $this->markTestIncomplete("File snapshot created for {$snapshotId}");
+            $this->registerSnapshotChange("File snapshot created for {$snapshotId}");
         }
 
         if (! $fileSystem->fileEquals($filePath, $snapshotId)) {
             if ($this->shouldUpdateSnapshots()) {
                 $fileSystem->copy($filePath, $snapshotId);
 
-                $this->markTestIncomplete("File snapshot updated for {$snapshotId}");
+                $this->registerSnapshotChange("File snapshot updated for {$snapshotId}");
             }
 
             $fileSystem->copy($filePath, $failedSnapshotId);
@@ -205,14 +230,14 @@ trait MatchesSnapshots
     {
         $snapshot->create($actual);
 
-        $this->markTestIncomplete("Snapshot created for {$snapshot->id()}");
+        $this->registerSnapshotChange("Snapshot created for {$snapshot->id()}");
     }
 
     protected function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
     {
         $snapshot->create($actual);
 
-        $this->markTestIncomplete("Snapshot updated for {$snapshot->id()}");
+        $this->registerSnapshotChange("Snapshot updated for {$snapshot->id()}");
     }
 
     protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception)
@@ -228,5 +253,10 @@ trait MatchesSnapshots
         $messageReflection->setValue($exception, $newMessage);
 
         throw $exception;
+    }
+
+    protected function registerSnapshotChange(string $message)
+    {
+        $this->snapshotChanges[] = $message;
     }
 }
