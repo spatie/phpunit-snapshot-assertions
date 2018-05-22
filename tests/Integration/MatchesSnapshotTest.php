@@ -236,7 +236,6 @@ class MatchesSnapshotTest extends TestCase
             $mockTrait->assertMatchesSnapshot('Foo');
         });
 
-
         $this->assertSnapshotMatchesExample(
             'MatchesSnapshotTest__it_can_update_a_string_snapshot__1.php',
             'snapshot.php'
