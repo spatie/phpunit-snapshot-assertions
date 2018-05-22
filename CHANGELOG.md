@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.3.0 - 2018-05-22
+- Only mark test incomplete after every snapshot has been run
+
 ## 1.2.3 - 2018-03-15
 - Fixed snapshot creation in recursive directories
 
