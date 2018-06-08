@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.3.1 - 2018-06-09
+- Lowered minimum required PHPUnit version
+
 ## 1.3.0 - 2018-05-22
 - Only mark test incomplete after every snapshot has been run
 
