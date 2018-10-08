@@ -43,9 +43,9 @@ class Snapshot
         $file = $this->id.'.'.$this->driver->extension();
         // Remove anything which isn't a word, whitespace, number
         // or any of the following caracters -_~,;[]().
-        $file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
+        $file = preg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
         // Remove any runs of periods
-        $file = mb_ereg_replace("([\.]{2,})", '', $file);
+        $file = preg_replace("([\.]{2,})", '', $file);
         return $file;
     }
 

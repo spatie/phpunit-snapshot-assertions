@@ -43,4 +43,17 @@ class SnapshotTest extends TestCase
 
         $this->assertEquals('abc.php', $snapshot->filename());
     }
+
+    /** @test */
+    public function it_has_a_filename_which_is_valid_on_all_systems()
+    {
+        $this->driver
+            ->expects($this->once())
+            ->method('extension')
+            ->willReturn('php');
+
+        $snapshot = new Snapshot('ClassTest__testOne with data set "Empty"', $this->filesystem, $this->driver);
+
+        $this->assertEquals('ClassTest__testOne with data set Empty.php', $snapshot->filename());
+    }
 }
