@@ -46,6 +46,7 @@ class Snapshot
         $file = preg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
         // Remove any runs of periods
         $file = preg_replace("([\.]{2,})", '', $file);
+
         return $file;
     }
 
