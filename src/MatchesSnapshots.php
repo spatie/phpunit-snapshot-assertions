@@ -216,6 +216,8 @@ trait MatchesSnapshots
                 $fileSystem->copy($filePath, $snapshotId);
 
                 $this->registerSnapshotChange("File snapshot updated for {$snapshotId}");
+
+                return;
             }
 
             $fileSystem->copy($filePath, $failedSnapshotId);
