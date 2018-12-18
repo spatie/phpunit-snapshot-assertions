@@ -209,6 +209,8 @@ trait MatchesSnapshots
             $fileSystem->copy($filePath, $snapshotId);
 
             $this->registerSnapshotChange("File snapshot created for {$snapshotId}");
+
+            return;
         }
 
         if (! $fileSystem->fileEquals($filePath, $snapshotId)) {
