@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.3.3 - 2018-12-15
+- Fix updating failed file-snapshots
+
 ## 1.3.2 - 2018-10-18
 - Fix for tests with weird characters
 
