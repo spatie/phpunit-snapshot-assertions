@@ -61,6 +61,15 @@ class VarDriverTest extends TestCase
             '',
         ]);
 
+        if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
+            $expected = implode(PHP_EOL, [
+                '<?php return (object) array(',
+                "   'foo' => 'bar',",
+                ');',
+                '',
+            ]);
+        }
+
         $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
     }
 
