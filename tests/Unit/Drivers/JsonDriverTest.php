@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriverTest extends TestCase
 {
@@ -64,7 +63,7 @@ class JsonDriverTest extends TestCase
             'baz' => [
                 'aaa' => 'AAA',
                 'bbb' => 'BBB',
-                'ccc' => ['xxx', 'yyy', 'zzz']
+                'ccc' => ['xxx', 'yyy', 'zzz'],
             ]
         ]));
     }

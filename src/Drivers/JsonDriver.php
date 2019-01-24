@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Drivers;
 
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriver implements Driver
 {
