@@ -24,12 +24,65 @@ class JsonDriverTest extends TestCase
     }
 
     /** @test */
-    public function it_can_only_serialize_strings()
+    public function it_can_serialize_a_json_hash_to_pretty_json()
     {
         $driver = new JsonDriver();
 
-        $this->expectException(CantBeSerialized::class);
+        $expected = implode(PHP_EOL, [
+            '{',
+            '    "foo": "FOO",',
+            '    "bar": "BAR",',
+            '    "baz": "BAZ"',
+            '}',
+            '',
+        ]);
+        $this->assertEquals($expected, $driver->serialize([
+            'foo' => 'FOO',
+            'bar' => 'BAR',
+            'baz' => 'BAZ',
+        ]));
 
-        $driver->serialize(['foo' => 'bar']);
+        $expected = implode(PHP_EOL, [
+            '{',
+            '    "foo": "FOO",',
+            '    "bar": "BAR",',
+            '    "baz": {',
+            '        "aaa": "AAA",',
+            '        "bbb": "BBB",',
+            '        "ccc": [',
+            '            "xxx",',
+            '            "yyy",',
+            '            "zzz"',
+            '        ]',
+            '    }',
+            '}',
+            '',
+        ]);
+        $this->assertEquals($expected, $driver->serialize([
+            'foo' => 'FOO',
+            'bar' => 'BAR',
+            'baz' => [
+                'aaa' => 'AAA',
+                'bbb' => 'BBB',
+                'ccc' => ['xxx', 'yyy', 'zzz']
+            ]
+        ]));
+    }
+
+    /** @test */
+    public function it_can_serialize_a_json_array_to_pretty_json()
+    {
+        $driver = new JsonDriver();
+
+        $expected = implode(PHP_EOL, [
+            '[',
+            '    "foo",',
+            '    "bar",',
+            '    "baz"',
+            ']',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize(['foo', 'bar', 'baz']));
     }
 }
