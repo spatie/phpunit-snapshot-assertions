@@ -64,7 +64,7 @@ class JsonDriverTest extends TestCase
                 'aaa' => 'AAA',
                 'bbb' => 'BBB',
                 'ccc' => ['xxx', 'yyy', 'zzz'],
-            ]
+            ],
         ]));
     }
 
