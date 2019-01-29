@@ -4,17 +4,16 @@ namespace Spatie\Snapshots\Drivers;
 
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriver implements Driver
 {
     public function serialize($data): string
     {
-        if (! is_string($data)) {
-            throw new CantBeSerialized('Only strings can be serialized to json');
+        if (is_string($data)) {
+            $data = json_decode($data, true);
         }
 
-        return json_encode(json_decode($data), JSON_PRETTY_PRINT).PHP_EOL;
+        return json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
     }
 
     public function extension(): string
