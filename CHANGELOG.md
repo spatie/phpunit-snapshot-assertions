@@ -2,6 +2,11 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 2.0.0 - 2019-01-29
+- Use YAML by default for associative arrays
+- Drop PHP 7.0 support, the new constraint is ^7.1
+- Drop PHPUnit ^6.5 support, the new constraint is ^7.0
+
 ## 1.4.1 - 2019-01-29
 - Fix JSON array comparisons
 
