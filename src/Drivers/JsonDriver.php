@@ -28,6 +28,10 @@ class JsonDriver implements Driver
 
     public function match($expected, $actual)
     {
+        if (is_array($actual)) {
+            $actual = json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
+        }
+
         Assert::assertJsonStringEqualsJsonString($expected, $actual);
     }
 }
