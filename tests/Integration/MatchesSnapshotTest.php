@@ -34,8 +34,23 @@ class MatchesSnapshotTest extends TestCase
         });
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_match_an_existing_string_snapshot__1.php',
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_a_string__1.php',
             'snapshot.php'
+        );
+    }
+
+    /** @test */
+    public function it_can_create_a_snapshot_from_an_array()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesSnapshot(['foo' => 'bar']);
+        });
+
+        $this->assertSnapshotMatchesExample(
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_an_array__1.yml',
+            'snapshot.yml'
         );
     }
 

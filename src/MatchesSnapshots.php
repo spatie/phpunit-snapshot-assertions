@@ -8,6 +8,7 @@ use ReflectionObject;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
+use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
@@ -45,6 +46,12 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
+        if (is_null($driver) && is_array($actual)) {
+            $this->assertMatchesYamlSnapshot($actual);
+
+            return;
+        }
+
         $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
     }
 
@@ -56,6 +63,11 @@ trait MatchesSnapshots
     public function assertMatchesJsonSnapshot($actual)
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
+    public function assertMatchesYamlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new YamlDriver());
     }
 
     public function assertMatchesFileHashSnapshot($filePath)
