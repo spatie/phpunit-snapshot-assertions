@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.4.0 - 2019-01-29
+- Allow arrays to be serialized to JSON
+
 ## 1.3.3 - 2018-12-15
 - Fix updating failed file-snapshots
 
