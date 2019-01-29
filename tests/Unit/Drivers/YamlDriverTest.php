@@ -4,8 +4,6 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\YamlDriver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
-use stdClass;
 
 class YamlDriverTest extends TestCase
 {
@@ -34,7 +32,7 @@ class YamlDriverTest extends TestCase
             '',
          ]);
 
-         $this->assertEquals($expected, $driver->serialize([
+        $this->assertEquals($expected, $driver->serialize([
             'foo' => 'bar',
             'baz' => 'qux',
         ]));

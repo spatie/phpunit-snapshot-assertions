@@ -4,8 +4,6 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
-use stdClass;
 
 class JsonDriverTest extends TestCase
 {
