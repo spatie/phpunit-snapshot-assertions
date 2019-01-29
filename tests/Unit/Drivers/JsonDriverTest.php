@@ -86,14 +86,4 @@ class JsonDriverTest extends TestCase
 
         $this->assertEquals($expected, $driver->serialize(['foo', 'bar', 'baz']));
     }
-
-    /** @test */
-    public function it_can_only_serialize_strings_and_arrays()
-    {
-        $this->expectException(CantBeSerialized::class);
-
-        $driver = new JsonDriver();
-
-        $driver->serialize(new stdClass);
-    }
 }

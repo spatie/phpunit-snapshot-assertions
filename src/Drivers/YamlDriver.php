@@ -5,33 +5,34 @@ namespace Spatie\Snapshots\Drivers;
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
+use Symfony\Component\Yaml\Yaml;
 
-class JsonDriver implements Driver
+class YamlDriver implements Driver
 {
     public function serialize($data): string
     {
         if (is_string($data)) {
-            $data = json_decode($data, true);
+            $data = Yaml::parse($data);
         }
 
         if (! is_array($data)) {
             throw new CantBeSerialized('Only strings can be serialized to json');
         }
 
-        return json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
+        return Yaml::dump($data);
     }
 
     public function extension(): string
     {
-        return 'json';
+        return 'yml';
     }
 
     public function match($expected, $actual)
     {
         if (is_array($actual)) {
-            $actual = json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
+            $actual = Yaml::dump($actual);
         }
 
-        Assert::assertJsonStringEqualsJsonString($expected, $actual);
+        Assert::assertEquals($expected, $actual);
     }
 }
