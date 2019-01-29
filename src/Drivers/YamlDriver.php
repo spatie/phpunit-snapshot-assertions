@@ -19,7 +19,7 @@ class YamlDriver implements Driver
             throw new CantBeSerialized('Only strings can be serialized to json');
         }
 
-        return Yaml::dump($data);
+        return Yaml::dump($data, PHP_INT_MAX);
     }
 
     public function extension(): string
@@ -30,7 +30,7 @@ class YamlDriver implements Driver
     public function match($expected, $actual)
     {
         if (is_array($actual)) {
-            $actual = Yaml::dump($actual);
+            $actual = Yaml::dump($actual, PHP_INT_MAX);
         }
 
         Assert::assertEquals($expected, $actual);
