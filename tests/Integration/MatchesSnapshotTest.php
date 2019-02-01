@@ -3,8 +3,8 @@
 namespace Spatie\Snapshots\Test\Integration;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class MatchesSnapshotTest extends TestCase
