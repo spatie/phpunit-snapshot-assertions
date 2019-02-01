@@ -15,7 +15,7 @@ class SnapshotTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $driver;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

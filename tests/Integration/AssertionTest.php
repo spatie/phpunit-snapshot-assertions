@@ -10,7 +10,7 @@ class AssertionTest extends TestCase
     use ComparesSnapshotFiles;
     use MatchesSnapshots;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
