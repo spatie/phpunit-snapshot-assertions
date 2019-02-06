@@ -3,15 +3,15 @@
 namespace Spatie\Snapshots\Test\Integration;
 
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class MatchesSnapshotTest extends TestCase
 {
     use ComparesSnapshotFiles;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -331,7 +331,7 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileNotExists($oldSnapshot);
     }
 
-    private function expectIncompleteMatchesSnapshotTest(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock, callable $assertions)
+    private function expectIncompleteMatchesSnapshotTest(MockObject $matchesSnapshotMock, callable $assertions)
     {
         $matchesSnapshotMock
             ->expects($this->once())
@@ -342,7 +342,7 @@ class MatchesSnapshotTest extends TestCase
         $matchesSnapshotMock->markTestIncompleteIfSnapshotsHaveChanged();
     }
 
-    private function expectFail(PHPUnit_Framework_MockObject_MockObject $matchesSnapshotMock)
+    private function expectFail(MockObject $matchesSnapshotMock)
     {
         $matchesSnapshotMock
             ->expects($this->once())
@@ -355,9 +355,9 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit\Framework\MockObject\MockObject
      */
-    private function getMatchesSnapshotMock(): PHPUnit_Framework_MockObject_MockObject
+    private function getMatchesSnapshotMock(): MockObject
     {
         $mockMethods = [
             'markTestIncomplete',
