@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 2.1.0 - 2019-02-07
+- Require PHPUnit 8 & PHP 7.2
+
 ## 2.0.0 - 2019-01-29
 - Use YAML by default for associative arrays
 - Drop PHP 7.0 support, the new constraint is ^7.1
