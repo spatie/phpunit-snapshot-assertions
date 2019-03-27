@@ -22,7 +22,7 @@
     "require": {
         "php": "^7.2",
         "phpunit/phpunit": "^8.0",
-        "symfony/yaml": "^4.2"
+        "symfony/yaml": "^4.0"
     },
     "autoload": {
         "psr-4": {

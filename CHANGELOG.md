@@ -2,9 +2,11 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
-## 2.1.1 - 2019-03-04
+## 2.1.2 - 2019-03-27
+- Less restrictive symfony/yaml version requirement
 
-- fix for json driver
+## 2.1.1 - 2019-03-04
+- Fix for json driver
 
 ## 2.1.0 - 2019-02-07
 - Require PHPUnit 8 & PHP 7.2
