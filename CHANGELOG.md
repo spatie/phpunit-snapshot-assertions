@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 1.4.2 - 2019-05-13
+- Fix JSON driver
+
 ## 1.4.1 - 2019-01-29
 - Fix JSON array comparisons
 
