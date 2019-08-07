@@ -80,7 +80,7 @@ class Filesystem
     public function copy(string $filePath, string $fileName)
     {
         if (! file_exists($this->basePath)) {
-            mkdir($this->basePath);
+            mkdir($this->basePath, 0777, true);
         }
 
         copy($filePath, $this->path($fileName));
