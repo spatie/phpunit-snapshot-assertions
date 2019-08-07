@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 2.1.3 - 2019-08-07
+- Allow recursive mkdir for file snapshots
+
 ## 2.1.2 - 2019-03-27
 - Less restrictive symfony/yaml version requirement
 
