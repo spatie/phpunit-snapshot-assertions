@@ -103,9 +103,9 @@ class JsonDriverTest extends TestCase
 
         $this->assertEquals($expected, $driver->serialize((object) [
             'foo' => (object) [
-                'bar' => true
+                'bar' => true,
             ],
-            'baz' => (object) []
+            'baz' => (object) [],
         ]));
     }
 
