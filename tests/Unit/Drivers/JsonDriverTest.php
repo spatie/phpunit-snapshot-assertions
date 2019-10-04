@@ -4,6 +4,7 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\JsonDriver;
+use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriverTest extends TestCase
 {
@@ -83,5 +84,40 @@ class JsonDriverTest extends TestCase
         ]);
 
         $this->assertEquals($expected, $driver->serialize(['foo', 'bar', 'baz']));
+    }
+
+    /** @test */
+    public function it_can_serialize_a_empty_json_object_to_pretty_json()
+    {
+        $driver = new JsonDriver();
+
+        $expected = implode(PHP_EOL, [
+            '{',
+            '    "foo": {',
+            '        "bar": true',
+            '    },',
+            '    "baz": {}',
+            '}',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize((object) [
+            'foo' => (object) [
+                'bar' => true
+            ],
+            'baz' => (object) []
+        ]));
+    }
+
+    /** @test */
+    public function it_can_not_serialize_resources()
+    {
+        $driver = new JsonDriver();
+
+        $this->expectException(CantBeSerialized::class);
+
+        $resource = fopen('.', 'r');
+
+        $driver->serialize($resource);
     }
 }

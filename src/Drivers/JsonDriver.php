@@ -11,11 +11,11 @@ class JsonDriver implements Driver
     public function serialize($data): string
     {
         if (is_string($data)) {
-            $data = json_decode($data, true);
+            $data = json_decode($data);
         }
 
-        if (! is_array($data)) {
-            throw new CantBeSerialized('Only strings can be serialized to json');
+        if (is_resource($data)) {
+            throw new CantBeSerialized('Resources can not be serialized to json');
         }
 
         return json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
