@@ -5,6 +5,7 @@ namespace Spatie\Snapshots;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
+use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\VarDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
@@ -53,6 +54,11 @@ trait MatchesSnapshots
         }
 
         $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
+    }
+
+    public function assertMatchesHtmlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new HtmlDriver());
     }
 
     public function assertMatchesXmlSnapshot($actual)
