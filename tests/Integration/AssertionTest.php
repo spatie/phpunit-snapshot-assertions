@@ -26,6 +26,14 @@ class AssertionTest extends TestCase
     }
 
     /** @test */
+    public function can_match_an_html_snapshot()
+    {
+        $data = '<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>';
+
+        $this->assertMatchesHtmlSnapshot($data);
+    }
+
+    /** @test */
     public function can_match_an_xml_snapshot()
     {
         $data = '<foo><bar>Baz</bar></foo>';
