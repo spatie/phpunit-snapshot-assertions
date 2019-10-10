@@ -83,6 +83,7 @@ To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait i
 - `assertMatchesSnapshot($actual)`
 - `assertMatchesJsonSnapshot($actual)`
 - `assertMatchesXmlSnapshot($actual)`
+- `assertMatchesHtmlSnapshot($actual)`
 - `assertMatchesFileSnapshot($filePath)`
 - `assertMatchesFileHashSnapshot($filePath)`
 
