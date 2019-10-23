@@ -55,6 +55,21 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_snapshot_from_html()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>');
+        });
+
+        $this->assertSnapshotMatchesExample(
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_html__1.html',
+            'snapshot.html'
+        );
+    }
+
+    /** @test */
     public function it_can_create_a_snapshot_from_xml()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
@@ -108,6 +123,14 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_match_an_existing_html_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>');
+    }
+
+    /** @test */
     public function it_can_match_an_existing_xml_snapshot()
     {
         $mockTrait = $this->getMatchesSnapshotMock();
@@ -139,6 +162,16 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFailedMatchesSnapshotTest();
 
         $mockTrait->assertMatchesSnapshot('Bar');
+    }
+
+    /** @test */
+    public function it_can_mismatch_a_html_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFailedMatchesSnapshotTest();
+
+        $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hallo welt!</h1></body></html>');
     }
 
     /** @test */
@@ -258,6 +291,23 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_can_update_a_html_snapshot()
+    {
+        $_SERVER['argv'][] = '--update-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>');
+        });
+
+        $this->assertSnapshotMatchesExample(
+            'MatchesSnapshotTest__it_can_update_a_html_snapshot__1.html',
+            'snapshot.html'
+        );
+    }
+
+    /** @test */
     public function it_can_update_a_xml_snapshot()
     {
         $_SERVER['argv'][] = '--update-snapshots';
@@ -355,7 +405,7 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Spatie\Snapshots\MatchesSnapshots
      */
     private function getMatchesSnapshotMock(): MockObject
     {

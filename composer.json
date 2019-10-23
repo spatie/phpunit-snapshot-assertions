@@ -21,6 +21,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-dom": "*",
         "phpunit/phpunit": "^8.0",
         "symfony/yaml": "^4.0"
     },
