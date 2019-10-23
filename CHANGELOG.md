@@ -11,6 +11,9 @@ All notable changes to `phpunit-snapshot-assertions` will be documented in this 
 ## 2.2.1 - 2019-11-22
 - Allow symfony 5 components
 
+## 2.2.0 - 2019-10-23
+- Added an `assertMatchesHtmlSnapshot` assertion
+
 ## 2.1.3 - 2019-08-07
 - Allow recursive mkdir for file snapshots
 
