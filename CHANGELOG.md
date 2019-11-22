@@ -8,6 +8,9 @@ All notable changes to `phpunit-snapshot-assertions` will be documented in this 
 ## 3.1.0 - 2019-12-02
 - drop support for PHP 7.3
 
+## 3.0.0 - 2019-11-22
+- `assertMatchesJsonSnapshot` now supports all JSON serializable objects, and won't convert empty arrays to obejcts anymore
+
 ## 2.2.1 - 2019-11-22
 - Allow symfony 5 components
 
