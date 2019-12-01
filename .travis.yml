@@ -1,18 +1,12 @@
 language: php
 
 php:
-  - 7.2
-  - 7.3
-  - nightly
+  - 7.4snapshot
 
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
-
-matrix:
-  allow_failures:
-    - php: nightly
 
 before_script:
   - travis_retry composer self-update

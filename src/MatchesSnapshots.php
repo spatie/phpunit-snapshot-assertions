@@ -13,11 +13,9 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
-    /** @var int */
-    protected $snapshotIncrementor;
+    protected int $snapshotIncrementor;
 
-    /** @var string[] */
-    protected $snapshotChanges;
+    protected array $snapshotChanges;
 
     /** @before */
     public function setUpSnapshotIncrementor()
