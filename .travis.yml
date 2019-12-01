@@ -6,7 +6,7 @@ php:
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
-    - COMPOSER_FLAGS=""
+    - COMPOSER_FLAGS="phpunit"
 
 before_script:
   - travis_retry composer self-update
