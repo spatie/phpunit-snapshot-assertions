@@ -4,11 +4,11 @@ namespace Spatie\Snapshots\Test\Integration;
 
 trait ComparesSnapshotFiles
 {
-    protected string $snapshotsDir = __DIR__.'/__snapshots__';
+    protected $snapshotsDir = __DIR__.'/__snapshots__';
 
-    protected string $snapshotStubsDir = __DIR__.'/stubs/__snapshots__';
+    protected $snapshotStubsDir = __DIR__.'/stubs/__snapshots__';
 
-    protected string $exampleSnapshotsDir = __DIR__.'/stubs/example_snapshots';
+    protected $exampleSnapshotsDir = __DIR__.'/stubs/example_snapshots';
 
     protected function setUpComparesSnapshotFiles()
     {
