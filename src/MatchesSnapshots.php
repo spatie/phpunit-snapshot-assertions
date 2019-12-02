@@ -13,11 +13,9 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
-    /** @var int */
-    protected $snapshotIncrementor;
+    protected int $snapshotIncrementor = 0;
 
-    /** @var string[] */
-    protected $snapshotChanges;
+    protected array $snapshotChanges = [];
 
     /** @before */
     public function setUpSnapshotIncrementor()
@@ -38,9 +36,7 @@ trait MatchesSnapshots
             return;
         }
 
-        $formattedMessages = implode(PHP_EOL, array_map(function (string $message) {
-            return "- {$message}";
-        }, $this->snapshotChanges));
+        $formattedMessages = implode(PHP_EOL, array_map(fn(string $message) => "- {$message}", $this->snapshotChanges));
 
         $this->markTestIncomplete($formattedMessages);
     }
