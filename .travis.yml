@@ -1,18 +1,12 @@
 language: php
 
 php:
-  - 7.2
-  - 7.3
-  - nightly
+  - 7.4snapshot
 
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
-
-matrix:
-  allow_failures:
-    - php: nightly
 
 before_script:
   - travis_retry composer self-update
@@ -20,3 +14,6 @@ before_script:
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
