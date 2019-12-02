@@ -2,7 +2,7 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
-## 2.3.0 - 2019-12-02
+## 3.1.0 - 2019-12-02
 - drop support for PHP 7.3
 
 ## 2.2.1 - 2019-11-22
