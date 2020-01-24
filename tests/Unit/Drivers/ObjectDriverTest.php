@@ -12,7 +12,7 @@ class ObjectDriverTest extends TestCase
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<JSON
+        $expected = <<<'JSON'
 {
     "name": "My name",
     "valid": true,
