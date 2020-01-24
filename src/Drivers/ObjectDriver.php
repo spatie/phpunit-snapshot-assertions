@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Drivers;
 
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
-use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -26,7 +25,7 @@ class ObjectDriver implements Driver
         $serializer = new Serializer($normalizers, $encoders);
 
         return $serializer->serialize($data, 'json', [
-            JsonEncode::OPTIONS => JSON_PRETTY_PRINT,
+            'json_encode_options' => JSON_PRETTY_PRINT,
         ]);
     }
 
