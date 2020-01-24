@@ -197,6 +197,28 @@ protected function getSnapshotDirectory(): string
 }
 ```
 
+### Using specific Drivers
+
+The driver used to serialize the data can be specificied as second argument of the
+`assertMatchesSnapshot` method, so you can pick one that better suits your needs:
+
+```php
+use Spatie\Snapshots\Drivers\ObjectDriver;
+use Spatie\Snapshots\MatchesSnapshots;
+
+class OrderTest
+{
+    use MatchesSnapshots;
+
+    public function test_snapshot_with_object_driver()
+    {
+        $order = new Order(1);
+
+        $this->assertMatchesSnapshot($order, new ObjectDriver());
+    }
+}
+```
+
 ### Writing Custom Drivers
 
 Drivers ensure that different types of data can be serialized and matched in their own way. A driver is a class that implements the `Spatie\Snapshots\Driver` interface, which requires three method implementations: `serialize`, `extension` and `match`.
