@@ -24,9 +24,13 @@ class ObjectDriver implements Driver
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        return $serializer->serialize($data, 'json', [
-            'json_encode_options' => JSON_PRETTY_PRINT,
-        ]);
+        return $serializer->serialize(
+            $data,
+            'json',
+            [
+                'json_encode_options' => JSON_PRETTY_PRINT,
+            ]
+        );
     }
 
     public function extension(): string
