@@ -22,7 +22,7 @@
     "require": {
         "php": "^7.4",
         "ext-dom": "*",
-        "phpunit/phpunit": "^8.3",
+        "phpunit/phpunit": "^8.3|^9",
         "symfony/yaml": "^4.0|^5.0"
     },
     "autoload": {
