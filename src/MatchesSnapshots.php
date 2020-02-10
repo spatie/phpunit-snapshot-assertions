@@ -7,7 +7,7 @@ use ReflectionClass;
 use ReflectionObject;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Drivers\VarDriver;
+use Spatie\Snapshots\Drivers\ObjectDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
 use Spatie\Snapshots\Drivers\YamlDriver;
 
@@ -49,7 +49,7 @@ trait MatchesSnapshots
             return;
         }
 
-        $this->doSnapshotAssertion($actual, $driver ?? new VarDriver());
+        $this->doSnapshotAssertion($actual, $driver ?? new ObjectDriver());
     }
 
     public function assertMatchesHtmlSnapshot($actual)
