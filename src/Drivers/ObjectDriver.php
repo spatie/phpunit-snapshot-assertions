@@ -24,6 +24,12 @@ class ObjectDriver implements Driver
 
         $serializer = new Serializer($normalizers, $encoders);
 
+        // The Symfony serialized doesn't support `stdClass` yet.
+        // This may be removed when Symfony 5.1 is released.
+        if ($data instanceof \stdClass) {
+            $data = (array) $data;
+        }
+
         return $serializer->serialize(
             $data,
             'json',
