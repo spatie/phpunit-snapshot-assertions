@@ -14,7 +14,7 @@ class JsonDriverTest extends TestCase
         $driver = new JsonDriver();
 
         $expected = implode(PHP_EOL, [
-           '{',
+            '{',
             '    "foo": "bar"',
             '}',
             '',
