@@ -30,7 +30,7 @@ class YamlDriverTest extends TestCase
             'foo: bar',
             'baz: qux',
             '',
-         ]);
+        ]);
 
         $this->assertEquals($expected, $driver->serialize([
             'foo' => 'bar',

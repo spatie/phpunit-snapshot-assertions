@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/phpunit-snapshot-assertions/master.svg?style=flat-square)](https://travis-ci.org/spatie/phpunit-snapshot-assertions)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/phpunit-snapshot-assertions/run-tests?label=tests)](https://github.com/spatie/phpunit-snapshot-assertions/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/phpunit-snapshot-assertions)
 [![StyleCI](https://styleci.io/repos/75926188/shield?branch=master)](https://styleci.io/repos/75926188)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
@@ -67,6 +67,12 @@ Failed asserting that '{"id":2}' matches JSON string "{
 FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
+
+## Support us
+
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us). 
+
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
@@ -296,13 +302,6 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 - [Sebastian De Deyne](https://github.com/sebastiandedeyne)
 - [Alex Vanderbist](https://github.com/alexvanderbist)
 - [All Contributors](../../contributors)
-
-## Support us
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
-
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
-All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 
