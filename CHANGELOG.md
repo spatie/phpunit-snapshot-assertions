@@ -2,6 +2,9 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 3.1.1 - 2019-02-10
+- add support for PHPUnit 9 (#86)
+
 ## 3.1.0 - 2019-12-02
 - drop support for PHP 7.3
 
