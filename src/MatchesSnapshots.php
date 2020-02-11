@@ -59,26 +59,6 @@ trait MatchesSnapshots
         $this->doSnapshotAssertion($actual, new ObjectDriver());
     }
 
-    public function assertMatchesHtmlSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, new HtmlDriver());
-    }
-
-    public function assertMatchesXmlSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, new XmlDriver());
-    }
-
-    public function assertMatchesJsonSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, new JsonDriver());
-    }
-
-    public function assertMatchesYamlSnapshot($actual)
-    {
-        $this->assertMatchesSnapshot($actual, new YamlDriver());
-    }
-
     public function assertMatchesFileHashSnapshot($filePath)
     {
         if (! file_exists($filePath)) {
@@ -95,6 +75,16 @@ trait MatchesSnapshots
         $this->doFileSnapshotAssertion($file);
     }
 
+    public function assertMatchesHtmlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new HtmlDriver());
+    }
+
+    public function assertMatchesJsonSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
     public function assertMatchesObjectSnapshot($actual)
     {
         $this->assertMatchesSnapshot($actual, new ObjectDriver());
@@ -103,6 +93,16 @@ trait MatchesSnapshots
     public function assertMatchesTextSnapshot($actual)
     {
         $this->assertMatchesSnapshot($actual, new TextDriver());
+    }
+
+    public function assertMatchesXmlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new XmlDriver());
+    }
+
+    public function assertMatchesYamlSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new YamlDriver());
     }
 
     /**
