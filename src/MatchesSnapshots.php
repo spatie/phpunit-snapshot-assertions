@@ -43,12 +43,6 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
-        if (is_null($driver) && is_array($actual)) {
-            $this->assertMatchesYamlSnapshot($actual);
-
-            return;
-        }
-
         $this->doSnapshotAssertion($actual, $driver ?? new ObjectDriver());
     }
 
@@ -166,6 +160,8 @@ trait MatchesSnapshots
             } catch (ExpectationFailedException $exception) {
                 $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
             }
+
+            return;
         }
 
         try {

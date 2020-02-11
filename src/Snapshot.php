@@ -41,9 +41,11 @@ class Snapshot
     public function filename(): string
     {
         $file = $this->id.'.'.$this->driver->extension();
+
         // Remove anything which isn't a word, whitespace, number
         // or any of the following caracters -_~,;[]().
         $file = preg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
+
         // Remove any runs of periods
         $file = preg_replace("([\.]{2,})", '', $file);
 

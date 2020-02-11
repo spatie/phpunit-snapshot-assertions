@@ -2,12 +2,13 @@
 
 namespace Spatie\Snapshots\Drivers;
 
-use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class ObjectDriver implements Driver
 {
@@ -19,7 +20,7 @@ class ObjectDriver implements Driver
         ];
 
         $encoders = [
-            new JsonEncoder(),
+            new YamlEncoder(),
         ];
 
         $serializer = new Serializer($normalizers, $encoders);
@@ -30,22 +31,27 @@ class ObjectDriver implements Driver
             $data = (array) $data;
         }
 
-        return $serializer->serialize(
-            $data,
-            'json',
-            [
-                'json_encode_options' => JSON_PRETTY_PRINT,
-            ]
+        return $this->dedent(
+            $serializer->serialize($data, 'yaml', [
+                'yaml_inline' => 2,
+                'yaml_indent' => 4,
+                'yaml_flags' => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
+            ])
         );
     }
 
     public function extension(): string
     {
-        return 'json';
+        return 'yml';
     }
 
     public function match($expected, $actual)
     {
-        Assert::assertJsonStringEqualsJsonString($expected, $this->serialize($actual));
+        Assert::assertEquals($expected, $this->serialize($actual));
+    }
+
+    protected function dedent(string $string): string
+    {
+        return preg_replace('/^ {4}/m', '', $string);
     }
 }

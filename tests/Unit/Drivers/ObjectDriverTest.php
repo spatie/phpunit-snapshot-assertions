@@ -12,7 +12,7 @@ class ObjectDriverTest extends TestCase
     {
         $driver = new ObjectDriver();
 
-        $this->assertEquals('"foo"', $driver->serialize('foo'));
+        $this->assertEquals('foo', $driver->serialize('foo'));
     }
 
     /** @test */
@@ -36,13 +36,11 @@ class ObjectDriverTest extends TestCase
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'JSON'
-{
-    "foo": {
-        "bar": "baz"
-    }
-}
-JSON;
+        $expected = <<<YAML
+foo:
+    bar: baz
+
+YAML;
 
         $this->assertEquals($expected, $driver->serialize(['foo' => ['bar' => 'baz']]));
     }
@@ -52,12 +50,11 @@ JSON;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'JSON'
-[
-    "foo",
-    "bar"
-]
-JSON;
+        $expected = <<<YAML
+- foo
+- bar
+
+YAML;
 
         $this->assertEquals($expected, $driver->serialize(['foo', 'bar']));
     }
@@ -67,11 +64,10 @@ JSON;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'JSON'
-{
-    "foo": "bar"
-}
-JSON;
+        $expected = <<<YAML
+foo: bar
+
+YAML;
 
         $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
     }
@@ -81,14 +77,13 @@ JSON;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'JSON'
-{
-    "name": "My name",
-    "valid": true,
-    "dateTime": "2020-01-01T15:00:00+01:00",
-    "public": "public"
-}
-JSON;
+        $expected = <<<YAML
+name: 'My name'
+valid: true
+dateTime: '2020-01-01T15:00:00+01:00'
+public: public
+
+YAML;
 
         $this->assertEquals($expected, $driver->serialize(new Obj()));
     }
