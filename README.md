@@ -70,7 +70,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 ## Support us
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us). 
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
@@ -84,14 +84,17 @@ composer require --dev spatie/phpunit-snapshot-assertions
 
 ## Usage
 
-To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds five assertion methods to the class:
+To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds a set of assertion methods to the class:
 
 - `assertMatchesSnapshot($actual)`
-- `assertMatchesJsonSnapshot($actual)`
-- `assertMatchesXmlSnapshot($actual)`
+- `assertMatchesFileHashSnapshot($actual)`
+- `assertMatchesFileSnapshot($actual)`
 - `assertMatchesHtmlSnapshot($actual)`
-- `assertMatchesFileSnapshot($filePath)`
-- `assertMatchesFileHashSnapshot($filePath)`
+- `assertMatchesJsonSnapshot($actual)`
+- `assertMatchesObjectSnapshot($actual)`
+- `assertMatchesTextSnapshot($actual)`
+- `assertMatchesXmlSnapshot($actual)`
+- `assertMatchesYamlSnapshot($actual)`
 
 ### Snapshot Testing 101
 
@@ -117,10 +120,10 @@ OK, but incomplete, skipped, or risky tests!
 Tests: 1, Assertions: 0, Incomplete: 1.
 ```
 
-Snapshot ids are generated based on the test and testcase's names. Basic snapshots return a `var_export` of the actual value.
+Snapshot ids are generated based on the test and testcase's names. Basic snapshots return a plain text or YAML representation of the actual value.
 
-```php
-<?php return 'foo';
+```txt
+foo
 ```
 
 Let's rerun the test. The test runner will see that there's already a snapshot for the assertion and do a comparison.
@@ -163,16 +166,16 @@ OK (1 test, 1 assertion)
 
 As a result, our snapshot file returns "bar" instead of "foo".
 
-```php
-<?php return 'bar';
+```txt
+bar
 ```
 
 ### File snapshots
 
 The `MatchesSnapshots` trait offers two ways to assert that a file is identical to the snapshot that was made the first time the test was run:
 
-The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash of the file passed into the function and the hash saved in the snapshot match. This assertion is fast and uses very little disk space. The downside of this assertion is that there is no easy way to see how the two files differ if the test fails. 
-    
+The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash of the file passed into the function and the hash saved in the snapshot match. This assertion is fast and uses very little disk space. The downside of this assertion is that there is no easy way to see how the two files differ if the test fails.
+
 The `assertMatchesFileSnapshot($filePath)` assertion works almost the same way as the file hash assertion, except that it actually saves the whole file in the snapshots directory. If the assertion fails, it places the failed file next to the snapshot file so they can easily be manually compared. The persisted failed file is automatically deleted when the test passes. This assertion is most useful when working with binary files that should be manually compared like images or pdfs.
 
 ### Customizing Snapshot Ids and Directories
@@ -209,18 +212,18 @@ The driver used to serialize the data can be specificied as second argument of t
 `assertMatchesSnapshot` method, so you can pick one that better suits your needs:
 
 ```php
-use Spatie\Snapshots\Drivers\ObjectDriver;
+use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class OrderTest
 {
     use MatchesSnapshots;
 
-    public function test_snapshot_with_object_driver()
+    public function test_snapshot_with_json_driver()
     {
         $order = new Order(1);
 
-        $this->assertMatchesSnapshot($order, new ObjectDriver());
+        $this->assertMatchesSnapshot($order->toJson(), new JsonDriver());
     }
 }
 ```
