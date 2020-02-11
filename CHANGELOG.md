@@ -2,11 +2,20 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.0.0 - 2019-02-11
+
+*Snapshots generated with `assertMatchesSnapshot` will break when upgrading to this version. The easiest way to upgrade is to ensure your snapshot tests pass, delete your snapshots, upgrade the package, then rerun the tests to generate new snapshots.*
+
+- New snapshot formats when using `assertMatchesSnapshot`: scalars (strings, integers & floats) are serialized to `txt` files, objects & arrays are serialized to `yaml` files
+- New `TextDriver` to store snapshots in `txt` files
+- New `ObjectDriver` to serialize data to YAML and store snapshots in `yaml` files
+- Removed `VarDriver`
+
 ## 3.1.1 - 2019-02-10
-- add support for PHPUnit 9 (#86)
+- Add support for PHPUnit 9 (#86)
 
 ## 3.1.0 - 2019-12-02
-- drop support for PHP 7.3
+- Drop support for PHP 7.3
 
 ## 3.0.0 - 2019-11-22
 - `assertMatchesJsonSnapshot` now supports all JSON serializable objects, and won't convert empty arrays to obejcts anymore
