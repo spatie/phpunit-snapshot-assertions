@@ -2,14 +2,15 @@
 
 namespace Spatie\Snapshots;
 
-use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
+use Spatie\Snapshots\Drivers\XmlDriver;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Drivers\ObjectDriver;
-use Spatie\Snapshots\Drivers\XmlDriver;
+use Spatie\Snapshots\Drivers\TextDriver;
 use Spatie\Snapshots\Drivers\YamlDriver;
+use Spatie\Snapshots\Drivers\ObjectDriver;
+use PHPUnit\Framework\ExpectationFailedException;
 
 trait MatchesSnapshots
 {
@@ -43,7 +44,19 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null)
     {
-        $this->doSnapshotAssertion($actual, $driver ?? new ObjectDriver());
+        if (! is_null($driver)) {
+            $this->doSnapshotAssertion($actual, $driver);
+
+            return;
+        }
+
+        if (is_string($actual) || is_int($actual) || is_float($actual)) {
+            $this->doSnapshotAssertion($actual, new TextDriver());
+
+            return;
+        }
+
+        $this->doSnapshotAssertion($actual, new ObjectDriver());
     }
 
     public function assertMatchesHtmlSnapshot($actual)
@@ -80,6 +93,16 @@ trait MatchesSnapshots
     public function assertMatchesFileSnapshot($file)
     {
         $this->doFileSnapshotAssertion($file);
+    }
+
+    public function assertMatchesObjectSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new ObjectDriver());
+    }
+
+    public function assertMatchesTextSnapshot($actual)
+    {
+        $this->assertMatchesSnapshot($actual, new TextDriver());
     }
 
     /**

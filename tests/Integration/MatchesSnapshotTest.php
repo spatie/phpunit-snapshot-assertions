@@ -34,8 +34,8 @@ class MatchesSnapshotTest extends TestCase
         });
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_create_a_snapshot_from_a_string__1.yml',
-            'string_snapshot.yml'
+            'MatchesSnapshotTest__it_can_create_a_snapshot_from_a_string__1.txt',
+            'string_snapshot.txt'
         );
     }
 
@@ -285,8 +285,8 @@ class MatchesSnapshotTest extends TestCase
         });
 
         $this->assertSnapshotMatchesExample(
-            'MatchesSnapshotTest__it_can_update_a_string_snapshot__1.yml',
-            'string_snapshot.yml'
+            'MatchesSnapshotTest__it_can_update_a_string_snapshot__1.txt',
+            'string_snapshot.txt'
         );
     }
 
