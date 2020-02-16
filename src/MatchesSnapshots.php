@@ -70,46 +70,44 @@ trait MatchesSnapshots
         $this->assertMatchesSnapshot($actual);
     }
 
-    public function assertMatchesFileSnapshot($file)
+    public function assertMatchesFileSnapshot($file): void
     {
         $this->doFileSnapshotAssertion($file);
     }
 
-    public function assertMatchesHtmlSnapshot($actual)
+    public function assertMatchesHtmlSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new HtmlDriver());
     }
 
-    public function assertMatchesJsonSnapshot($actual)
+    public function assertMatchesJsonSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
 
-    public function assertMatchesObjectSnapshot($actual)
+    public function assertMatchesObjectSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new ObjectDriver());
     }
 
-    public function assertMatchesTextSnapshot($actual)
+    public function assertMatchesTextSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new TextDriver());
     }
 
-    public function assertMatchesXmlSnapshot($actual)
+    public function assertMatchesXmlSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new XmlDriver());
     }
 
-    public function assertMatchesYamlSnapshot($actual)
+    public function assertMatchesYamlSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new YamlDriver());
     }
 
-    /**
+    /*
      * Determines the snapshot's id. By default, the test case's class and
      * method names are used.
-     *
-     * @return string
      */
     protected function getSnapshotId(): string
     {
@@ -118,12 +116,10 @@ trait MatchesSnapshots
             $this->snapshotIncrementor;
     }
 
-    /**
+    /*
      * Determines the directory where snapshots are stored. By default a
      * `__snapshots__` directory is created at the same level as the test
      * class.
-     *
-     * @return string
      */
     protected function getSnapshotDirectory(): string
     {
@@ -132,12 +128,10 @@ trait MatchesSnapshots
             '__snapshots__';
     }
 
-    /**
+    /*
      * Determines the directory where file snapshots are stored. By default a
      * `__snapshots__/files` directory is created at the same level as the
      * test class.
-     *
-     * @return string
      */
     protected function getFileSnapshotDirectory(): string
     {
@@ -146,14 +140,12 @@ trait MatchesSnapshots
             'files';
     }
 
-    /**
+    /*
      * Determines whether or not the snapshot should be updated instead of
      * matched.
      *
      * Override this method it you want to use a different flag or mechanism
      * than `-d --update-snapshots`.
-     *
-     * @return bool
      */
     protected function shouldUpdateSnapshots(): bool
     {
