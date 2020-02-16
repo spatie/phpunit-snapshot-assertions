@@ -4,14 +4,11 @@ namespace Spatie\Snapshots;
 
 class Snapshot
 {
-    /** @var string */
-    private $id;
+    private string $id;
 
-    /** @var \Spatie\Snapshots\Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    /** @var \Spatie\Snapshots\Driver */
-    private $driver;
+    private Driver $driver;
 
     public function __construct(
         string $id,
