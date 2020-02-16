@@ -186,7 +186,7 @@ trait MatchesSnapshots
         }
     }
 
-    protected function doFileSnapshotAssertion(string $filePath)
+    protected function doFileSnapshotAssertion(string $filePath): void
     {
         if (! file_exists($filePath)) {
             $this->fail('File does not exist');
@@ -221,7 +221,7 @@ trait MatchesSnapshots
 
             $expectedExtension = pathinfo($existingSnapshotId, PATHINFO_EXTENSION);
 
-            return $this->fail("File did not match the snapshot file extension (expected: {$expectedExtension}, was: {$fileExtension})");
+            $this->fail("File did not match the snapshot file extension (expected: {$expectedExtension}, was: {$fileExtension})");
         }
 
         $failedSnapshotId = $snapshotId.'_failed.'.$fileExtension;
