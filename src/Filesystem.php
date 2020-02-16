@@ -26,15 +26,11 @@ class Filesystem
         return file_exists($this->path($filename));
     }
 
-    /**
+    /*
      * Get all file names in this directory that have the same name
      * as $fileName, but have a different file extension.
-     *
-     * @param string $fileName
-     *
-     * @return array
      */
-    public function getNamesWithDifferentExtension(string $fileName)
+    public function getNamesWithDifferentExtension(string $fileName): array
     {
         if (! file_exists($this->basePath)) {
             return [];
@@ -62,7 +58,7 @@ class Filesystem
         return file_get_contents($this->path($filename));
     }
 
-    public function put(string $filename, string $contents)
+    public function put(string $filename, string $contents): void
     {
         if (! file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
@@ -71,12 +67,12 @@ class Filesystem
         file_put_contents($this->path($filename), $contents);
     }
 
-    public function delete(string $fileName)
+    public function delete(string $fileName): bool
     {
         return unlink($this->path($fileName));
     }
 
-    public function copy(string $filePath, string $fileName)
+    public function copy(string $filePath, string $fileName): void
     {
         if (! file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
@@ -85,7 +81,7 @@ class Filesystem
         copy($filePath, $this->path($fileName));
     }
 
-    public function fileEquals(string $filePath, string $fileName)
+    public function fileEquals(string $filePath, string $fileName): bool
     {
         return sha1_file($filePath) === sha1_file($this->path($fileName));
     }
