@@ -42,7 +42,7 @@ trait MatchesSnapshots
         $this->markTestIncomplete($formattedMessages);
     }
 
-    public function assertMatchesSnapshot($actual, Driver $driver = null)
+    public function assertMatchesSnapshot($actual, Driver $driver = null): void
     {
         if (! is_null($driver)) {
             $this->doSnapshotAssertion($actual, $driver);
@@ -59,7 +59,7 @@ trait MatchesSnapshots
         $this->doSnapshotAssertion($actual, new ObjectDriver());
     }
 
-    public function assertMatchesFileHashSnapshot($filePath)
+    public function assertMatchesFileHashSnapshot($filePath): void
     {
         if (! file_exists($filePath)) {
             $this->fail('File does not exist');
@@ -255,21 +255,21 @@ trait MatchesSnapshots
         $this->assertTrue(true);
     }
 
-    protected function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
+    protected function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual): void
     {
         $snapshot->create($actual);
 
         $this->registerSnapshotChange("Snapshot created for {$snapshot->id()}");
     }
 
-    protected function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual)
+    protected function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, $actual): void
     {
         $snapshot->create($actual);
 
         $this->registerSnapshotChange("Snapshot updated for {$snapshot->id()}");
     }
 
-    protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception)
+    protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception): void
     {
         $newMessage = $exception->getMessage()."\n\n".
             'Snapshots can be updated by passing '.
@@ -284,7 +284,7 @@ trait MatchesSnapshots
         throw $exception;
     }
 
-    protected function registerSnapshotChange(string $message)
+    protected function registerSnapshotChange(string $message): void
     {
         $this->snapshotChanges[] = $message;
     }
