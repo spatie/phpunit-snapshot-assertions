@@ -2,15 +2,15 @@
 
 namespace Spatie\Snapshots;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
-use Spatie\Snapshots\Drivers\XmlDriver;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Drivers\TextDriver;
-use Spatie\Snapshots\Drivers\YamlDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
-use PHPUnit\Framework\ExpectationFailedException;
+use Spatie\Snapshots\Drivers\TextDriver;
+use Spatie\Snapshots\Drivers\XmlDriver;
+use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {

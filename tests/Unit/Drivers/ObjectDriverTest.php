@@ -36,7 +36,7 @@ class ObjectDriverTest extends TestCase
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<YAML
+        $expected = <<<'YAML'
 foo:
     bar: baz
 
@@ -50,7 +50,7 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<YAML
+        $expected = <<<'YAML'
 - foo
 - bar
 
@@ -64,7 +64,7 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<YAML
+        $expected = <<<'YAML'
 foo: bar
 
 YAML;
@@ -77,7 +77,7 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<YAML
+        $expected = <<<'YAML'
 name: 'My name'
 valid: true
 dateTime: '2020-01-01T15:00:00+01:00'
