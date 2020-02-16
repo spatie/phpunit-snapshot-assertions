@@ -4,8 +4,7 @@ namespace Spatie\Snapshots;
 
 class Filesystem
 {
-    /** @var string */
-    private $basePath;
+    private string $basePath;
 
     public function __construct(string $basePath)
     {
