@@ -2,13 +2,13 @@
 
 namespace Spatie\Snapshots\Drivers;
 
-use Spatie\Snapshots\Driver;
 use PHPUnit\Framework\Assert;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Serializer\Serializer;
+use Spatie\Snapshots\Driver;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Yaml\Yaml;
 
 class ObjectDriver implements Driver
 {
