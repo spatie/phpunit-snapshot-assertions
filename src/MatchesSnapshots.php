@@ -152,6 +152,18 @@ trait MatchesSnapshots
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 
+    /*
+     * Determines whether or not the snapshot should be created instead of
+     * matched.
+     *
+     * Override this method it you want to use a different flag or mechanism
+     * than `-d --no-create-snapshots`.
+     */
+    protected function shouldCreateSnapshots(): bool
+    {
+        return !in_array('--no-create-snapshots', $_SERVER['argv'], true);
+    }
+
     protected function doSnapshotAssertion($actual, Driver $driver)
     {
         $this->snapshotIncrementor++;
@@ -163,6 +175,8 @@ trait MatchesSnapshots
         );
 
         if (! $snapshot->exists()) {
+            $this->assertSnapshotShouldBeCreated($snapshot->filename());
+
             $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual);
         }
 
@@ -231,6 +245,8 @@ trait MatchesSnapshots
         }
 
         if (! $fileSystem->has($snapshotId)) {
+            $this->assertSnapshotShouldBeCreated($failedSnapshotId);
+
             $fileSystem->copy($filePath, $snapshotId);
 
             $this->registerSnapshotChange("File snapshot created for {$snapshotId}");
@@ -287,5 +303,18 @@ trait MatchesSnapshots
     protected function registerSnapshotChange(string $message): void
     {
         $this->snapshotChanges[] = $message;
+    }
+
+    protected function assertSnapshotShouldBeCreated(string $snapshotFileName): void
+    {
+        if ($this->shouldCreateSnapshots()) {
+            return;
+        }
+
+        $this->fail(
+            "Snapshot \"$snapshotFileName\" does not exist.\n".
+            'You can automatically create it by removing '.
+            '`-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+        );
     }
 }

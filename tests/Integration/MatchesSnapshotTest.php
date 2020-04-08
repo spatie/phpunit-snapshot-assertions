@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -18,9 +19,14 @@ class MatchesSnapshotTest extends TestCase
         $this->setUpComparesSnapshotFiles();
 
         $updateArgument = array_search('--update-snapshots', $_SERVER['argv']);
+        $noCreateArgument = array_search('--no-create-snapshots', $_SERVER['argv']);
 
         if ($updateArgument) {
             unset($_SERVER['argv'][$updateArgument]);
+        }
+
+        if ($noCreateArgument) {
+            unset($_SERVER['argv'][$noCreateArgument]);
         }
     }
 
@@ -458,5 +464,38 @@ class MatchesSnapshotTest extends TestCase
             ->willReturn(__DIR__.'/__snapshots__/files');
 
         return $matchesSnapshotMock;
+    }
+
+
+    /** @test */
+    public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked()
+    {
+        $_SERVER['argv'][] = '--no-create-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail(
+            $mockTrait,
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n" .
+            'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+        );
+
+        $mockTrait->assertMatchesSnapshot('Bar');
+    }
+
+    /** @test */
+    public function it_doesnt_create_a_file_snapshot_and_mismatches_if_asked()
+    {
+        $_SERVER['argv'][] = '--no-create-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail(
+            $mockTrait,
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n" .
+            'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+        );
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
     }
 }
