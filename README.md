@@ -274,13 +274,29 @@ Drivers can be used by passing them as `assertMatchesSnapshot`'s second argument
 $this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
 ```
 
+### Usage in CI
+
+When running your tests in Continuous Integration you would possibility want to disable the snapshots' creation.
+
+By using the `--no-create-snapshots` parameter, Phpunit will fail if the snapshots don't exist.
+
+```bash
+> ./vendor/bin/phpunit -d --no-create-snapshots
+
+1) ExampleTest::test_it_matches_a_string
+Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist. 
+You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit's CLI arguments.
+
+```
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Testing
 
-``` bash
+```bash
 composer test
 ```
 
