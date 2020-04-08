@@ -2,8 +2,8 @@
 
 namespace Spatie\Snapshots\Drivers;
 
-use Spatie\Snapshots\Driver;
 use PHPUnit\Framework\Assert;
+use Spatie\Snapshots\Driver;
 
 class TextDriver implements Driver
 {
