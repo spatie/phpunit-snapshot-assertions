@@ -156,7 +156,7 @@ trait MatchesSnapshots
      * Determines whether or not the snapshot should be created instead of
      * matched.
      *
-     * Override this method it you want to use a different flag or mechanism
+     * Override this method if you want to use a different flag or mechanism
      * than `-d --no-create-snapshots`.
      */
     protected function shouldCreateSnapshots(): bool

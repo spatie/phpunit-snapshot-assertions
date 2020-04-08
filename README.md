@@ -276,9 +276,9 @@ $this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
 
 ### Usage in CI
 
-When running your tests in Continuous Integration you would possibility want to disable the snapshots' creation.
+When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots.
 
-By using the `--no-create-snapshots` parameter, Phpunit will fail if the snapshots don't exist.
+By using the `--no-create-snapshots` parameter, PHPUnit will fail if the snapshots don't exist.
 
 ```bash
 > ./vendor/bin/phpunit -d --no-create-snapshots
