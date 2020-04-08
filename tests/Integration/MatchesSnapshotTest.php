@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -18,9 +19,14 @@ class MatchesSnapshotTest extends TestCase
         $this->setUpComparesSnapshotFiles();
 
         $updateArgument = array_search('--update-snapshots', $_SERVER['argv']);
+        $withoutCreatingArgument = array_search('--without-creating-snapshots', $_SERVER['argv']);
 
         if ($updateArgument) {
             unset($_SERVER['argv'][$updateArgument]);
+        }
+
+        if ($withoutCreatingArgument) {
+            unset($_SERVER['argv'][$withoutCreatingArgument]);
         }
     }
 
@@ -209,7 +215,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match snapshot (MatchesSnapshotTest__it_can_mismatch_a_file_snapshot__1.jpg)'
+        );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
     }
@@ -219,7 +228,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match the snapshot file extension (expected: jpg, was: png)'
+        );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
     }
@@ -229,9 +241,13 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
-
         $filePath = __DIR__.'/stubs/test_files/file_without_extension';
+
+        $this->expectFail(
+            $mockTrait,
+            'Unable to make a file snapshot, file does not have a file extension '.
+            "($filePath)"
+        );
 
         $this->assertFileExists($filePath);
 
@@ -243,7 +259,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match snapshot (MatchesSnapshotTest__it_persists_the_failed_file_after_mismatching_a_file_snapshot__1.jpg)'
+        );
 
         $mismatchedFile = __DIR__.'/stubs/test_files/troubled_man.jpg';
 
@@ -270,7 +289,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
 
-        $this->assertFileNotExists($persistedFailedFile);
+        $this->assertFileDoesNotExist($persistedFailedFile);
     }
 
     /** @test */
@@ -378,7 +397,7 @@ class MatchesSnapshotTest extends TestCase
             'file.png'
         );
 
-        $this->assertFileNotExists($oldSnapshot);
+        $this->assertFileDoesNotExist($oldSnapshot);
     }
 
     private function expectIncompleteMatchesSnapshotTest(MockObject $matchesSnapshotMock, callable $assertions)
@@ -392,11 +411,15 @@ class MatchesSnapshotTest extends TestCase
         $matchesSnapshotMock->markTestIncompleteIfSnapshotsHaveChanged();
     }
 
-    private function expectFail(MockObject $matchesSnapshotMock)
+    private function expectFail(MockObject $matchesSnapshotMock, string $message)
     {
+        $this->expectException(AssertionFailedError::class);
+
         $matchesSnapshotMock
             ->expects($this->once())
-            ->method('fail');
+            ->method('fail')
+            ->with($message)
+            ->willThrowException(new AssertionFailedError());
     }
 
     private function expectFailedMatchesSnapshotTest()
@@ -440,5 +463,37 @@ class MatchesSnapshotTest extends TestCase
             ->willReturn(__DIR__.'/__snapshots__/files');
 
         return $matchesSnapshotMock;
+    }
+
+    /** @test */
+    public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked()
+    {
+        $_SERVER['argv'][] = '--without-creating-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail(
+            $mockTrait,
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n".
+            'You can automatically create it by removing `-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
+        );
+
+        $mockTrait->assertMatchesSnapshot('Bar');
+    }
+
+    /** @test */
+    public function it_doesnt_create_a_file_snapshot_and_mismatches_if_asked()
+    {
+        $_SERVER['argv'][] = '--without-creating-snapshots';
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectFail(
+            $mockTrait,
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n".
+            'You can automatically create it by removing `-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
+        );
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
     }
 }
