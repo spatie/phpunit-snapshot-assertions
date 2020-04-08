@@ -2,15 +2,15 @@
 
 namespace Spatie\Snapshots;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
-use Spatie\Snapshots\Drivers\XmlDriver;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
-use Spatie\Snapshots\Drivers\TextDriver;
-use Spatie\Snapshots\Drivers\YamlDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
-use PHPUnit\Framework\ExpectationFailedException;
+use Spatie\Snapshots\Drivers\TextDriver;
+use Spatie\Snapshots\Drivers\XmlDriver;
+use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
@@ -161,7 +161,7 @@ trait MatchesSnapshots
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return !in_array('--no-create-snapshots', $_SERVER['argv'], true);
+        return ! in_array('--no-create-snapshots', $_SERVER['argv'], true);
     }
 
     protected function doSnapshotAssertion($actual, Driver $driver)

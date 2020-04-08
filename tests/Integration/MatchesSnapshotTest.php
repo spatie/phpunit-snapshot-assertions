@@ -245,10 +245,9 @@ class MatchesSnapshotTest extends TestCase
 
         $this->expectFail(
             $mockTrait,
-            'Unable to make a file snapshot, file does not have a file extension ' .
+            'Unable to make a file snapshot, file does not have a file extension '.
             "($filePath)"
         );
-
 
         $this->assertFileExists($filePath);
 
@@ -466,7 +465,6 @@ class MatchesSnapshotTest extends TestCase
         return $matchesSnapshotMock;
     }
 
-
     /** @test */
     public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked()
     {
@@ -476,7 +474,7 @@ class MatchesSnapshotTest extends TestCase
 
         $this->expectFail(
             $mockTrait,
-            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n" .
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n".
             'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
         );
 
@@ -492,7 +490,7 @@ class MatchesSnapshotTest extends TestCase
 
         $this->expectFail(
             $mockTrait,
-            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n" .
+            "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n".
             'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
         );
 
