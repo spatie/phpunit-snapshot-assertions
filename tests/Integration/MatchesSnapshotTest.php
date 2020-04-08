@@ -270,7 +270,7 @@ class MatchesSnapshotTest extends TestCase
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
 
-        $this->assertFileNotExists($persistedFailedFile);
+        $this->assertFileDoesNotExist($persistedFailedFile);
     }
 
     /** @test */
@@ -378,7 +378,7 @@ class MatchesSnapshotTest extends TestCase
             'file.png'
         );
 
-        $this->assertFileNotExists($oldSnapshot);
+        $this->assertFileDoesNotExist($oldSnapshot);
     }
 
     private function expectIncompleteMatchesSnapshotTest(MockObject $matchesSnapshotMock, callable $assertions)
