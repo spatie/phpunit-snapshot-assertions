@@ -157,11 +157,11 @@ trait MatchesSnapshots
      * matched.
      *
      * Override this method if you want to use a different flag or mechanism
-     * than `-d --no-create-snapshots`.
+     * than `-d --without-creating-snapshots`.
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return ! in_array('--no-create-snapshots', $_SERVER['argv'], true);
+        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
     protected function doSnapshotAssertion($actual, Driver $driver)
@@ -314,7 +314,7 @@ trait MatchesSnapshots
         $this->fail(
             "Snapshot \"$snapshotFileName\" does not exist.\n".
             'You can automatically create it by removing '.
-            '`-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+            '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
     }
 }

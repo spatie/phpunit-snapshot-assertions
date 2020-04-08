@@ -19,14 +19,14 @@ class MatchesSnapshotTest extends TestCase
         $this->setUpComparesSnapshotFiles();
 
         $updateArgument = array_search('--update-snapshots', $_SERVER['argv']);
-        $noCreateArgument = array_search('--no-create-snapshots', $_SERVER['argv']);
+        $withoutCreatingArgument = array_search('--without-creating-snapshots', $_SERVER['argv']);
 
         if ($updateArgument) {
             unset($_SERVER['argv'][$updateArgument]);
         }
 
-        if ($noCreateArgument) {
-            unset($_SERVER['argv'][$noCreateArgument]);
+        if ($withoutCreatingArgument) {
+            unset($_SERVER['argv'][$withoutCreatingArgument]);
         }
     }
 
@@ -468,14 +468,14 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked()
     {
-        $_SERVER['argv'][] = '--no-create-snapshots';
+        $_SERVER['argv'][] = '--without-creating-snapshots';
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n".
-            'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+            'You can automatically create it by removing `-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
 
         $mockTrait->assertMatchesSnapshot('Bar');
@@ -484,14 +484,14 @@ class MatchesSnapshotTest extends TestCase
     /** @test */
     public function it_doesnt_create_a_file_snapshot_and_mismatches_if_asked()
     {
-        $_SERVER['argv'][] = '--no-create-snapshots';
+        $_SERVER['argv'][] = '--without-creating-snapshots';
 
         $mockTrait = $this->getMatchesSnapshotMock();
 
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n".
-            'You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit\'s CLI arguments.'
+            'You can automatically create it by removing `-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
