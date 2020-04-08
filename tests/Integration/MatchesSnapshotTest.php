@@ -209,7 +209,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match snapshot (MatchesSnapshotTest__it_can_mismatch_a_file_snapshot__1.jpg)'
+        );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
     }
@@ -219,7 +222,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match the snapshot file extension (expected: jpg, was: png)'
+        );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
     }
@@ -229,9 +235,14 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
-
         $filePath = __DIR__.'/stubs/test_files/file_without_extension';
+
+        $this->expectFail(
+            $mockTrait,
+            'Unable to make a file snapshot, file does not have a file extension ' .
+            "($filePath)"
+        );
+
 
         $this->assertFileExists($filePath);
 
@@ -243,7 +254,10 @@ class MatchesSnapshotTest extends TestCase
     {
         $mockTrait = $this->getMatchesSnapshotMock();
 
-        $this->expectFail($mockTrait);
+        $this->expectFail(
+            $mockTrait,
+            'File did not match snapshot (MatchesSnapshotTest__it_persists_the_failed_file_after_mismatching_a_file_snapshot__1.jpg)'
+        );
 
         $mismatchedFile = __DIR__.'/stubs/test_files/troubled_man.jpg';
 
@@ -392,11 +406,15 @@ class MatchesSnapshotTest extends TestCase
         $matchesSnapshotMock->markTestIncompleteIfSnapshotsHaveChanged();
     }
 
-    private function expectFail(MockObject $matchesSnapshotMock)
+    private function expectFail(MockObject $matchesSnapshotMock, string $message)
     {
+        $this->expectException(AssertionFailedError::class);
+
         $matchesSnapshotMock
             ->expects($this->once())
-            ->method('fail');
+            ->method('fail')
+            ->with($message)
+            ->willThrowException(new AssertionFailedError());
     }
 
     private function expectFailedMatchesSnapshotTest()
