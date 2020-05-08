@@ -116,7 +116,7 @@ class JsonDriverTest extends TestCase
 
         $this->expectException(CantBeSerialized::class);
 
-        $resource = fopen('.', 'r');
+        $resource = tmpfile();
 
         $driver->serialize($resource);
     }
