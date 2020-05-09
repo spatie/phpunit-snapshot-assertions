@@ -18,7 +18,7 @@ class JsonDriver implements Driver
             throw new CantBeSerialized('Resources can not be serialized to json');
         }
 
-        return json_encode($data, JSON_PRETTY_PRINT).PHP_EOL;
+        return json_encode($data, JSON_PRETTY_PRINT)."\n";
     }
 
     public function extension(): string
@@ -29,7 +29,7 @@ class JsonDriver implements Driver
     public function match($expected, $actual)
     {
         if (is_array($actual)) {
-            $actual = json_encode($actual, JSON_PRETTY_PRINT).PHP_EOL;
+            $actual = json_encode($actual, JSON_PRETTY_PRINT)."\n";
         }
 
         Assert::assertJsonStringEqualsJsonString($expected, $actual);
