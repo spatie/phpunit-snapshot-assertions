@@ -13,7 +13,7 @@ class XmlDriverTest extends TestCase
     {
         $driver = new XmlDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '<?xml version="1.0"?>',
             '<foo>',
             '  <bar>baz</bar>',
