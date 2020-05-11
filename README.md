@@ -284,11 +284,17 @@ By using the `--without-creating-snapshots` parameter, PHPUnit will fail if the 
 > ./vendor/bin/phpunit -d --without-creating-snapshots
 
 1) ExampleTest::test_it_matches_a_string
-Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist. 
-You can automatically create it by removing `-d --without-creating-snapshots` of PHPUnit's CLI arguments.
-
+Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
+You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit's CLI arguments.
 ```
 
+### A note for Windows users
+
+Windows users should configure their line endings in `.gitattributes`.
+
+```txt
+tests/**/__snapshots__/** text eol=lf
+```
 
 ## Changelog
 
