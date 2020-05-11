@@ -2,7 +2,16 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
-## 4.0.0 - 2019-02-11
+## 4.2.0 - 2020-05-11
+
+- Fixed inconsistent line endings
+- Improved Windows support
+
+## 4.1.0 - 2020-04-08
+
+- Added `--without-creating-snapshots` flag
+
+## 4.0.0 - 2020-02-11
 
 *Snapshots generated with `assertMatchesSnapshot` will break when upgrading to this version. The easiest way to upgrade is to ensure your snapshot tests pass, delete your snapshots, upgrade the package, then rerun the tests to generate new snapshots.*
 
