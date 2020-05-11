@@ -9,3 +9,9 @@
 /.scrutinizer.yml   export-ignore
 /tests              export-ignore
 /example            export-ignore
+
+# All test snapshots and text stubs must have LF line endings
+tests/**/__snapshots__/**   text eol=lf
+tests/**/stubs/**           text eol=lf
+tests/**/stubs/**/*.jpg     binary
+tests/**/stubs/**/*.png     binary

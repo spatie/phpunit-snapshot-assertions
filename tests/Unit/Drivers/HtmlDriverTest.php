@@ -13,7 +13,7 @@ class HtmlDriverTest extends TestCase
     {
         $driver = new HtmlDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '<!DOCTYPE html>',
             '<html lang="en">',
             '<head></head>',

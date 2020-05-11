@@ -13,7 +13,7 @@ class JsonDriverTest extends TestCase
     {
         $driver = new JsonDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '{',
             '    "foo": "bar"',
             '}',
@@ -28,7 +28,7 @@ class JsonDriverTest extends TestCase
     {
         $driver = new JsonDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '{',
             '    "foo": "FOO",',
             '    "bar": "BAR",',
@@ -42,7 +42,7 @@ class JsonDriverTest extends TestCase
             'baz' => 'BAZ',
         ]));
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '{',
             '    "foo": "FOO",',
             '    "bar": "BAR",',
@@ -74,7 +74,7 @@ class JsonDriverTest extends TestCase
     {
         $driver = new JsonDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '[',
             '    "foo",',
             '    "bar",',
@@ -91,7 +91,7 @@ class JsonDriverTest extends TestCase
     {
         $driver = new JsonDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             '{',
             '    "foo": {',
             '        "bar": true',
@@ -116,7 +116,7 @@ class JsonDriverTest extends TestCase
 
         $this->expectException(CantBeSerialized::class);
 
-        $resource = fopen('.', 'r');
+        $resource = tmpfile();
 
         $driver->serialize($resource);
     }

@@ -36,11 +36,11 @@ class ObjectDriverTest extends TestCase
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'YAML'
-foo:
-    bar: baz
-
-YAML;
+        $expected = implode("\n", [
+            'foo:',
+            '    bar: baz',
+            '',
+        ]);
 
         $this->assertEquals($expected, $driver->serialize(['foo' => ['bar' => 'baz']]));
     }
@@ -50,11 +50,11 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'YAML'
-- foo
-- bar
-
-YAML;
+        $expected = implode("\n", [
+            '- foo',
+            '- bar',
+            '',
+        ]);
 
         $this->assertEquals($expected, $driver->serialize(['foo', 'bar']));
     }
@@ -64,10 +64,10 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'YAML'
-foo: bar
-
-YAML;
+        $expected = implode("\n", [
+            'foo: bar',
+            '',
+        ]);
 
         $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
     }
@@ -77,13 +77,13 @@ YAML;
     {
         $driver = new ObjectDriver();
 
-        $expected = <<<'YAML'
-name: 'My name'
-valid: true
-dateTime: '2020-01-01T15:00:00+01:00'
-public: public
-
-YAML;
+        $expected = implode("\n", [
+            'name: \'My name\'',
+            'valid: true',
+            'dateTime: \'2020-01-01T15:00:00+01:00\'',
+            'public: public',
+            '',
+        ]);
 
         $this->assertEquals($expected, $driver->serialize(new Obj()));
     }

@@ -12,7 +12,7 @@ class YamlDriverTest extends TestCase
     {
         $driver = new YamlDriver();
 
-        $yamlString = implode(PHP_EOL, [
+        $yamlString = implode("\n", [
             'foo: bar',
             'baz: qux',
             '',
@@ -26,7 +26,7 @@ class YamlDriverTest extends TestCase
     {
         $driver = new YamlDriver();
 
-        $expected = implode(PHP_EOL, [
+        $expected = implode("\n", [
             'foo: bar',
             'baz: qux',
             '',
