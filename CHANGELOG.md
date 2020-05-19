@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.1 - 2020-05-18
+
+- Fix exception message
+
 ## 4.2.0 - 2020-05-11
 
 - Fixed inconsistent line endings
