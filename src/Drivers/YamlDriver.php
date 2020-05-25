@@ -16,7 +16,7 @@ class YamlDriver implements Driver
         }
 
         if (! is_array($data)) {
-            throw new CantBeSerialized('Only array and strings can be serialized to yaml.');
+            throw new CantBeSerialized('Only arrays and strings can be serialized to yaml.');
         }
 
         return Yaml::dump($data, PHP_INT_MAX);
