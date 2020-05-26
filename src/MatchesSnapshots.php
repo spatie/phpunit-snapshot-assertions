@@ -3,8 +3,9 @@
 namespace Spatie\Snapshots;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use ReflectionClass;
 use ReflectionObject;
+use Spatie\Snapshots\Concerns\SnapshotDirectoryAware;
+use Spatie\Snapshots\Concerns\SnapshotIdAware;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
@@ -14,6 +15,8 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
+    use SnapshotDirectoryAware, SnapshotIdAware;
+
     protected int $snapshotIncrementor = 0;
 
     protected array $snapshotChanges = [];
@@ -103,29 +106,6 @@ trait MatchesSnapshots
     public function assertMatchesYamlSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new YamlDriver());
-    }
-
-    /*
-     * Determines the snapshot's id. By default, the test case's class and
-     * method names are used.
-     */
-    protected function getSnapshotId(): string
-    {
-        return (new ReflectionClass($this))->getShortName().'__'.
-            $this->getName().'__'.
-            $this->snapshotIncrementor;
-    }
-
-    /*
-     * Determines the directory where snapshots are stored. By default a
-     * `__snapshots__` directory is created at the same level as the test
-     * class.
-     */
-    protected function getSnapshotDirectory(): string
-    {
-        return dirname((new ReflectionClass($this))->getFileName()).
-            DIRECTORY_SEPARATOR.
-            '__snapshots__';
     }
 
     /*
