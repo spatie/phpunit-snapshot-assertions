@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.2 - 2020-06-01
+
+- moves default implementation of snapshot directory/id to concerns directory (#99)
+
 ## 4.2.1 - 2020-05-18
 
 - Fix exception message
