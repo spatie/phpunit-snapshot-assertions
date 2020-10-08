@@ -9,23 +9,25 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
-    <testsuites>
-        <testsuite name="Integration">
-            <directory>tests/Integration</directory>
-        </testsuite>
-        <testsuite name="Unit">
-            <directory>tests/Unit</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="junit" target="build/report.junit.xml"/>
-        <log type="coverage-html" target="build/coverage"/>
-        <log type="coverage-text" target="build/coverage.txt"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
+  <coverage>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <report>
+      <clover outputFile="build/logs/clover.xml"/>
+      <html outputDirectory="build/coverage"/>
+      <text outputFile="build/coverage.txt"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Integration">
+      <directory>tests/Integration</directory>
+    </testsuite>
+    <testsuite name="Unit">
+      <directory>tests/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="build/report.junit.xml"/>
+  </logging>
 </phpunit>
