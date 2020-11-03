@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.3 - 2020-11-03
+
+- add support for PHP 8
+
 ## 4.2.2 - 2020-06-01
 
 - moves default implementation of snapshot directory/id to concerns directory (#99)
