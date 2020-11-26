@@ -32,7 +32,7 @@ class Filesystem
      */
     public function getNamesWithDifferentExtension(string $fileName): array
     {
-        if (! file_exists($this->basePath)) {
+        if (!file_exists($this->basePath)) {
             return [];
         }
 
@@ -60,7 +60,7 @@ class Filesystem
 
     public function put(string $filename, string $contents): void
     {
-        if (! file_exists($this->basePath)) {
+        if (!file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
         }
 
@@ -74,7 +74,7 @@ class Filesystem
 
     public function copy(string $filePath, string $fileName): void
     {
-        if (! file_exists($this->basePath)) {
+        if (!file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
         }
 
