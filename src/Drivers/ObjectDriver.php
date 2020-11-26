@@ -35,7 +35,7 @@ class ObjectDriver implements Driver
             $serializer->serialize($data, 'yaml', [
                 'yaml_inline' => 2,
                 'yaml_indent' => 4,
-                'yaml_flags'  => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
+                'yaml_flags' => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
             ])
         );
     }
