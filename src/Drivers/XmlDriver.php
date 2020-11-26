@@ -11,7 +11,7 @@ class XmlDriver implements Driver
 {
     public function serialize($data): string
     {
-        if (! is_string($data)) {
+        if (!is_string($data)) {
             throw new CantBeSerialized('Only strings can be serialized to xml');
         }
 

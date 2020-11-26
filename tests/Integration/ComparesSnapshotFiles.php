@@ -28,17 +28,17 @@ trait ComparesSnapshotFiles
 
     protected function emptyDirectory(string $path)
     {
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             return true;
         }
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             return unlink($path);
         }
         foreach (scandir($path) as $item) {
             if ($item == '.' || $item == '..' || $item == '.gitignore') {
                 continue;
             }
-            if (! $this->emptyDirectory($path.'/'.$item)) {
+            if (!$this->emptyDirectory($path.'/'.$item)) {
                 return false;
             }
         }
@@ -46,7 +46,7 @@ trait ComparesSnapshotFiles
 
     protected function copyDirectory(string $sourcePath, string $destinationPath)
     {
-        if (! file_exists($destinationPath)) {
+        if (!file_exists($destinationPath)) {
             mkdir($destinationPath);
         }
 
