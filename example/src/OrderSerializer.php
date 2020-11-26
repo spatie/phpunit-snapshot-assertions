@@ -7,17 +7,17 @@ class OrderSerializer
     public function serialize(Order $order): string
     {
         $data = [
-            'id' => $order->id(),
+            'id'    => $order->id(),
             'email' => $order->email(),
-            'paid' => $order->paid() ? 1 : 0,
+            'paid'  => $order->paid() ? 1 : 0,
             'items' => [],
         ];
 
         foreach ($order->orderLines() as $orderLine) {
             $data['items'][] = [
-                'id' => $orderLine->id(),
+                'id'          => $orderLine->id(),
                 'description' => $orderLine->description(),
-                'price' => $orderLine->totalPrice(),
+                'price'       => $orderLine->totalPrice(),
             ];
         }
 
