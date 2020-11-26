@@ -15,7 +15,8 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
-    use SnapshotDirectoryAware, SnapshotIdAware;
+    use SnapshotDirectoryAware;
+    use SnapshotIdAware;
 
     protected int $snapshotIncrementor = 0;
 
