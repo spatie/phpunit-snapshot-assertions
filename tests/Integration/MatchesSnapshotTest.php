@@ -443,7 +443,11 @@ class MatchesSnapshotTest extends TestCase
 
         $matchesSnapshotMock = $this->getMockForTrait(
             MatchesSnapshots::class,
-            [], '', true, true, true,
+            [],
+            '',
+            true,
+            true,
+            true,
             $mockMethods
         );
 

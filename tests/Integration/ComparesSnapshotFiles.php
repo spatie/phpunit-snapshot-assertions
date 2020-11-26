@@ -59,6 +59,7 @@ trait ComparesSnapshotFiles
 
             if (is_dir($sourcePath.'/'.$file)) {
                 $this->copyDirectory($sourcePath.'/'.$file, $destinationPath.'/'.$file);
+
                 continue;
             }
 
