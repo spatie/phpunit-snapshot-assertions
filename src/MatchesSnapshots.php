@@ -15,7 +15,8 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
-    use SnapshotDirectoryAware, SnapshotIdAware;
+    use SnapshotDirectoryAware;
+    use SnapshotIdAware;
 
     protected int $snapshotIncrementor = 0;
 
@@ -47,7 +48,7 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null): void
     {
-        if (! is_null($driver)) {
+        if (!is_null($driver)) {
             $this->doSnapshotAssertion($actual, $driver);
 
             return;
@@ -64,7 +65,7 @@ trait MatchesSnapshots
 
     public function assertMatchesFileHashSnapshot($filePath): void
     {
-        if (! file_exists($filePath)) {
+        if (!file_exists($filePath)) {
             $this->fail('File does not exist');
         }
 
@@ -141,7 +142,7 @@ trait MatchesSnapshots
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true);
+        return !in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
     protected function doSnapshotAssertion($actual, Driver $driver)
@@ -154,7 +155,7 @@ trait MatchesSnapshots
             $driver
         );
 
-        if (! $snapshot->exists()) {
+        if (!$snapshot->exists()) {
             $this->assertSnapshotShouldBeCreated($snapshot->filename());
 
             $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual);
@@ -182,7 +183,7 @@ trait MatchesSnapshots
 
     protected function doFileSnapshotAssertion(string $filePath): void
     {
-        if (! file_exists($filePath)) {
+        if (!file_exists($filePath)) {
             $this->fail('File does not exist');
         }
 
@@ -224,7 +225,7 @@ trait MatchesSnapshots
             $fileSystem->delete($failedSnapshotId);
         }
 
-        if (! $fileSystem->has($snapshotId)) {
+        if (!$fileSystem->has($snapshotId)) {
             $this->assertSnapshotShouldBeCreated($failedSnapshotId);
 
             $fileSystem->copy($filePath, $snapshotId);
@@ -234,7 +235,7 @@ trait MatchesSnapshots
             return;
         }
 
-        if (! $fileSystem->fileEquals($filePath, $snapshotId)) {
+        if (!$fileSystem->fileEquals($filePath, $snapshotId)) {
             if ($this->shouldUpdateSnapshots()) {
                 $fileSystem->copy($filePath, $snapshotId);
 
