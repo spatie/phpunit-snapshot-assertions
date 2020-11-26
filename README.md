@@ -2,9 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/phpunit-snapshot-assertions/run-tests?label=tests)](https://github.com/spatie/phpunit-snapshot-assertions/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/phpunit-snapshot-assertions)
-[![StyleCI](https://styleci.io/repos/75926188/shield?branch=master)](https://styleci.io/repos/75926188)
+![run-tests](https://github.com/spatie/phpunit-snapshot-assertions/workflows/run-tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 
 > Snapshot testing is a way to test without writing actual test cases
@@ -310,7 +308,7 @@ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Security
 
