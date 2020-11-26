@@ -15,7 +15,7 @@ class YamlDriver implements Driver
             $data = Yaml::parse($data);
         }
 
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             throw new CantBeSerialized('Only arrays and strings can be serialized to yaml.');
         }
 
