@@ -18,9 +18,11 @@ trait MatchesSnapshots
     use SnapshotDirectoryAware;
     use SnapshotIdAware;
 
-    protected int $snapshotIncrementor = 0;
+    /** @var int */
+    protected $snapshotIncrementor = 0;
 
-    protected array $snapshotChanges = [];
+    /** @var array */
+    protected $snapshotChanges = [];
 
     /** @before */
     public function setUpSnapshotIncrementor()
