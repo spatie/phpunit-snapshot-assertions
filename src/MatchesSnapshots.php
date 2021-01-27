@@ -43,7 +43,9 @@ trait MatchesSnapshots
             return;
         }
 
-        $formattedMessages = implode(PHP_EOL, array_map(fn (string $message) => "- {$message}", $this->snapshotChanges));
+        $formattedMessages = implode(PHP_EOL, array_map(function (string $message) {
+            return "- {$message}";
+        }, $this->snapshotChanges));
 
         $this->markTestIncomplete($formattedMessages);
     }
