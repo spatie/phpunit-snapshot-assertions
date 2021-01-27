@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.5 - 2021-01-27
+
+- add support for PHP 7.3
+
 ## 4.2.4 - 2020-11-26
 
 - add support for PHP 8
