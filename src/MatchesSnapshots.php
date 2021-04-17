@@ -130,11 +130,12 @@ trait MatchesSnapshots
      * matched.
      *
      * Override this method it you want to use a different flag or mechanism
-     * than `-d --update-snapshots`.
+     * than `-d --update-snapshots` or `UPDATE_SNAPSHOTS=true` env var.
      */
     protected function shouldUpdateSnapshots(): bool
     {
-        return in_array('--update-snapshots', $_SERVER['argv'], true);
+        return in_array('--update-snapshots', $_SERVER['argv'], true)
+            || getenv('UPDATE_SNAPSHOTS') === 'true';
     }
 
     /*

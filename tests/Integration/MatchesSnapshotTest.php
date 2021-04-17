@@ -400,6 +400,23 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileDoesNotExist($oldSnapshot);
     }
 
+    /** @test */
+    public function it_can_update_a_snapshot_with_env_var()
+    {
+        putenv('UPDATE_SNAPSHOTS=true');
+
+        $mockTrait = $this->getMatchesSnapshotMock();
+
+        $this->expectIncompleteMatchesSnapshotTest($mockTrait, function ($mockTrait) {
+            $mockTrait->assertMatchesSnapshot('Foo');
+        });
+
+        $this->assertSnapshotMatchesExample(
+            'MatchesSnapshotTest__it_can_update_a_snapshot_with_env_var__1.txt',
+            'string_snapshot.txt'
+        );
+    }
+
     private function expectIncompleteMatchesSnapshotTest(MockObject $matchesSnapshotMock, callable $assertions)
     {
         $matchesSnapshotMock
