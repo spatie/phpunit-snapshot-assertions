@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.6 - 2021-04-20
+
+- allow using env vars to manage snapshot creation and update (#126)
+
 ## 4.2.5 - 2021-01-27
 
 - add support for PHP 7.3
