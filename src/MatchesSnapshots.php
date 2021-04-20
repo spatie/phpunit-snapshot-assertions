@@ -135,7 +135,7 @@ trait MatchesSnapshots
     protected function shouldUpdateSnapshots(): bool
     {
         if(in_array('--update-snapshots', $_SERVER['argv'], true)) {
-            return true
+            return true;
         }
 
         return getenv('UPDATE_SNAPSHOTS') === 'true';
