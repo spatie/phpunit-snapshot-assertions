@@ -134,8 +134,11 @@ trait MatchesSnapshots
      */
     protected function shouldUpdateSnapshots(): bool
     {
-        return in_array('--update-snapshots', $_SERVER['argv'], true)
-            || getenv('UPDATE_SNAPSHOTS') === 'true';
+        if(in_array('--update-snapshots', $_SERVER['argv'], true)) {
+            return true
+        }
+
+        return getenv('UPDATE_SNAPSHOTS') === 'true';
     }
 
     /*
