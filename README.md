@@ -156,7 +156,7 @@ FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
 
-When we expect a changed value, we need to tell the test runner to update the existing snapshots instead of failing the test. This is possible by adding  a`-d --update-snapshots` flag to the `phpunit` command.
+When we expect a changed value, we need to tell the test runner to update the existing snapshots instead of failing the test. This is possible by adding  a`-d --update-snapshots` flag to the `phpunit` command, or setting the `UPDATE_SNAPSHOTS` env var to `true`.
 
 ```
 > ./vendor/bin/phpunit -d --update-snapshots
@@ -278,14 +278,27 @@ $this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
 
 When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots.
 
-By using the `--without-creating-snapshots` parameter, PHPUnit will fail if the snapshots don't exist.
+By using the `--without-creating-snapshots` parameter or by setting the `CREATE_SNAPSHOTS` env var to `false`, PHPUnit will fail if the snapshots don't exist.
 
 ```bash
 > ./vendor/bin/phpunit -d --without-creating-snapshots
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
-You can automatically create it by removing `-d --no-create-snapshots` of PHPUnit's CLI arguments.
+You can automatically create it by removing the `CREATE_SNAPSHOT=false` env var, or `-d --no-create-snapshots` of PHPUnit's CLI arguments.
+```
+
+### Usage with parallel testing
+
+If you want to run your test in parallel with a tool like [Paratest](https://github.com/paratestphp/paratest), ou with the `php artisan test --parallel` command of Laravel, you will have to use the environment variables.
+
+
+```bash
+> CREATE_SNAPSHOTS=false php artisan test --parallel
+
+1) ExampleTest::test_it_matches_a_string
+Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
+You can automatically create it by removing the `CREATE_SNAPSHOT=false` env var, or `-d --no-create-snapshots` of PHPUnit's CLI arguments.
 ```
 
 ### A note for Windows users
