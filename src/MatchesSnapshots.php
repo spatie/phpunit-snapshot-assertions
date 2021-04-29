@@ -304,7 +304,7 @@ trait MatchesSnapshots
         $this->fail(
             "Snapshot \"$snapshotFileName\" does not exist.\n".
             'You can automatically create it by removing '.
-            'the `CREATE_SNAPSHOT=false` env var, or '.
+            'the `CREATE_SNAPSHOTS=false` env var, or '.
             '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
     }
