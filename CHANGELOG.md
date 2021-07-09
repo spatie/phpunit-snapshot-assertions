@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.7 - 2021-07-09
+
+- clean filenames on MatchesFileSnapshot for Windows (#130)
+
 ## 4.2.6 - 2021-04-20
 
 - allow using env vars to manage snapshot creation and update (#126)
