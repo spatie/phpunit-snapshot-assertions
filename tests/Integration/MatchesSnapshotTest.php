@@ -293,6 +293,23 @@ class MatchesSnapshotTest extends TestCase
     }
 
     /** @test */
+    public function it_cleans_filenames_on_file_snapshot()
+    {
+        $mockTrait = $this->getMatchesSnapshotMock(false);
+        $mockTrait
+            ->expects($this->any())
+            ->method('getSnapshotId')
+            ->willReturn('MatchesSnapshotTest__it_cleans_filenames_on_file_snapshot with dataset "Empty"__1');
+
+        $this->expectFail(
+            $mockTrait,
+            'File did not match snapshot (MatchesSnapshotTest__it_cleans_filenames_on_file_snapshot with dataset Empty__1.jpg)'
+        );
+
+        $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
+    }
+
+    /** @test */
     public function it_can_update_a_string_snapshot()
     {
         $_SERVER['argv'][] = '--update-snapshots';
@@ -447,7 +464,7 @@ class MatchesSnapshotTest extends TestCase
     /**
      * @return \PHPUnit\Framework\MockObject\MockObject|\Spatie\Snapshots\MatchesSnapshots
      */
-    private function getMatchesSnapshotMock(): MockObject
+    private function getMatchesSnapshotMock(bool $mockGetSnapshotId = true): MockObject
     {
         $mockMethods = [
             'markTestIncomplete',
@@ -468,10 +485,12 @@ class MatchesSnapshotTest extends TestCase
             $mockMethods
         );
 
-        $matchesSnapshotMock
-            ->expects($this->any())
-            ->method('getSnapshotId')
-            ->willReturn('MatchesSnapshotTest__'.$this->getName().'__1');
+        if ($mockGetSnapshotId) {
+            $matchesSnapshotMock
+                ->expects($this->any())
+                ->method('getSnapshotId')
+                ->willReturn('MatchesSnapshotTest__'.$this->getName().'__1');
+        }
 
         $matchesSnapshotMock
             ->expects($this->any())
