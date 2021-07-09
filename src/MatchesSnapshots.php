@@ -207,6 +207,7 @@ trait MatchesSnapshots
         $this->snapshotIncrementor++;
 
         $snapshotId = $this->getSnapshotId().'.'.$fileExtension;
+        $snapshotId = Filename::cleanFilename($snapshotId);
 
         // If $filePath has a different file extension than the snapshot, the test should fail
         if ($namesWithDifferentExtension = $fileSystem->getNamesWithDifferentExtension($snapshotId)) {
