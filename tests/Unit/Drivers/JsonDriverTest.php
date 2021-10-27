@@ -78,12 +78,27 @@ class JsonDriverTest extends TestCase
             '[',
             '    "foo",',
             '    "bar",',
-            '    "baz"',
+            '    "\ud83c\udf6d"',
             ']',
             '',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize(['foo', 'bar', 'baz']));
+        $this->assertEquals($expected, $driver->serialize(['foo', 'bar', '🍭']));
+    }
+
+    /** @test */
+    public function it_can_serialize_a_unicode_json_array_to_pretty_json()
+    {
+        $driver = new JsonDriver(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+        $expected = implode("\n", [
+            '[',
+            '    "🍭"',
+            ']',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize(['🍭']));
     }
 
     /** @test */

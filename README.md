@@ -206,6 +206,17 @@ protected function getSnapshotDirectory(): string
 }
 ```
 
+### Customizing JSON encode flags
+
+JsonDriver uses the `json_encode()` method with `JSON_PRETTY_PRINT` for serialization. This can be changed by overriding the `getJsonEncodeFlags` method.
+
+```php
+protected function getJsonEncodeFlags(): int
+{
+    return JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+}
+```
+
 ### Using specific Drivers
 
 The driver used to serialize the data can be specificied as second argument of the

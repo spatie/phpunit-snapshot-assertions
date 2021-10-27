@@ -52,7 +52,7 @@ class AssertionTest extends TestCase
     /** @test */
     public function can_match_an_array_snapshot()
     {
-        $data = ['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'];
+        $data = ['foo' => 'foo', 'bar' => 'bar', 'baz' => '🍭'];
 
         $this->assertMatchesJsonSnapshot($data);
     }
