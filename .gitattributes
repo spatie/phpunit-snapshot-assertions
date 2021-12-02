@@ -2,14 +2,14 @@
 # https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
 
 # Ignore all test and documentation with "export-ignore".
-/.editorconfig     export-ignore
-/.gitattributes     export-ignore
-/.github            export-ignore
-/.gitignore         export-ignore
-/.php_cs.dist       export-ignore
-/example            export-ignore
-/phpunit.xml.dist   export-ignore
-/tests              export-ignore
+/.editorconfig              export-ignore
+/.gitattributes             export-ignore
+/.github                    export-ignore
+/.gitignore                 export-ignore
+/.php-cs-fixer.dist.php     export-ignore
+/example                    export-ignore
+/phpunit.xml.dist           export-ignore
+/tests                      export-ignore
 
 # All test snapshots and text stubs must have LF line endings
 tests/**/__snapshots__/**   text eol=lf
