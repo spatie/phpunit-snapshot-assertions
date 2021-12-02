@@ -4,7 +4,7 @@ namespace Spatie\Snapshots;
 
 class Filename
 {
-    static public function cleanFilename(string $raw): string
+    public static function cleanFilename(string $raw): string
     {
         // Remove anything which isn't a word, whitespace, number
         // or any of the following caracters -_~,;[]().
