@@ -228,6 +228,24 @@ class OrderTest
 }
 ```
 
+### Configuring Drivers
+`JsonDriver` and `ObjectDriver` can be configurable by accessing their `config` in setup method of your base test class:
+```php
+JsonDriver::$config['flags'] = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES; // json_encode flags (https://www.php.net/manual/ru/function.json-encode.php)
+```
+
+```php
+// Symfony Serializer YamlEncoder context: https://symfony.com/doc/current/components/serializer.html#the-yamlencoder-context-options
+ObjectDriver::$config['context'] = [
+    'yaml_inline' => 4,
+    'yaml_indent' => 8,
+];
+
+// or even different encoder:
+ObjectDriver::$config['encoder'] = JsonEncoder::class;
+ObjectDriver::$config['format'] = 'json';
+```
+
 ### Writing Custom Drivers
 
 Drivers ensure that different types of data can be serialized and matched in their own way. A driver is a class that implements the `Spatie\Snapshots\Driver` interface, which requires three method implementations: `serialize`, `extension` and `match`.

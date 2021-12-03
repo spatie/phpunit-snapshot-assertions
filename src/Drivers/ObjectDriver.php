@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Drivers;
 
+use JetBrains\PhpStorm\ArrayShape;
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
@@ -12,6 +13,17 @@ use Symfony\Component\Yaml\Yaml;
 
 class ObjectDriver implements Driver
 {
+    #[ArrayShape(['encoder' => 'string', 'format' => 'string', 'context' => 'array'])]
+    public static $config = [
+        'encoder' => YamlEncoder::class,
+        'format' => YamlEncoder::FORMAT,
+        'context' => [
+            'yaml_inline' => 2,
+            'yaml_indent' => 4,
+            'yaml_flags' => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
+        ],
+    ];
+
     public function serialize($data): string
     {
         $normalizers = [
@@ -20,7 +32,7 @@ class ObjectDriver implements Driver
         ];
 
         $encoders = [
-            new YamlEncoder(),
+            new (self::$config['encoder'])(),
         ];
 
         $serializer = new Serializer($normalizers, $encoders);
@@ -32,11 +44,7 @@ class ObjectDriver implements Driver
         }
 
         return $this->dedent(
-            $serializer->serialize($data, 'yaml', [
-                'yaml_inline' => 2,
-                'yaml_indent' => 4,
-                'yaml_flags' => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
-            ])
+            $serializer->serialize($data, self::$config['format'], self::$config['context'])
         );
     }
 

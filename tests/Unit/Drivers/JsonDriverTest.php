@@ -8,6 +8,17 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriverTest extends TestCase
 {
+    protected $defaultConfig;
+
+    protected function setUp(): void {
+        $this->defaultConfig = JsonDriver::$config;
+    }
+
+    protected function tearDown(): void
+    {
+        JsonDriver::$config = $this->defaultConfig;
+    }
+
     /** @test */
     public function it_can_serialize_a_json_string_to_pretty_json()
     {
@@ -15,13 +26,40 @@ class JsonDriverTest extends TestCase
 
         $expected = implode("\n", [
             '{',
-            '    "foo": "bar",',
-            '    "строка в юникоде": "тест"',
+            '    "foo": "bar"',
             '}',
             '',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize('{"foo":"bar", "строка в юникоде":"тест"}'));
+        $this->assertEquals($expected, $driver->serialize('{"foo":"bar"}'));
+    }
+
+    /** @test */
+    public function it_can_be_configurable()
+    {
+        $driver = new JsonDriver();
+
+        $expected = implode("\n", [
+            '{',
+            '    "foo": "bar",',
+            '    "\u044e\u043d\u0438\u043a\u043e\u0434": "\u0442\u0435\u0441\u0442"',
+            '}',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize('{"foo":"bar", "юникод":"тест"}'));
+
+        JsonDriver::$config['flags'] = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+
+        $expected = implode("\n", [
+            '{',
+            '    "foo": "bar",',
+            '    "юникод": "тест"',
+            '}',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize('{"foo":"bar", "юникод":"тест"}'));
     }
 
     /** @test */

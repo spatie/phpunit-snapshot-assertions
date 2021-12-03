@@ -3,10 +3,25 @@
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
+use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Yaml\Yaml;
 
 class ObjectDriverTest extends TestCase
 {
+    protected $defaultConfig;
+
+    protected function setUp(): void {
+        $this->defaultConfig = ObjectDriver::$config;
+    }
+
+    protected function tearDown(): void
+    {
+        ObjectDriver::$config = $this->defaultConfig;
+    }
+
     /** @test */
     public function it_can_serialize_a_string()
     {
@@ -68,6 +83,39 @@ class ObjectDriverTest extends TestCase
             'foo: bar',
             '',
         ]);
+
+        $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
+    }
+
+    /** @test */
+    public function it_can_be_configurable()
+    {
+        $driver = new ObjectDriver();
+
+        $expected = implode("\n", [
+            'foo: bar',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
+
+        $expected = implode("\n", [
+            '  foo: bar',
+            '',
+        ]);
+
+        ObjectDriver::$config['context']['yaml_indent'] = 2;
+
+        $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
+
+
+        ObjectDriver::$config = [
+            'encoder' => JsonEncoder::class,
+            'format' => JsonEncoder::FORMAT,
+            'context' => []
+        ];
+
+        $expected = '{"foo":"bar"}';
 
         $this->assertEquals($expected, $driver->serialize((object) ['foo' => 'bar']));
     }
