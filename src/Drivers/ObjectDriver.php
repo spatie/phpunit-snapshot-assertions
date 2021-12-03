@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Drivers;
 
+use Composer\InstalledVersions;
 use JetBrains\PhpStorm\ArrayShape;
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
@@ -37,10 +38,13 @@ class ObjectDriver implements Driver
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        // The Symfony serialized doesn't support `stdClass` yet.
-        // This may be removed when Symfony 5.1 is released.
         if ($data instanceof \stdClass) {
-            $data = (array) $data;
+            $serializerVersion = InstalledVersions::getVersion('symfony/serializer');
+
+            if (version_compare($serializerVersion, '5.1.0.0') < 0) {
+                // The Symfony serializer (before 5.1 version) doesn't support `stdClass`.
+                $data = (array) $data;
+            }
         }
 
         return $this->dedent(
