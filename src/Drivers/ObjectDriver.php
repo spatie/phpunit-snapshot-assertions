@@ -32,8 +32,10 @@ class ObjectDriver implements Driver
             new ObjectNormalizer(),
         ];
 
+        $encoder = self::$config['encoder'];
+
         $encoders = [
-            new (self::$config['encoder'])(),
+            new $encoder(),
         ];
 
         $serializer = new Serializer($normalizers, $encoders);
