@@ -15,12 +15,13 @@ class JsonDriverTest extends TestCase
 
         $expected = implode("\n", [
             '{',
-            '    "foo": "bar"',
+            '    "foo": "bar",',
+            '    "строка в юникоде": "тест"',
             '}',
             '',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize('{"foo":"bar"}'));
+        $this->assertEquals($expected, $driver->serialize('{"foo":"bar", "строка в юникоде":"тест"}'));
     }
 
     /** @test */
