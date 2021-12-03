@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.9 - 2021-12-03
+
+## What's Changed
+
+- Do not convert stdClass to array && remove outdated piece of code by @alshenetsky in https://github.com/spatie/phpunit-snapshot-assertions/pull/134
+
+## New Contributors
+
+- @alshenetsky made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/134
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.8...4.2.9
+
 ## 4.2.8 - 2021-12-02
 
 ## What's Changed
