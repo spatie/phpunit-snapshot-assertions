@@ -21,7 +21,13 @@ class HtmlDriver implements Driver
 
         @$domDocument->loadHTML($data); // to ignore HTML5 errors
 
-        return $domDocument->saveHTML();
+        $htmlValue = $domDocument->saveHTML();
+        // Normalize line endings for cross-platform tests.
+        if (PHP_OS_FAMILY === 'Windows') {
+            $htmlValue = implode("\n", explode("\r\n", $htmlValue));
+        }
+
+        return $htmlValue;
     }
 
     public function extension(): string
