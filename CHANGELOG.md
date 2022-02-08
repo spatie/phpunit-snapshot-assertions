@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.10 - 2022-02-08
+
+## What's Changed
+
+- Normalize windows line endings on HTML tests by @mallardduck in https://github.com/spatie/phpunit-snapshot-assertions/pull/136
+
+## New Contributors
+
+- @mallardduck made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/136
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.9...4.2.10
+
 ## 4.2.9 - 2021-12-03
 
 ## What's Changed
