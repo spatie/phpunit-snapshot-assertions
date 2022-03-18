@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.11 - 2022-03-18
+
+## What's Changed
+
+- revert match process in JsonDriver by @Stevemoretz in https://github.com/spatie/phpunit-snapshot-assertions/pull/138
+
+## New Contributors
+
+- @Stevemoretz made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/138
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.10...4.2.11
+
 ## 4.2.10 - 2022-02-08
 
 ## What's Changed
