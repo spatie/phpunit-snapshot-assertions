@@ -19,7 +19,7 @@ class HtmlDriver implements Driver
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
 
-        @$domDocument->loadHTML($data); // to ignore HTML5 errors
+        @$domDocument->loadHTML($data, LIBXML_HTML_NODEFDTD); // to ignore HTML5 errors
 
         $htmlValue = $domDocument->saveHTML();
         // Normalize line endings for cross-platform tests.
