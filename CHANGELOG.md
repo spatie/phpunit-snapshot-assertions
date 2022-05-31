@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.12 - 2022-05-31
+
+### What's Changed
+
+- Use `LIBXML_HTML_NODEFDTD` to maintain output consistency by @JayBizzle in https://github.com/spatie/phpunit-snapshot-assertions/pull/141
+
+### New Contributors
+
+- @JayBizzle made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/141
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.11...4.2.12
+
 ## 4.2.11 - 2022-03-18
 
 ## What's Changed
