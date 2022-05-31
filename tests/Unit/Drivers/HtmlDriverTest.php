@@ -24,6 +24,27 @@ class HtmlDriverTest extends TestCase
 
         $this->assertEquals($expected, $driver->serialize('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>'));
     }
+    
+    /** @test */
+    public function test_for_issue_140()
+    {
+        $driver = new HtmlDriver();
+
+        $expected = implode("\n", [
+            '<!DOCTYPE html>',
+            '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">',
+            '<head>',
+            '<!--[if !mso]><!-->',
+            '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
+            '<!--<![endif]-->',
+            '</head>',
+            '<body><h1>Hello, world!</h1></body>',
+            '</html>',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize($expected));
+    }
 
     /** @test */
     public function it_can_only_serialize_strings()
