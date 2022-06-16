@@ -24,7 +24,7 @@ class HtmlDriverTest extends TestCase
 
         $this->assertEquals($expected, $driver->serialize('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>'));
     }
-    
+
     /** @test */
     public function test_for_issue_140()
     {
@@ -44,6 +44,22 @@ class HtmlDriverTest extends TestCase
         ]);
 
         $this->assertEquals($expected, $driver->serialize($expected));
+    }
+
+    /** @test */
+    public function it_can_serialize_a_html_string_without_a_doctype()
+    {
+        $driver = new HtmlDriver();
+
+        $expected = implode("\n", [
+            '<html lang="en">',
+            '<head></head>',
+            '<body><h1>Hello, world!</h1></body>',
+            '</html>',
+            '',
+        ]);
+
+        $this->assertEquals($expected, $driver->serialize('<html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>'));
     }
 
     /** @test */
