@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
@@ -119,5 +120,26 @@ class JsonDriverTest extends TestCase
         $resource = tmpfile();
 
         $driver->serialize($resource);
+    }
+
+    /**
+     * @test
+     * @testWith ["{}", "{}", true]
+     *           ["{}", "{\"data\":1}", false]
+     *           ["{\"data\":1}", "{\"data\":1}", true]
+     *           ["{\"data\":1}", "{\"data\":\"1\"}", false]
+     */
+    public function it_can_match_json_strings(string $expected, string $actual, bool $assertion)
+    {
+        $driver = new JsonDriver();
+
+        try {
+            $driver->match($expected, $actual);
+            $status = true;
+        } catch (ExpectationFailedException $th) {
+            $status = false;
+        }
+
+        $this->assertSame($assertion, $status);
     }
 }

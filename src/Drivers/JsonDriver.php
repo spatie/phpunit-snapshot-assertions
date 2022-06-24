@@ -32,6 +32,6 @@ class JsonDriver implements Driver
             $actual = json_decode($actual, true, 512, JSON_THROW_ON_ERROR);
         }
         $expected = json_decode($expected, true, 512, JSON_THROW_ON_ERROR);
-        Assert::assertEquals($expected, $actual);
+        Assert::assertJsonStringEqualsJsonString(json_encode($expected), json_encode($actual));
     }
 }
