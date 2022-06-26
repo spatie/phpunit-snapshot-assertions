@@ -2,6 +2,19 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.13 - 2022-06-26
+
+### What's Changed
+
+- Add test to cover HTML without doctype by @mallardduck in https://github.com/spatie/phpunit-snapshot-assertions/pull/144
+- Add type safe json matching by @cschindl in https://github.com/spatie/phpunit-snapshot-assertions/pull/145
+
+### New Contributors
+
+- @cschindl made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/145
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.12...4.2.13
+
 ## 4.2.12 - 2022-05-31
 
 ### What's Changed
