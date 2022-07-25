@@ -33,12 +33,13 @@ EOF));
     {
         $driver = new TextDriver();
 
-        $expected = <<<EOF
+        $expected = implode("\n", [
+            '',
+            '  GET|HEAD       / ..................................................... index',
+            '',
+            '                                                            Showing [1] routes'
+        ]);
 
-  GET|HEAD       / ..................................................... index
-
-                                                            Showing [1] routes
-EOF;
         // Due to using PHP_EOL this should fail (conditionally) when run on windows
         $actual = implode(PHP_EOL, [
             '',
