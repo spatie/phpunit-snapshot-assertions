@@ -29,7 +29,7 @@ EOF));
     }
 
     /** @test */
-    public function it_can_serialize_when_given_windows_line_endings()
+    public function it_can_serialize_when_given_OS_dependant_line_endings()
     {
         $driver = new TextDriver();
 
