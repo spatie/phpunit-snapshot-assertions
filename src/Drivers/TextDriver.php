@@ -9,6 +9,11 @@ class TextDriver implements Driver
 {
     public function serialize($data): string
     {
+        // Normalize line endings for cross-platform tests.
+        if (PHP_OS_FAMILY === 'Windows') {
+            $data = implode("\n", explode("\r\n", $data));
+        }
+
         return $data;
     }
 
