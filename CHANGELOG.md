@@ -2,6 +2,14 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.14 - 2022-07-29
+
+### What's Changed
+
+- Add tests for Text Driver and Windows EOL fixes by @mallardduck in https://github.com/spatie/phpunit-snapshot-assertions/pull/146
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.13...4.2.14
+
 ## 4.2.13 - 2022-06-26
 
 ### What's Changed
