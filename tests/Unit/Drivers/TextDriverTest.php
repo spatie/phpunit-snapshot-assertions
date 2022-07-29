@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\TextDriver;
-use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class TextDriverTest extends TestCase
 {
@@ -17,7 +16,7 @@ class TextDriverTest extends TestCase
             '',
             '  GET|HEAD       / ..................................................... index',
             '',
-            '                                                            Showing [1] routes'
+            '                                                            Showing [1] routes',
         ]);
 
         $this->assertEquals($expected, $driver->serialize(<<<EOF
@@ -37,7 +36,7 @@ EOF));
             '',
             '  GET|HEAD       / ..................................................... index',
             '',
-            '                                                            Showing [1] routes'
+            '                                                            Showing [1] routes',
         ]);
 
         // Due to using PHP_EOL this should fail (conditionally) when run on windows
@@ -45,10 +44,9 @@ EOF));
             '',
             '  GET|HEAD       / ..................................................... index',
             '',
-            '                                                            Showing [1] routes'
+            '                                                            Showing [1] routes',
         ]);
 
         $this->assertEquals($expected, $driver->serialize($actual));
     }
-
 }
