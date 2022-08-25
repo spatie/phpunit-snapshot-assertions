@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.15 - 2022-08-25
+
+### What's Changed
+
+- Apply PCRE_UTF8 for cleaning filename by @su-kun1899 in https://github.com/spatie/phpunit-snapshot-assertions/pull/147
+
+### New Contributors
+
+- @su-kun1899 made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/147
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.14...4.2.15
+
 ## 4.2.14 - 2022-07-29
 
 ### What's Changed
