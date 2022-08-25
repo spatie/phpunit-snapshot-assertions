@@ -7,11 +7,20 @@ use Spatie\Snapshots\Filename;
 
 class FilenameTest extends TestCase
 {
-    /** @test */
-    public function it_creates_a_filename_which_is_valid_on_all_systems()
+    /**
+     * @test
+     * @dataProvider fileNameProvider
+     */
+    public function it_creates_a_filename_which_is_valid_on_all_systems($name, $expected)
     {
-        $name = 'ClassTest__testOne with... data set "Empty".php';
+        $this->assertEquals($expected, Filename::cleanFilename($name));
+    }
 
-        $this->assertEquals('ClassTest__testOne with data set Empty.php', Filename::cleanFilename($name));
+    public function fileNameProvider()
+    {
+        return [
+            ['ClassTest__testOne with... data set "Empty".php', 'ClassTest__testOne with data set Empty.php'],
+            ['ClassTest__testOne with... data set "空".php', 'ClassTest__testOne with data set 空.php'],
+        ];
     }
 }
