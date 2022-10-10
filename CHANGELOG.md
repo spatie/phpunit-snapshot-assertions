@@ -2,6 +2,14 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.16 - 2022-10-10
+
+### What's Changed
+
+- serialize empty HTML by @Khartir in https://github.com/spatie/phpunit-snapshot-assertions/pull/148
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.15...4.2.16
+
 ## 4.2.15 - 2022-08-25
 
 ### What's Changed
