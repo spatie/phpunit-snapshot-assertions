@@ -71,4 +71,12 @@ class HtmlDriverTest extends TestCase
 
         $driver->serialize(['foo' => 'bar']);
     }
+
+    /** @test */
+    public function it_can_serialize_an_empty_string()
+    {
+        $driver = new HtmlDriver();
+
+        $this->assertEquals("\n", $driver->serialize(''));
+    }
 }

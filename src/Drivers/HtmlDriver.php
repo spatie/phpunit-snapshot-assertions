@@ -15,6 +15,10 @@ class HtmlDriver implements Driver
             throw new CantBeSerialized('Only strings can be serialized to html');
         }
 
+        if ('' === $data) {
+            return "\n";
+        }
+
         $domDocument = new DOMDocument('1.0');
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
