@@ -73,6 +73,14 @@ class AssertionTest extends TestCase
         $this->assertMatchesFileSnapshot($filePath);
     }
 
+	/** @test */
+	public function can_match_a_file_zip_snapshot()
+	{
+		$filePath = __DIR__.'/stubs/example_snapshots/excel.xlsx';
+
+		$this->assertMatchesFileSnapshot($filePath);
+	}
+
     /** @test */
     public function can_do_multiple_snapshot_assertions()
     {

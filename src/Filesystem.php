@@ -84,6 +84,48 @@ class Filesystem
 
     public function fileEquals(string $filePath, string $fileName): bool
     {
+		if (in_array(pathinfo($fileName, PATHINFO_EXTENSION), ['xlsx', 'zip', 'docx'])) {
+			return $this->fileEqualsZipped($filePath, $fileName);
+		}
+
         return sha1_file($filePath) === sha1_file($this->path($fileName));
     }
+
+	public function fileEqualsZipped(string $filePath, string $fileName): bool
+	{
+		// open both archives
+		$zipArchiveSource = new \ZipArchive();
+		$zipArchiveSource->open($filePath);
+		$zipArchiveTarget = new \ZipArchive();
+		$zipArchiveTarget->open($this->path($fileName));
+
+		// compare the file-number
+		if ($zipArchiveSource->numFiles !== $zipArchiveTarget->numFiles) {
+			return false;
+		}
+
+		// compare the content of the archived files, trie to do it fast
+		for( $i = 0; $i < $zipArchiveSource->numFiles; $i++ ){
+			$stat = $zipArchiveSource->statIndex( $i );
+			$streamSource = $zipArchiveSource->getStream($stat['name']);
+			$streamTarget = $zipArchiveTarget->getStream($stat['name']);
+			while (!feof($streamSource)) {
+				// if we reached feof of target before feof of source, the files are different
+				if (feof($streamTarget)) {
+					return false;
+				}
+
+				$contentsSourcePartial = fread($streamSource, 512);
+				$contentsTargetPartial = fread($streamTarget, 512);
+
+				// are there differences in the part, than the files are differnet
+				if ($contentsSourcePartial !== $contentsTargetPartial) return false;
+			}
+
+			// if we reached feof of source before feof of target, the files are different
+			if(!feof($streamTarget)) return false;
+		}
+
+		return true;
+	}
 }

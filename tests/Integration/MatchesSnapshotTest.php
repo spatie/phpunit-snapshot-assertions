@@ -223,6 +223,19 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
     }
 
+	/** @test */
+	public function it_can_mismatch_a_file_zip_snapshot()
+	{
+		$mockTrait = $this->getMatchesSnapshotMock();
+
+		$this->expectFail(
+			$mockTrait,
+			'File did not match snapshot (MatchesSnapshotTest__it_can_mismatch_a_file_zip_snapshot__1.zip)'
+		);
+
+		$mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/example_snapshots/zip.zip');
+	}
+
     /** @test */
     public function it_can_mismatch_a_file_snapshot_with_a_different_extension()
     {
