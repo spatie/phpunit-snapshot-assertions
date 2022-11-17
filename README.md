@@ -309,7 +309,8 @@ You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var
 Windows users should configure their line endings in `.gitattributes`.
 
 ```txt
-tests/**/__snapshots__/** text eol=lf
+# Snapshots used in tests hold serialized data and their line ending should be left unchanged
+tests/**/__snapshots__/** binary
 ```
 
 ## Changelog
