@@ -26,15 +26,6 @@ class ObjectDriver implements Driver
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        if ($data instanceof \stdClass) {
-            $serializerVersion = InstalledVersions::getVersion('symfony/serializer');
-
-            if (version_compare($serializerVersion, '5.1.0.0') < 0) {
-                // The Symfony serializer (before 5.1 version) doesn't support `stdClass`.
-                $data = (array) $data;
-            }
-        }
-
         return $this->dedent(
             $serializer->serialize($data, 'yaml', [
                 'yaml_inline' => 2,
