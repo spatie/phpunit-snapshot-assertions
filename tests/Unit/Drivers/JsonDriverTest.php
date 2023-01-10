@@ -124,6 +124,7 @@ class JsonDriverTest extends TestCase
 
     /**
      * @test
+     *
      * @testWith ["{}", "{}", true]
      *           ["{}", "{\"data\":1}", false]
      *           ["{\"data\":1}", "{\"data\":1}", true]

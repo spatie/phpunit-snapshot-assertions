@@ -92,6 +92,7 @@ class ObjectDriverTest extends TestCase
 class Obj
 {
     private $private = 'private';
+
     public $public = 'public';
 
     public function getName()
