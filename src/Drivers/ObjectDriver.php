@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots\Drivers;
 
-use Composer\InstalledVersions;
 use PHPUnit\Framework\Assert;
 use Spatie\Snapshots\Driver;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
