@@ -26,9 +26,9 @@
         "ext-libxml": "*",
         "composer-runtime-api": "^2.0",
         "phpunit/phpunit": "^10.0",
-        "symfony/property-access": "^6.0",
-        "symfony/serializer": "^6.0",
-        "symfony/yaml": "^6.0"
+        "symfony/property-access": "^6.2.3",
+        "symfony/serializer": "^6.2.3",
+        "symfony/yaml": "^6.2.2"
     },
     "autoload": {
         "psr-4": {
