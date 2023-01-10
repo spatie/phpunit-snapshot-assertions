@@ -1,8 +1,7 @@
-.phpunit.result.cache
+.phpunit.cache
 composer.lock
 coverage
 docs
 phpunit.xml
 psalm.xml
 vendor
- .phpunit.cache
