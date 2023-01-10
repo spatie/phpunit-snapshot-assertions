@@ -19,7 +19,7 @@ class TextDriverTest extends TestCase
             '                                                            Showing [1] routes',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize(<<<EOF
+        $this->assertEquals($expected, $driver->serialize(<<<'EOF'
 
   GET|HEAD       / ..................................................... index
 
