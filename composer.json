@@ -47,5 +47,10 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-v5": "5.0-dev"
+        }
+    }
 }
