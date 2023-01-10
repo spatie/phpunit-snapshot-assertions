@@ -5,7 +5,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![run-tests](https://github.com/spatie/phpunit-snapshot-assertions/workflows/run-tests/badge.svg)
+[![Tests](https://github.com/spatie/phpunit-snapshot-assertions/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/phpunit-snapshot-assertions/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 
 > Snapshot testing is a way to test without writing actual test cases
