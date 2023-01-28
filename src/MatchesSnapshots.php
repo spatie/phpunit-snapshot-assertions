@@ -134,7 +134,7 @@ trait MatchesSnapshots
      */
     protected function shouldUpdateSnapshots(): bool
     {
-        if (in_array('--update-snapshots', $_SERVER['argv'], true)) {
+        if (isset($_SERVER['argv']) && in_array('--update-snapshots', $_SERVER['argv'], true)) {
             return true;
         }
 
@@ -150,7 +150,7 @@ trait MatchesSnapshots
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true)
+        return !(isset($_SERVER['argv']) && in_array('--without-creating-snapshots', $_SERVER['argv'], true))
             && getenv('CREATE_SNAPSHOTS') !== 'false';
     }
 
