@@ -5,7 +5,9 @@
 ![run-tests](https://img.shields.io/github/actions/workflow/status/spatie/phpunit-snapshot-assertions/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 
-> Snapshot testing is a way to test without writing actual test cases
+Snapshot testing is a way to test without writing actual test cases.
+
+You can learn more in [this free video](https://spatie.be/courses/testing-laravel-with-pest/snapshot-testing) from our Testing Laravel course. Don't worry you can use this package in non-Laravel projects too.
 
 ```php
 use Spatie\Snapshots\MatchesSnapshots;
