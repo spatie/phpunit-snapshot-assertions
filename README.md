@@ -188,7 +188,7 @@ Snapshot ids are generated via the `getSnapshotId` method on the `MatchesSnapsho
 protected function getSnapshotId(): string
 {
     return (new ReflectionClass($this))->getShortName().'--'.
-        $this->getName().'--'.
+        $this->name().'--'.
         $this->snapshotIncrementor;
 }
 ```

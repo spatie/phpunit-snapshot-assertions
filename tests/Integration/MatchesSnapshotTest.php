@@ -489,7 +489,7 @@ class MatchesSnapshotTest extends TestCase
             $matchesSnapshotMock
                 ->expects($this->any())
                 ->method('getSnapshotId')
-                ->willReturn('MatchesSnapshotTest__'.$this->getName().'__1');
+                ->willReturn('MatchesSnapshotTest__'.$this->name().'__1');
         }
 
         $matchesSnapshotMock

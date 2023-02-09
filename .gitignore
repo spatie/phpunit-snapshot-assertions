@@ -1,7 +1,4 @@
-.idea
-.php-cs-fixer.cache
-.phpunit.result.cache
-build
+.phpunit.cache
 composer.lock
 coverage
 docs

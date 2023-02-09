@@ -18,11 +18,9 @@ trait MatchesSnapshots
     use SnapshotDirectoryAware;
     use SnapshotIdAware;
 
-    /** @var int */
-    protected $snapshotIncrementor = 0;
+    protected int $snapshotIncrementor = 0;
 
-    /** @var array */
-    protected $snapshotChanges = [];
+    protected array $snapshotChanges = [];
 
     /** @before */
     public function setUpSnapshotIncrementor()
@@ -67,7 +65,7 @@ trait MatchesSnapshots
         $this->doSnapshotAssertion($actual, new ObjectDriver());
     }
 
-    public function assertMatchesFileHashSnapshot($filePath): void
+    public function assertMatchesFileHashSnapshot(string $filePath): void
     {
         if (! file_exists($filePath)) {
             $this->fail('File does not exist');
@@ -78,17 +76,17 @@ trait MatchesSnapshots
         $this->assertMatchesSnapshot($actual);
     }
 
-    public function assertMatchesFileSnapshot($file): void
+    public function assertMatchesFileSnapshot(string $file): void
     {
         $this->doFileSnapshotAssertion($file);
     }
 
-    public function assertMatchesHtmlSnapshot($actual): void
+    public function assertMatchesHtmlSnapshot(string $actual): void
     {
         $this->assertMatchesSnapshot($actual, new HtmlDriver());
     }
 
-    public function assertMatchesJsonSnapshot($actual): void
+    public function assertMatchesJsonSnapshot(array|string $actual): void
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
     }
@@ -154,7 +152,7 @@ trait MatchesSnapshots
             && getenv('CREATE_SNAPSHOTS') !== 'false';
     }
 
-    protected function doSnapshotAssertion($actual, Driver $driver)
+    protected function doSnapshotAssertion(mixed $actual, Driver $driver)
     {
         $this->snapshotIncrementor++;
 
