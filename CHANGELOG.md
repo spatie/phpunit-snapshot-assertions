@@ -2,6 +2,25 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.0.0 - 2023-02-09
+
+### What's Changed
+
+- Add Dependabot Automation by @patinthehat in https://github.com/spatie/phpunit-snapshot-assertions/pull/152
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/phpunit-snapshot-assertions/pull/151
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/153
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/159
+- Fix badge with `run-tests` status in `README.md` by @gomzyakov in https://github.com/spatie/phpunit-snapshot-assertions/pull/160
+- add support for PHPUnit v10 by @freekmurze in https://github.com/spatie/phpunit-snapshot-assertions/pull/154
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/152
+- @dependabot made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/153
+- @gomzyakov made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/160
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.16...5.0.0
+
 ## 4.2.16 - 2022-10-10
 
 ### What's Changed
