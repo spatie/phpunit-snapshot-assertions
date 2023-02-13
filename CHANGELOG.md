@@ -2,6 +2,21 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.0.1 - 2023-02-13
+
+### What's Changed
+
+- Generate snapshot file names with dataset by @pierres in https://github.com/spatie/phpunit-snapshot-assertions/pull/163
+- Bump aglipanci/laravel-pint-action from 0.1.0 to 2.1.0 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/164
+- Update windows users info in readme.md by @raveren in https://github.com/spatie/phpunit-snapshot-assertions/pull/150
+
+### New Contributors
+
+- @pierres made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/163
+- @raveren made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/150
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.0.0...5.0.1
+
 ## 5.0.0 - 2023-02-09
 
 ### What's Changed
