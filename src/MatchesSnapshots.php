@@ -28,7 +28,7 @@ trait MatchesSnapshots
         $this->snapshotIncrementor = 0;
     }
 
-    /** @after */
+    /** @postCondition */
     public function markTestIncompleteIfSnapshotsHaveChanged()
     {
         if (empty($this->snapshotChanges)) {
