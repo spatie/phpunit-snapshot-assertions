@@ -14,9 +14,9 @@ class ImageDriverTest extends TestCase
 
         $this->driver = new ImageDriver();
 
-        $this->pathToImageA = __DIR__ . '/../test_files/testA.png';
-        $this->pathToImageB = __DIR__ . '/../test_files/testB.png';
-        $this->pathToImageWithDifferentDimensions = __DIR__ . '/../test_files/testC.png';
+        $this->pathToImageA = __DIR__.'/../test_files/testA.png';
+        $this->pathToImageB = __DIR__.'/../test_files/testB.png';
+        $this->pathToImageWithDifferentDimensions = __DIR__.'/../test_files/testC.png';
 
     }
 

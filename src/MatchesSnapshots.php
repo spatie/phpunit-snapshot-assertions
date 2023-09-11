@@ -51,7 +51,7 @@ trait MatchesSnapshots
 
     public function assertMatchesSnapshot($actual, Driver $driver = null): void
     {
-        if (!is_null($driver)) {
+        if (! is_null($driver)) {
             $this->doSnapshotAssertion($actual, $driver);
 
             return;
@@ -68,7 +68,7 @@ trait MatchesSnapshots
 
     public function assertMatchesFileHashSnapshot(string $filePath): void
     {
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             $this->fail('File does not exist');
         }
 
@@ -116,8 +116,7 @@ trait MatchesSnapshots
         $actual,
         float $threshold = 0.1,
         bool $includeAa = true
-    ): void
-    {
+    ): void {
         $this->assertMatchesSnapshot($actual, new ImageDriver(
             $threshold,
             $includeAa,
@@ -131,8 +130,8 @@ trait MatchesSnapshots
      */
     protected function getFileSnapshotDirectory(): string
     {
-        return $this->getSnapshotDirectory() .
-            DIRECTORY_SEPARATOR .
+        return $this->getSnapshotDirectory().
+            DIRECTORY_SEPARATOR.
             'files';
     }
 
@@ -161,7 +160,7 @@ trait MatchesSnapshots
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return !in_array('--without-creating-snapshots', $_SERVER['argv'], true)
+        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true)
             && getenv('CREATE_SNAPSHOTS') !== 'false';
     }
 
@@ -175,7 +174,7 @@ trait MatchesSnapshots
             $driver
         );
 
-        if (!$snapshot->exists()) {
+        if (! $snapshot->exists()) {
             $this->assertSnapshotShouldBeCreated($snapshot->filename());
 
             $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual);
@@ -203,7 +202,7 @@ trait MatchesSnapshots
 
     protected function doFileSnapshotAssertion(string $filePath): void
     {
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             $this->fail('File does not exist');
         }
 
@@ -217,7 +216,7 @@ trait MatchesSnapshots
 
         $this->snapshotIncrementor++;
 
-        $snapshotId = $this->getSnapshotId() . '.' . $fileExtension;
+        $snapshotId = $this->getSnapshotId().'.'.$fileExtension;
         $snapshotId = Filename::cleanFilename($snapshotId);
 
         // If $filePath has a different file extension than the snapshot, the test should fail
@@ -240,13 +239,13 @@ trait MatchesSnapshots
             $this->fail("File did not match the snapshot file extension (expected: {$expectedExtension}, was: {$fileExtension})");
         }
 
-        $failedSnapshotId = $snapshotId . '_failed.' . $fileExtension;
+        $failedSnapshotId = $snapshotId.'_failed.'.$fileExtension;
 
         if ($fileSystem->has($failedSnapshotId)) {
             $fileSystem->delete($failedSnapshotId);
         }
 
-        if (!$fileSystem->has($snapshotId)) {
+        if (! $fileSystem->has($snapshotId)) {
             $this->assertSnapshotShouldBeCreated($failedSnapshotId);
 
             $fileSystem->copy($filePath, $snapshotId);
@@ -256,7 +255,7 @@ trait MatchesSnapshots
             return;
         }
 
-        if (!$fileSystem->fileEquals($filePath, $snapshotId)) {
+        if (! $fileSystem->fileEquals($filePath, $snapshotId)) {
             if ($this->shouldUpdateSnapshots()) {
                 $fileSystem->copy($filePath, $snapshotId);
 
@@ -289,8 +288,8 @@ trait MatchesSnapshots
 
     protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception): void
     {
-        $newMessage = $exception->getMessage() . "\n\n" .
-            'Snapshots can be updated by passing ' .
+        $newMessage = $exception->getMessage()."\n\n".
+            'Snapshots can be updated by passing '.
             '`-d --update-snapshots` through PHPUnit\'s CLI arguments.';
 
         $exceptionReflection = new ReflectionObject($exception);
@@ -314,9 +313,9 @@ trait MatchesSnapshots
         }
 
         $this->fail(
-            "Snapshot \"$snapshotFileName\" does not exist.\n" .
-            'You can automatically create it by removing ' .
-            'the `CREATE_SNAPSHOTS=false` env var, or ' .
+            "Snapshot \"$snapshotFileName\" does not exist.\n".
+            'You can automatically create it by removing '.
+            'the `CREATE_SNAPSHOTS=false` env var, or '.
             '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
     }

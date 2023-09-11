@@ -13,8 +13,7 @@ class ImageDriver implements Driver
     public function __construct(
         protected float $threshold = 0.1,
         protected bool $includeAa = true,
-    )
-    {
+    ) {
     }
 
     public function serialize($data): string
@@ -31,10 +30,10 @@ class ImageDriver implements Driver
     {
         $tempPath = sys_get_temp_dir();
 
-        $expectedTempPath = $tempPath . '/expected.png';
+        $expectedTempPath = $tempPath.'/expected.png';
         file_put_contents($expectedTempPath, $expected);
 
-        $actualTempPath = $tempPath . '/actual.png';
+        $actualTempPath = $tempPath.'/actual.png';
         file_put_contents($actualTempPath, $actual);
 
         $pixelMatch = Pixelmatch::new($expectedTempPath, $actualTempPath)
@@ -44,8 +43,7 @@ class ImageDriver implements Driver
         try {
             $result = $pixelMatch->matches();
         } catch (CouldNotCompare $exception) {
-            throw new
-            ExpectationFailedException($exception->getMessage());
+            throw new ExpectationFailedException($exception->getMessage());
         }
 
         Assert::assertTrue($result);
