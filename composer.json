@@ -34,6 +34,9 @@
         "spatie/pixelmatch-php": "dev-main",
         "spatie/ray": "^1.37"
     },
+    "suggest": {
+        "spatie/pixelmatch-php": "Required to use the image snapshot assertions"
+    },
     "autoload": {
         "psr-4": {
             "Spatie\\Snapshots\\": "src"

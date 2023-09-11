@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Drivers;
 
+use Exception;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
 use Spatie\Pixelmatch\Exceptions\CouldNotCompare;
@@ -28,6 +29,10 @@ class ImageDriver implements Driver
 
     public function match($expected, $actual)
     {
+        if (! class_exists(Pixelmatch::class)) {
+            throw new Exception('The spatie/pixelmatch package is not installed. Please install it to enable image comparison.');
+        }
+
         $tempPath = sys_get_temp_dir();
 
         $expectedTempPath = $tempPath.'/expected.png';
