@@ -97,6 +97,7 @@ To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait i
 - `assertMatchesTextSnapshot($actual)`
 - `assertMatchesXmlSnapshot($actual)`
 - `assertMatchesYamlSnapshot($actual)`
+- `assertMachesImageSnapshot($actual)`
 
 ### Snapshot Testing 101
 
@@ -179,6 +180,17 @@ The `MatchesSnapshots` trait offers two ways to assert that a file is identical 
 The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash of the file passed into the function and the hash saved in the snapshot match. This assertion is fast and uses very little disk space. The downside of this assertion is that there is no easy way to see how the two files differ if the test fails.
 
 The `assertMatchesFileSnapshot($filePath)` assertion works almost the same way as the file hash assertion, except that it actually saves the whole file in the snapshots directory. If the assertion fails, it places the failed file next to the snapshot file so they can easily be manually compared. The persisted failed file is automatically deleted when the test passes. This assertion is most useful when working with binary files that should be manually compared like images or pdfs.
+
+### Image snapshots
+
+The `assertImageSnapshot` requires the [spatie/pixelmatch-php](https://github.com/spatie/pixelmatch-php) package to be installed.
+
+This assertion will pass if the given image is nearly identical to the snapshot that was made the first time the test was run. You can customize the threshold by passing a second argument to the assertion. Higher values will make the comparison more sensitive. The threshold should be between 0 and 1.
+
+```php 
+$this->assertMatchesImageSnapshot($imagePath, 0.1);
+```
+
 
 ### Customizing Snapshot Ids and Directories
 

@@ -15,7 +15,7 @@ class HtmlDriver implements Driver
             throw new CantBeSerialized('Only strings can be serialized to html');
         }
 
-        if ('' === $data) {
+        if ($data === '') {
             return "\n";
         }
 

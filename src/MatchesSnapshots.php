@@ -7,6 +7,7 @@ use ReflectionObject;
 use Spatie\Snapshots\Concerns\SnapshotDirectoryAware;
 use Spatie\Snapshots\Concerns\SnapshotIdAware;
 use Spatie\Snapshots\Drivers\HtmlDriver;
+use Spatie\Snapshots\Drivers\ImageDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
 use Spatie\Snapshots\Drivers\TextDriver;
@@ -109,6 +110,17 @@ trait MatchesSnapshots
     public function assertMatchesYamlSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new YamlDriver());
+    }
+
+    public function assertMatchesImageSnapshot(
+        $actual,
+        float $threshold = 0.1,
+        bool $includeAa = true
+    ): void {
+        $this->assertMatchesSnapshot($actual, new ImageDriver(
+            $threshold,
+            $includeAa,
+        ));
     }
 
     /*
