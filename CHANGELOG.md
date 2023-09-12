@@ -2,6 +2,14 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.0 - 2023-09-11
+
+### What's Changed
+
+- Add image assertions by @freekmurze in https://github.com/spatie/phpunit-snapshot-assertions/pull/175
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.0.2...5.1.0
+
 ## 5.0.1 - 2023-02-13
 
 ### What's Changed
