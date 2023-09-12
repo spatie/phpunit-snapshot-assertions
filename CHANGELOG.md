@@ -2,6 +2,10 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.1 - 2023-09-12
+
+- fix image driver
+
 ## 5.1.0 - 2023-09-11
 
 ### What's Changed
