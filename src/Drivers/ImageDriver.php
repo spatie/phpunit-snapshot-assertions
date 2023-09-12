@@ -38,10 +38,7 @@ class ImageDriver implements Driver
         $expectedTempPath = $tempPath.'/expected.png';
         file_put_contents($expectedTempPath, $expected);
 
-        $actualTempPath = $tempPath.'/actual.png';
-        file_put_contents($actualTempPath, $actual);
-
-        $pixelMatch = Pixelmatch::new($expectedTempPath, $actualTempPath)
+        $pixelMatch = Pixelmatch::new($expectedTempPath, $actual)
             ->threshold($this->threshold)
             ->includeAa($this->includeAa);
 

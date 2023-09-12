@@ -33,7 +33,7 @@ class ImageDriverTest extends TestCase
     {
         $this->driver->match(
             file_get_contents($this->pathToImageA),
-            file_get_contents($this->pathToImageA),
+            $this->pathToImageA,
         );
 
         $this->doesNotPerformAssertions();
@@ -46,7 +46,7 @@ class ImageDriverTest extends TestCase
 
         $this->driver->match(
             file_get_contents($this->pathToImageA),
-            file_get_contents($this->pathToImageB),
+            $this->pathToImageB,
         );
     }
 
@@ -57,7 +57,7 @@ class ImageDriverTest extends TestCase
 
         $this->driver->match(
             file_get_contents($this->pathToImageA),
-            file_get_contents($this->pathToImageWithDifferentDimensions),
+            $this->pathToImageWithDifferentDimensions,
         );
     }
 }
