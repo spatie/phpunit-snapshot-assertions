@@ -18,6 +18,11 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Setup Node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '20'
+
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
@@ -33,4 +38,6 @@ jobs:
               run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
             - name: Execute tests
-              run: vendor/bin/phpunit
+              run: |
+                  npm install
+                  vendor/bin/pest
