@@ -97,7 +97,7 @@ To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait i
 - `assertMatchesTextSnapshot($actual)`
 - `assertMatchesXmlSnapshot($actual)`
 - `assertMatchesYamlSnapshot($actual)`
-- `assertMachesImageSnapshot($actual)`
+- `assertMatchesImageSnapshot($actual)`
 
 ### Snapshot Testing 101
 
