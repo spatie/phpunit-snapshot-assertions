@@ -134,6 +134,7 @@ class JsonDriverTest extends TestCase
      *           ["null", "null", true]
      *           ["1", "1", true]
      *           ["1.1", "1.1", true]
+     *           ["{\"empty\": []}", "{\"empty\":{}}", false]
      */
     public function it_can_match_json_strings(string $expected, string $actual, bool $assertion)
     {
