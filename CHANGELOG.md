@@ -2,6 +2,22 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.2 - 2023-10-11
+
+### What's Changed
+
+- Bump actions/setup-node from 2 to 3 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/176
+- fix: correct typo in readme by @TSchuermans in https://github.com/spatie/phpunit-snapshot-assertions/pull/178
+- Fix #179 - assert difference between empty array and object. by @Sam152 in https://github.com/spatie/phpunit-snapshot-assertions/pull/180
+- Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/177
+
+### New Contributors
+
+- @TSchuermans made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/178
+- @Sam152 made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/180
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.1...5.1.2
+
 ## 5.1.1 - 2023-09-12
 
 - fix image driver
