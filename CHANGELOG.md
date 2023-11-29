@@ -2,6 +2,19 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.3 - 2023-11-29
+
+### What's Changed
+
+* Bump actions/setup-node from 3 to 4 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/181
+* Symfony 7.0 by @janatjak in https://github.com/spatie/phpunit-snapshot-assertions/pull/182
+
+### New Contributors
+
+* @janatjak made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/182
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.2...5.1.3
+
 ## 5.1.2 - 2023-10-11
 
 ### What's Changed
