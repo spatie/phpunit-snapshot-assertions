@@ -49,7 +49,7 @@ trait MatchesSnapshots
         $this->markTestIncomplete($formattedMessages);
     }
 
-    public function assertMatchesSnapshot($actual, Driver $driver = null): void
+    public function assertMatchesSnapshot($actual, ?Driver $driver = null): void
     {
         if (! is_null($driver)) {
             $this->doSnapshotAssertion($actual, $driver);
