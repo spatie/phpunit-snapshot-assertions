@@ -2,6 +2,15 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.4 - 2024-02-03
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/183
+* Allow phpunit 11 by @mfn in https://github.com/spatie/phpunit-snapshot-assertions/pull/185
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.3...5.1.4
+
 ## 5.1.3 - 2023-11-29
 
 ### What's Changed
