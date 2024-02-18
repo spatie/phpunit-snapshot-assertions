@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -17,7 +18,7 @@ class AssertionTest extends TestCase
         $this->setUpComparesSnapshotFiles();
     }
 
-    /** @test */
+    #[Test]
     public function can_match_a_string_snapshot()
     {
         $data = 'Foo';
@@ -25,7 +26,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesSnapshot($data);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_an_html_snapshot()
     {
         $data = '<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>';
@@ -33,7 +34,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesHtmlSnapshot($data);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_an_xml_snapshot()
     {
         $data = '<foo><bar>Baz</bar></foo>';
@@ -41,7 +42,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesXmlSnapshot($data);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_a_json_snapshot()
     {
         $data = '{"foo":"foo","bar":"bar","baz":"baz"}';
@@ -49,7 +50,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesJsonSnapshot($data);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_an_array_snapshot()
     {
         $data = ['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'];
@@ -57,7 +58,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesJsonSnapshot($data);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_a_file_hash_snapshot()
     {
         $filePath = __DIR__.'/stubs/example_snapshots/snapshot.json';
@@ -65,7 +66,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesFileHashSnapshot($filePath);
     }
 
-    /** @test */
+    #[Test]
     public function can_match_a_file_snapshot()
     {
         $filePath = __DIR__.'/stubs/test_files/friendly_man.jpg';
@@ -73,7 +74,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesFileSnapshot($filePath);
     }
 
-    /** @test */
+    #[Test]
     public function can_do_multiple_snapshot_assertions()
     {
         $this->assertMatchesSnapshot('Foo');

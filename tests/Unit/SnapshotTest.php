@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Unit;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Driver;
 use Spatie\Snapshots\Filesystem;
@@ -23,7 +24,7 @@ class SnapshotTest extends TestCase
         $this->driver = $this->createMock(Driver::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_an_id()
     {
         $snapshot = new Snapshot('abc', $this->filesystem, $this->driver);
@@ -31,7 +32,7 @@ class SnapshotTest extends TestCase
         $this->assertEquals('abc', $snapshot->id());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_filename_based_on_its_id_and_its_drivers_extension()
     {
         $this->driver
@@ -44,7 +45,7 @@ class SnapshotTest extends TestCase
         $this->assertEquals('abc.php', $snapshot->filename());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_filename_which_is_valid_on_all_systems()
     {
         $this->driver

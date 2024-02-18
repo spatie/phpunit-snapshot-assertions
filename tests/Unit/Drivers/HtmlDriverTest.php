@@ -2,13 +2,14 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class HtmlDriverTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_serialize_a_html_string_to_pretty_html()
     {
         $driver = new HtmlDriver();
@@ -25,7 +26,7 @@ class HtmlDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>'));
     }
 
-    /** @test */
+    #[Test]
     public function test_for_issue_140()
     {
         $driver = new HtmlDriver();
@@ -46,7 +47,7 @@ class HtmlDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize($expected));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_a_html_string_without_a_doctype()
     {
         $driver = new HtmlDriver();
@@ -62,7 +63,7 @@ class HtmlDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize('<html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>'));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_only_serialize_strings()
     {
         $driver = new HtmlDriver();
@@ -72,7 +73,7 @@ class HtmlDriverTest extends TestCase
         $driver->serialize(['foo' => 'bar']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_an_empty_string()
     {
         $driver = new HtmlDriver();

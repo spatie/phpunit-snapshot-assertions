@@ -2,6 +2,8 @@
 
 namespace Spatie\Snapshots;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\PostCondition;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionObject;
 use Spatie\Snapshots\Concerns\SnapshotDirectoryAware;
@@ -23,13 +25,13 @@ trait MatchesSnapshots
 
     protected array $snapshotChanges = [];
 
-    /** @before */
+    #[Before]
     public function setUpSnapshotIncrementor()
     {
         $this->snapshotIncrementor = 0;
     }
 
-    /** @postCondition */
+    #[PostCondition]
     public function markTestIncompleteIfSnapshotsHaveChanged()
     {
         if (empty($this->snapshotChanges)) {
