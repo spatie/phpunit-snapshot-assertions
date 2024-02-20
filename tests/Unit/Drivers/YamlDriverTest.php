@@ -2,12 +2,13 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\YamlDriver;
 
 class YamlDriverTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_serialize_a_yaml_string()
     {
         $driver = new YamlDriver();
@@ -21,7 +22,7 @@ class YamlDriverTest extends TestCase
         $this->assertEquals($yamlString, $driver->serialize($yamlString));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_a_yaml_array()
     {
         $driver = new YamlDriver();

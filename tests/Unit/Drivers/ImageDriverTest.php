@@ -2,6 +2,7 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\ImageDriver;
@@ -20,7 +21,7 @@ class ImageDriverTest extends TestCase
 
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_an_image()
     {
         $data = $this->driver->serialize($this->pathToImageA);
@@ -28,7 +29,7 @@ class ImageDriverTest extends TestCase
         $this->assertEquals($data, file_get_contents($this->pathToImageA));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_determine_that_two_images_are_the_same()
     {
         $this->driver->match(
@@ -39,7 +40,7 @@ class ImageDriverTest extends TestCase
         $this->doesNotPerformAssertions();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_determine_that_two_images_are_not_same()
     {
         $this->expectException(ExpectationFailedException::class);
@@ -50,7 +51,7 @@ class ImageDriverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_will_determine_that_two_images_with_different_dimensions_are_different()
     {
         $this->expectException(ExpectationFailedException::class);

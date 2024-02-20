@@ -2,12 +2,13 @@
 
 namespace Spatie\Snapshots\Test\Unit\Drivers;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\TextDriver;
 
 class TextDriverTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_serialize_laravel_route_list()
     {
         $driver = new TextDriver();
@@ -27,7 +28,7 @@ class TextDriverTest extends TestCase
 EOF));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_when_given_OS_dependant_line_endings()
     {
         $driver = new TextDriver();
