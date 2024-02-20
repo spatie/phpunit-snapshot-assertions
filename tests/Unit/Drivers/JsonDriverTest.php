@@ -4,7 +4,6 @@ namespace Spatie\Snapshots\Test\Unit\Drivers;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
-use PHPUnit\Framework\Attributes\TestWithJson;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\Drivers\JsonDriver;
@@ -126,16 +125,16 @@ class JsonDriverTest extends TestCase
     }
 
     #[Test]
-    #[TestWith(["{}", "{}", true])]
-    #[TestWith(["{}", "{\"data\":1}", false])]
-    #[TestWith(["{\"data\":1}", "{\"data\":1}", true])]
-    #[TestWith(["{\"data\":1}", "{\"data\":\"1\"}", false])]
-    #[TestWith(["true", "true", true])]
-    #[TestWith(["false", "false", true])]
-    #[TestWith(["null", "null", true])]
-    #[TestWith(["1", "1", true])]
-    #[TestWith(["1.1", "1.1", true])]
-    #[TestWith(["{\"empty\": []}", "{\"empty\":{}}", false])]
+    #[TestWith(['{}', '{}', true])]
+    #[TestWith(['{}', '{"data":1}', false])]
+    #[TestWith(['{"data":1}', '{"data":1}', true])]
+    #[TestWith(['{"data":1}', '{"data":"1"}', false])]
+    #[TestWith(['true', 'true', true])]
+    #[TestWith(['false', 'false', true])]
+    #[TestWith(['null', 'null', true])]
+    #[TestWith(['1', '1', true])]
+    #[TestWith(['1.1', '1.1', true])]
+    #[TestWith(['{"empty": []}', '{"empty":{}}', false])]
     public function it_can_match_json_strings(string $expected, string $actual, bool $assertion)
     {
         $driver = new JsonDriver();
