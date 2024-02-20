@@ -2,6 +2,19 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.5 - 2024-02-20
+
+### What's Changed
+
+* gha: run tests against PHP 8.3 too by @mfn in https://github.com/spatie/phpunit-snapshot-assertions/pull/188
+* Use PHPUnit attributes by @simonhammes in https://github.com/spatie/phpunit-snapshot-assertions/pull/187
+
+### New Contributors
+
+* @simonhammes made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/187
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.4...5.1.5
+
 ## 5.1.4 - 2024-02-03
 
 ### What's Changed
