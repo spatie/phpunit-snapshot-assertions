@@ -1,0 +1,10 @@
+{
+    "id": 987654,
+    "title": "Some Title",
+    "author": "Jane Doe",
+    "ISBN": "978-0-545-01022-1",
+    "cover": "https://bucket.foo/bar/987654.webp",
+    "published": 2017,
+    "createdAt": "2024-04-02T22:33:44+55:11",
+    "more": "values"
+}

@@ -1,0 +1,76 @@
+{
+    "links": {
+        "self": "http://example.com/articles",
+        "next": "http://example.com/articles?page[offset]=2",
+        "last": "http://example.com/articles?page[offset]=10"
+    },
+    "data": [{
+        "type": "articles",
+        "id": "2",
+        "attributes": {
+            "title": "JSON:API paints my bikeshed!"
+        },
+        "relationships": {
+            "author": {
+                "links": {
+                    "self": "http://example.com/articles/2/relationships/author",
+                    "related": "http://example.com/articles/2/author"
+                },
+                "data": { "type": "people", "id": "4" }
+            },
+            "comments": {
+                "links": {
+                    "self": "http://example.com/articles/1/relationships/comments",
+                    "related": "http://example.com/articles/1/comments"
+                },
+                "data": [
+                    { "type": "comments", "id": "7" },
+                    { "type": "comments", "id": "18" }
+                ]
+            }
+        },
+        "links": {
+            "self": "http://example.com/articles/2"
+        }
+    }],
+    "included": [{
+        "type": "people",
+        "id": "4",
+        "attributes": {
+            "firstName": "Dan",
+            "lastName": "Gebhardt",
+            "twitter": "dgeb"
+        },
+        "links": {
+            "self": "http://example.com/people/4"
+        }
+    }, {
+        "type": "comments",
+        "id": "7",
+        "attributes": {
+            "body": "First!"
+        },
+        "relationships": {
+            "author": {
+                "data": { "type": "people", "id": "22" }
+            }
+        },
+        "links": {
+            "self": "http://example.com/comments/5"
+        }
+    }, {
+        "type": "comments",
+        "id": "18",
+        "attributes": {
+            "body": "I like XML better"
+        },
+        "relationships": {
+            "author": {
+                "data": { "type": "people", "id": "99" }
+            }
+        },
+        "links": {
+            "self": "http://example.com/comments/18"
+        }
+    }]
+}

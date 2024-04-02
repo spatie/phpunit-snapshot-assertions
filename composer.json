@@ -31,11 +31,13 @@
         "symfony/yaml": "^5.2|^6.2|^7.0"
     },
     "require-dev": {
+        "galbar/jsonpath": "^3.0",
         "spatie/pixelmatch-php": "dev-main",
         "spatie/ray": "^1.37"
     },
     "suggest": {
-        "spatie/pixelmatch-php": "Required to use the image snapshot assertions"
+        "spatie/pixelmatch-php": "Required to use the image snapshot assertions",
+        "galbar/jsonpath": "Required to use the JSONPath assertions"
     },
     "autoload": {
         "psr-4": {

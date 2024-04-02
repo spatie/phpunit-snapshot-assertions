@@ -11,6 +11,7 @@ use Spatie\Snapshots\Concerns\SnapshotIdAware;
 use Spatie\Snapshots\Drivers\HtmlDriver;
 use Spatie\Snapshots\Drivers\ImageDriver;
 use Spatie\Snapshots\Drivers\JsonDriver;
+use Spatie\Snapshots\Drivers\JsonPathDriver;
 use Spatie\Snapshots\Drivers\ObjectDriver;
 use Spatie\Snapshots\Drivers\TextDriver;
 use Spatie\Snapshots\Drivers\XmlDriver;
@@ -92,6 +93,11 @@ trait MatchesSnapshots
     public function assertMatchesJsonSnapshot(array|string|null|int|float|bool $actual): void
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver());
+    }
+
+    public function assertMatchesJsonPathSnapshot(array|string|null|int|float|bool $actual, array $placeholders): void
+    {
+        $this->assertMatchesSnapshot($actual, new JsonPathDriver($placeholders));
     }
 
     public function assertMatchesObjectSnapshot($actual): void
