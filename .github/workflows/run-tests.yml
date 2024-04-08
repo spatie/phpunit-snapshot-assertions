@@ -17,11 +17,10 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
-
-            - name: Setup Node
-              uses: actions/setup-node@v4
+        
+            - uses: oven-sh/setup-bun@v1
               with:
-                  node-version: '20'
+                bun-version: latest
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -36,8 +35,9 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
               run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-
+      
+            - name: Install dependencies
+              run: bun install
+        
             - name: Execute tests
-              run: |
-                  npm install
-                  vendor/bin/phpunit
+              run: vendor/bin/phpunit
