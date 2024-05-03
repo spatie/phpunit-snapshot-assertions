@@ -2,6 +2,15 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 4.2.17 - 2024-05-03
+
+### What's Changed
+
+* Update symfony version in deps by @Niolak in https://github.com/spatie/phpunit-snapshot-assertions/pull/196
+* Fix/v4 permissions snapshot files by @Niolak in https://github.com/spatie/phpunit-snapshot-assertions/pull/201
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/4.2.16...4.2.17
+
 ## 5.1.6 - 2024-05-03
 
 ### What's Changed
