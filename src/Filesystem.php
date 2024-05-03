@@ -59,9 +59,11 @@ class Filesystem
     {
         if (! file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
+            chmod($this->basePath, 0777);
         }
 
         file_put_contents($this->path($filename), $contents);
+        chmod($this->path($filename), 0666);
     }
 
     public function delete(string $fileName): bool
@@ -73,9 +75,11 @@ class Filesystem
     {
         if (! file_exists($this->basePath)) {
             mkdir($this->basePath, 0777, true);
+            chmod($this->basePath, 0777);
         }
 
         copy($filePath, $this->path($fileName));
+        chmod($this->path($fileName), 0666);
     }
 
     public function fileEquals(string $filePath, string $fileName): bool
