@@ -2,6 +2,17 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.6 - 2024-05-03
+
+### What's Changed
+
+* Minor updates and improvements by @patinthehat in https://github.com/spatie/phpunit-snapshot-assertions/pull/192
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/194
+* Bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/200
+* chmod snapshot folders and files by @Niolak in https://github.com/spatie/phpunit-snapshot-assertions/pull/199
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.5...5.1.6
+
 ## 5.1.5 - 2024-02-20
 
 ### What's Changed
