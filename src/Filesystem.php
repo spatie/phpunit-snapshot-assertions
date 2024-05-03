@@ -79,7 +79,7 @@ class Filesystem
         }
 
         copy($filePath, $this->path($fileName));
-        chmod($this->path($filename), 0666);
+        chmod($this->path($fileName), 0666);
     }
 
     public function fileEquals(string $filePath, string $fileName): bool
