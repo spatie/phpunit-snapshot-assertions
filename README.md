@@ -181,6 +181,22 @@ The `assertMatchesFileHashSnapshot($filePath)` assertion asserts that the hash o
 
 The `assertMatchesFileSnapshot($filePath)` assertion works almost the same way as the file hash assertion, except that it actually saves the whole file in the snapshots directory. If the assertion fails, it places the failed file next to the snapshot file so they can easily be manually compared. The persisted failed file is automatically deleted when the test passes. This assertion is most useful when working with binary files that should be manually compared like images or pdfs.
 
+### JSON snapshots
+
+The `MatchesSnapshots` trait also offers two ways to assert on JSON files, usually helpful while working with API responses:
+
+The `assertMatchesJsonSnapshot($actual)` method to assert that a JSON string is identical to the snapshot that was made the first time the test was run.
+
+The `assertMatchesJsonPathSnapshot($actual, $placeholders)` method, which extends the static mechanism with a map of JSONPath and Regular Expressions to assert on specific, dynamic parts of the JSON string. This needs the additional package `galbar/jsonpath` to be installed.
+
+```php
+$this->assertMatchesJsonPathSnapshot($json, [
+    '$.id' => '@\d+@',
+    '$.cover' => '@https://bucket.foo/bar/\d+.[webp|jpg]@',
+    '$.createdAt' => '@\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+\-]\d{2}:\d{2}@',
+])
+```
+
 ### Image snapshots
 
 The `assertImageSnapshot` requires the [spatie/pixelmatch-php](https://github.com/spatie/pixelmatch-php) package to be installed.
