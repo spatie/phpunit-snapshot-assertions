@@ -12,7 +12,7 @@ class XmlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_xml_string_to_pretty_xml()
     {
-        $driver = new XmlDriver();
+        $driver = new XmlDriver;
 
         $expected = implode("\n", [
             '<?xml version="1.0"?>',
@@ -28,7 +28,7 @@ class XmlDriverTest extends TestCase
     #[Test]
     public function it_can_only_serialize_strings()
     {
-        $driver = new XmlDriver();
+        $driver = new XmlDriver;
 
         $this->expectException(CantBeSerialized::class);
 

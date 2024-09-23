@@ -12,7 +12,7 @@ class HtmlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_html_string_to_pretty_html()
     {
-        $driver = new HtmlDriver();
+        $driver = new HtmlDriver;
 
         $expected = implode("\n", [
             '<!DOCTYPE html>',
@@ -29,7 +29,7 @@ class HtmlDriverTest extends TestCase
     #[Test]
     public function test_for_issue_140()
     {
-        $driver = new HtmlDriver();
+        $driver = new HtmlDriver;
 
         $expected = implode("\n", [
             '<!DOCTYPE html>',
@@ -50,7 +50,7 @@ class HtmlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_html_string_without_a_doctype()
     {
-        $driver = new HtmlDriver();
+        $driver = new HtmlDriver;
 
         $expected = implode("\n", [
             '<html lang="en">',
@@ -66,7 +66,7 @@ class HtmlDriverTest extends TestCase
     #[Test]
     public function it_can_only_serialize_strings()
     {
-        $driver = new HtmlDriver();
+        $driver = new HtmlDriver;
 
         $this->expectException(CantBeSerialized::class);
 
@@ -76,7 +76,7 @@ class HtmlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_an_empty_string()
     {
-        $driver = new HtmlDriver();
+        $driver = new HtmlDriver;
 
         $this->assertEquals("\n", $driver->serialize(''));
     }

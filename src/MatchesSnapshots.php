@@ -60,12 +60,12 @@ trait MatchesSnapshots
         }
 
         if (is_string($actual) || is_int($actual) || is_float($actual)) {
-            $this->doSnapshotAssertion($actual, new TextDriver());
+            $this->doSnapshotAssertion($actual, new TextDriver);
 
             return;
         }
 
-        $this->doSnapshotAssertion($actual, new ObjectDriver());
+        $this->doSnapshotAssertion($actual, new ObjectDriver);
     }
 
     public function assertMatchesFileHashSnapshot(string $filePath): void
@@ -86,32 +86,32 @@ trait MatchesSnapshots
 
     public function assertMatchesHtmlSnapshot(string $actual): void
     {
-        $this->assertMatchesSnapshot($actual, new HtmlDriver());
+        $this->assertMatchesSnapshot($actual, new HtmlDriver);
     }
 
     public function assertMatchesJsonSnapshot(array|string|null|int|float|bool $actual): void
     {
-        $this->assertMatchesSnapshot($actual, new JsonDriver());
+        $this->assertMatchesSnapshot($actual, new JsonDriver);
     }
 
     public function assertMatchesObjectSnapshot($actual): void
     {
-        $this->assertMatchesSnapshot($actual, new ObjectDriver());
+        $this->assertMatchesSnapshot($actual, new ObjectDriver);
     }
 
     public function assertMatchesTextSnapshot($actual): void
     {
-        $this->assertMatchesSnapshot($actual, new TextDriver());
+        $this->assertMatchesSnapshot($actual, new TextDriver);
     }
 
     public function assertMatchesXmlSnapshot($actual): void
     {
-        $this->assertMatchesSnapshot($actual, new XmlDriver());
+        $this->assertMatchesSnapshot($actual, new XmlDriver);
     }
 
     public function assertMatchesYamlSnapshot($actual): void
     {
-        $this->assertMatchesSnapshot($actual, new YamlDriver());
+        $this->assertMatchesSnapshot($actual, new YamlDriver);
     }
 
     public function assertMatchesImageSnapshot(

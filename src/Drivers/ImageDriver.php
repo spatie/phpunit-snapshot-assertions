@@ -14,8 +14,7 @@ class ImageDriver implements Driver
     public function __construct(
         protected float $threshold = 0.1,
         protected bool $includeAa = true,
-    ) {
-    }
+    ) {}
 
     public function serialize($data): string
     {

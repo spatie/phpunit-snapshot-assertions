@@ -14,7 +14,7 @@ class JsonDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_json_string_to_pretty_json()
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         $expected = implode("\n", [
             '{',
@@ -29,7 +29,7 @@ class JsonDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_json_hash_to_pretty_json()
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         $expected = implode("\n", [
             '{',
@@ -75,7 +75,7 @@ class JsonDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_json_array_to_pretty_json()
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         $expected = implode("\n", [
             '[',
@@ -92,7 +92,7 @@ class JsonDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_empty_json_object_to_pretty_json()
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         $expected = implode("\n", [
             '{',
@@ -115,7 +115,7 @@ class JsonDriverTest extends TestCase
     #[Test]
     public function it_can_not_serialize_resources()
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         $this->expectException(CantBeSerialized::class);
 
@@ -137,7 +137,7 @@ class JsonDriverTest extends TestCase
     #[TestWith(['{"empty": []}', '{"empty":{}}', false])]
     public function it_can_match_json_strings(string $expected, string $actual, bool $assertion)
     {
-        $driver = new JsonDriver();
+        $driver = new JsonDriver;
 
         try {
             $driver->match($expected, $actual);

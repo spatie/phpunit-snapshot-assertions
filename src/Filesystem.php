@@ -4,9 +4,7 @@ namespace Spatie\Snapshots;
 
 class Filesystem
 {
-    public function __construct(private string $basePath)
-    {
-    }
+    public function __construct(private string $basePath) {}
 
     public static function inDirectory(string $path): self
     {

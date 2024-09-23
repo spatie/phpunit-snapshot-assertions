@@ -13,7 +13,7 @@ class OrderSerializerTest extends TestCase
     /** @test */
     public function it_can_serialize_an_order()
     {
-        $orderSerializer = new OrderSerializer();
+        $orderSerializer = new OrderSerializer;
 
         $order = new Order(1, 'sebastian@spatie.be', true, [
             new OrderLine(1, 'Sublime Text License', 70, 3),

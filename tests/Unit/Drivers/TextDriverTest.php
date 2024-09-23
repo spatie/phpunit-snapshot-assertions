@@ -11,7 +11,7 @@ class TextDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_laravel_route_list()
     {
-        $driver = new TextDriver();
+        $driver = new TextDriver;
 
         $expected = implode("\n", [
             '',
@@ -31,7 +31,7 @@ EOF));
     #[Test]
     public function it_can_serialize_when_given_OS_dependant_line_endings()
     {
-        $driver = new TextDriver();
+        $driver = new TextDriver;
 
         $expected = implode("\n", [
             '',

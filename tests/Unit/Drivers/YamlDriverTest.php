@@ -11,7 +11,7 @@ class YamlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_yaml_string()
     {
-        $driver = new YamlDriver();
+        $driver = new YamlDriver;
 
         $yamlString = implode("\n", [
             'foo: bar',
@@ -25,7 +25,7 @@ class YamlDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_yaml_array()
     {
-        $driver = new YamlDriver();
+        $driver = new YamlDriver;
 
         $expected = implode("\n", [
             'foo: bar',

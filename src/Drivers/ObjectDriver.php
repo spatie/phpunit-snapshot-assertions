@@ -15,12 +15,12 @@ class ObjectDriver implements Driver
     public function serialize($data): string
     {
         $normalizers = [
-            new DateTimeNormalizer(),
-            new ObjectNormalizer(),
+            new DateTimeNormalizer,
+            new ObjectNormalizer,
         ];
 
         $encoders = [
-            new YamlEncoder(),
+            new YamlEncoder,
         ];
 
         $serializer = new Serializer($normalizers, $encoders);

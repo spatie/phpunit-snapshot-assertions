@@ -454,7 +454,7 @@ class MatchesSnapshotTest extends TestCase
             ->expects($this->once())
             ->method('fail')
             ->with($message)
-            ->willThrowException(new AssertionFailedError());
+            ->willThrowException(new AssertionFailedError);
     }
 
     private function expectFailedMatchesSnapshotTest()

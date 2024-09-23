@@ -11,7 +11,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_string()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $this->assertEquals('foo', $driver->serialize('foo'));
     }
@@ -19,7 +19,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_an_integer()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $this->assertEquals('1', $driver->serialize(1));
     }
@@ -27,7 +27,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_float()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $this->assertEquals('1.5', $driver->serialize(1.5));
     }
@@ -35,7 +35,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_an_associative_array()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $expected = implode("\n", [
             'foo:',
@@ -49,7 +49,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_an_indexed_array_without_keys()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $expected = implode("\n", [
             '- foo',
@@ -63,7 +63,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_simple_object()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $expected = implode("\n", [
             'foo: bar',
@@ -76,7 +76,7 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_a_class_instance()
     {
-        $driver = new ObjectDriver();
+        $driver = new ObjectDriver;
 
         $expected = implode("\n", [
             'name: \'My name\'',
@@ -86,7 +86,7 @@ class ObjectDriverTest extends TestCase
             '',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize(new Obj()));
+        $this->assertEquals($expected, $driver->serialize(new Obj));
     }
 }
 

@@ -13,7 +13,7 @@ class ImageDriverTest extends TestCase
     {
         parent::setUp();
 
-        $this->driver = new ImageDriver();
+        $this->driver = new ImageDriver;
 
         $this->pathToImageA = __DIR__.'/../test_files/testA.png';
         $this->pathToImageB = __DIR__.'/../test_files/testB.png';
