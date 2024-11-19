@@ -18,7 +18,7 @@ class JsonDriver implements Driver
             throw new CantBeSerialized('Resources can not be serialized to json');
         }
 
-        return json_encode($data, JSON_PRETTY_PRINT)."\n";
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n";
     }
 
     public function extension(): string

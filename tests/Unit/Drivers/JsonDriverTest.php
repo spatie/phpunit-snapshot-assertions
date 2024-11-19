@@ -18,12 +18,12 @@ class JsonDriverTest extends TestCase
 
         $expected = implode("\n", [
             '{',
-            '    "foo": "bar"',
+            '    "foo": "bar/baz 😊"',
             '}',
             '',
         ]);
 
-        $this->assertEquals($expected, $driver->serialize('{"foo":"bar"}'));
+        $this->assertEquals($expected, $driver->serialize('{"foo":"bar\/baz \ud83d\ude0a"}'));
     }
 
     #[Test]
@@ -135,6 +135,7 @@ class JsonDriverTest extends TestCase
     #[TestWith(['1', '1', true])]
     #[TestWith(['1.1', '1.1', true])]
     #[TestWith(['{"empty": []}', '{"empty":{}}', false])]
+    #[TestWith(['{"url": "foo\/bar😊"}', '{"url":"foo/bar\ud83d\ude0a"}', true])]
     public function it_can_match_json_strings(string $expected, string $actual, bool $assertion)
     {
         $driver = new JsonDriver;
