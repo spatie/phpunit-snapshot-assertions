@@ -2,6 +2,22 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.7 - 2024-12-09
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/203
+* Bump oven-sh/setup-bun from 1 to 2 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/202
+* gha: run tests against PHP 8.4 too by @erikn69 in https://github.com/spatie/phpunit-snapshot-assertions/pull/204
+* Improve readability of generated JSON snapshots by @ostrolucky in https://github.com/spatie/phpunit-snapshot-assertions/pull/205
+
+### New Contributors
+
+* @erikn69 made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/204
+* @ostrolucky made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/205
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.6...5.1.7
+
 ## 4.2.17 - 2024-05-03
 
 ### What's Changed
