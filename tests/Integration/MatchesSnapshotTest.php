@@ -13,7 +13,7 @@ class MatchesSnapshotTest extends TestCase
 {
     use ComparesSnapshotFiles;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
