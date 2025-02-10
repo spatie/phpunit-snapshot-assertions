@@ -2,6 +2,20 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.1.8 - 2025-02-10
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/207
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/208
+* Allow phpunit 12 by @mfruehauf in https://github.com/spatie/phpunit-snapshot-assertions/pull/209
+
+### New Contributors
+
+* @mfruehauf made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/209
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.7...5.1.8
+
 ## 5.1.7 - 2024-12-09
 
 ### What's Changed
