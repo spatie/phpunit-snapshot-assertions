@@ -1,9 +1,19 @@
-# Snapshot testing with PHPUnit
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=phpunit-snapshot-assertions">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/phpunit-snapshot-assertions/html/dark.webp">
+        <img alt="Logo for phpunit-snapshot-assertions" src=" https://spatie.be/packages/header/phpunit-snapshot-assertions/html/light.webp" height="190">
+      </picture>
+    </a>
+
+<h1>Snapshot testing with PHPUnit</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 ![run-tests](https://img.shields.io/github/actions/workflow/status/spatie/phpunit-snapshot-assertions/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-snapshot-assertions.svg?style=flat-square)](https://packagist.org/packages/spatie/phpunit-snapshot-assertions)
+    
+</div>
 
 Snapshot testing is a way to test without writing actual test cases.
 
