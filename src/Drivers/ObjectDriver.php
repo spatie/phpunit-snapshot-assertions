@@ -12,6 +12,11 @@ use Symfony\Component\Yaml\Yaml;
 
 class ObjectDriver implements Driver
 {
+    public function __construct(
+        protected int $yamlInline = 2,
+    ) {
+    }
+
     public function serialize($data): string
     {
         $normalizers = [
@@ -27,7 +32,7 @@ class ObjectDriver implements Driver
 
         return $this->dedent(
             $serializer->serialize($data, 'yaml', [
-                'yaml_inline' => 2,
+                'yaml_inline' => $this->yamlInline,
                 'yaml_indent' => 4,
                 'yaml_flags' => Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
             ])
