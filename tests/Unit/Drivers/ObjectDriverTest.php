@@ -92,7 +92,9 @@ class ObjectDriverTest extends TestCase
     #[Test]
     public function it_can_serialize_with_custom_parameters()
     {
-        $driver = new ObjectDriver(3);
+        $driver = new ObjectDriver([
+            'yaml_inline' => 3,
+        ]);
 
         $nestedObject = (object) [
             'foo' => (object) [
