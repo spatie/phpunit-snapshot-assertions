@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class MatchesSnapshotTest extends TestCase
@@ -462,30 +463,46 @@ class MatchesSnapshotTest extends TestCase
         $this->expectException(ExpectationFailedException::class);
     }
 
-    /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spatie\Snapshots\MatchesSnapshots
-     */
     private function getMatchesSnapshotMock(bool $mockGetSnapshotId = true): MockObject
     {
-        $mockMethods = [
+        // Define a class name for our temporary trait user
+        $className = 'TemporaryTraitClass' . md5(microtime());
+
+        // Create the class definition with the methods we need to mock
+        $classDefinition = 'class ' . $className . ' {
+        use \\Spatie\\Snapshots\\MatchesSnapshots;
+
+        public function markTestIncomplete($message = "") {}
+        public function getSnapshotId() { return ""; }
+        public function getSnapshotDirectory() { return ""; }
+        public function getFileSnapshotDirectory() { return ""; }
+        public function fail($message = "") {}
+        public function assertTrue($condition, $message = "") {}
+    }';
+
+        // Evaluate the class definition
+        eval($classDefinition);
+
+        // Create the mock builder
+        $mockBuilder = $this->getMockBuilder($className);
+
+        // Disable original constructor to avoid issues
+        $mockBuilder->disableOriginalConstructor();
+
+        // For PHPUnit 9.x, use onlyMethods instead of setMethods
+        $mockBuilder->onlyMethods([
             'markTestIncomplete',
             'getSnapshotId',
             'getSnapshotDirectory',
             'getFileSnapshotDirectory',
             'fail',
             'assertTrue',
-        ];
+        ]);
 
-        $matchesSnapshotMock = $this->getMockForTrait(
-            MatchesSnapshots::class,
-            [],
-            '',
-            true,
-            true,
-            true,
-            $mockMethods
-        );
+        // Get the mock object
+        $matchesSnapshotMock = $mockBuilder->getMock();
 
+        // Configure expected method calls
         if ($mockGetSnapshotId) {
             $matchesSnapshotMock
                 ->expects($this->any())

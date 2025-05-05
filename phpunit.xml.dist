@@ -8,7 +8,4 @@
       <directory>tests/Unit</directory>
     </testsuite>
   </testsuites>
-  <logging>
-    <junit outputFile="build/report.junit.xml"/>
-  </logging>
 </phpunit>
