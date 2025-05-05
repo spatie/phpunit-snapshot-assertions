@@ -7,8 +7,6 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use Spatie\Snapshots\MatchesSnapshots;
 
 class MatchesSnapshotTest extends TestCase
 {
@@ -466,10 +464,10 @@ class MatchesSnapshotTest extends TestCase
     private function getMatchesSnapshotMock(bool $mockGetSnapshotId = true): MockObject
     {
         // Define a class name for our temporary trait user
-        $className = 'TemporaryTraitClass' . md5(microtime());
+        $className = 'TemporaryTraitClass'.md5(microtime());
 
         // Create the class definition with the methods we need to mock
-        $classDefinition = 'class ' . $className . ' {
+        $classDefinition = 'class '.$className.' {
         use \\Spatie\\Snapshots\\MatchesSnapshots;
 
         public function markTestIncomplete($message = "") {}
