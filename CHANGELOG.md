@@ -2,6 +2,18 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.2.0 - 2025-05-08
+
+### What's Changed
+
+* Allow setting yamlInline for ObjectDriver by @tassilogroeper in https://github.com/spatie/phpunit-snapshot-assertions/pull/212
+
+### New Contributors
+
+* @tassilogroeper made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/212
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.1.8...5.2.0
+
 ## 5.1.8 - 2025-02-10
 
 ### What's Changed
