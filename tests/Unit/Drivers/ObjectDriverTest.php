@@ -88,6 +88,29 @@ class ObjectDriverTest extends TestCase
 
         $this->assertEquals($expected, $driver->serialize(new Obj));
     }
+
+    #[Test]
+    public function it_can_serialize_with_custom_parameters()
+    {
+        $driver = new ObjectDriver([
+            'yaml_inline' => 3,
+        ]);
+
+        $nestedObject = (object) [
+            'foo' => (object) [
+                'bar' => (object) [
+                    'baz' => ['qux', 'quux'],
+                ],
+            ],
+        ];
+        $expected = implode("\n", [
+            'foo:',
+            '    bar:',
+            '        baz: [qux, quux]',
+            '',
+        ]);
+        $this->assertEquals($expected, $driver->serialize($nestedObject));
+    }
 }
 
 class Obj
