@@ -89,7 +89,7 @@ trait MatchesSnapshots
         $this->assertMatchesSnapshot($actual, new HtmlDriver);
     }
 
-    public function assertMatchesJsonSnapshot(array|string|null|int|float|bool $actual): void
+    public function assertMatchesJsonSnapshot($actual): void
     {
         $this->assertMatchesSnapshot($actual, new JsonDriver);
     }
