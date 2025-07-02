@@ -2,6 +2,20 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.2.1 - 2025-07-02
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/213
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot in https://github.com/spatie/phpunit-snapshot-assertions/pull/215
+* Allow `assertMatchesJsonSnapshot` to accept any JSON-serializable value by @LuckyWindsck in https://github.com/spatie/phpunit-snapshot-assertions/pull/216
+
+### New Contributors
+
+* @LuckyWindsck made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/216
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.2.0...5.2.1
+
 ## 5.2.0 - 2025-05-08
 
 ### What's Changed
