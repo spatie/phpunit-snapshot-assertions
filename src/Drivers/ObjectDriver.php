@@ -20,9 +20,9 @@ class ObjectDriver implements Driver
 
     /**
      * @param array{
-     *     yaml_inline: int,
-     *     yaml_indent: int,
-     *     yaml_flags: int
+     *     yaml_inline?: int,
+     *     yaml_indent?: int,
+     *     yaml_flags?: int
      * } $yamlConfig
      */
     public function __construct(
