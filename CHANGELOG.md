@@ -2,6 +2,16 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.2.2 - 2025-08-19
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/spatie/phpunit-snapshot-assertions/pull/217
+* Update parameter type hints in ObjectDriver constructor docblock by @tassilogroeper in https://github.com/spatie/phpunit-snapshot-assertions/pull/220
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/spatie/phpunit-snapshot-assertions/pull/219
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.2.1...5.2.2
+
 ## 5.2.1 - 2025-07-02
 
 ### What's Changed
