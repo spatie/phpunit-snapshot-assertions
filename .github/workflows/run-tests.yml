@@ -9,7 +9,7 @@ jobs:
             fail-fast: true
             matrix:
                 os: [ubuntu-latest, windows-latest]
-                php: [8.4, 8.3, 8.2, 8.1]
+                php: [8.5, 8.4, 8.3, 8.2, 8.1]
                 stability: [prefer-lowest, prefer-stable]
 
         name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -17,7 +17,7 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v5
-        
+
             - uses: oven-sh/setup-bun@v2
               with:
                 bun-version: latest
@@ -35,9 +35,9 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
               run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-      
+
             - name: Install dependencies
               run: bun install
-        
+
             - name: Execute tests
               run: vendor/bin/phpunit

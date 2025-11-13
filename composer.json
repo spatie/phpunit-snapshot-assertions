@@ -26,9 +26,9 @@
         "ext-libxml": "*",
         "composer-runtime-api": "^2.0",
         "phpunit/phpunit": "^10.0|^11.0|^12.0",
-        "symfony/property-access": "^5.2|^6.2|^7.0",
-        "symfony/serializer": "^5.2|^6.2|^7.0",
-        "symfony/yaml": "^5.2|^6.2|^7.0"
+        "symfony/property-access": "^5.2|^6.2|^7.0||^8.0",
+        "symfony/serializer": "^5.2|^6.2|^7.0||^8.0",
+        "symfony/yaml": "^5.2|^6.2|^7.0||^8.0"
     },
     "require-dev": {
         "spatie/pixelmatch-php": "dev-main",
@@ -54,7 +54,7 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
+    "prefer-stable": false,
     "extra": {
         "branch-alias": {
             "dev-v5": "5.0-dev"
