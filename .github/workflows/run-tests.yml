@@ -11,6 +11,9 @@ jobs:
                 os: [ubuntu-latest, windows-latest]
                 php: [8.5, 8.4, 8.3, 8.2, 8.1]
                 stability: [prefer-lowest, prefer-stable]
+                include:
+                    -   php: '8.5'
+                        stability: 'no-suggest'
 
         name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
