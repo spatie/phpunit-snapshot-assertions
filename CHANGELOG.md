@@ -2,6 +2,20 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.2.3 - 2025-11-14
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/phpunit-snapshot-assertions/pull/222
+* feat: allow symfony 8 by @Chris53897 in https://github.com/spatie/phpunit-snapshot-assertions/pull/228
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/spatie/phpunit-snapshot-assertions/pull/223
+
+### New Contributors
+
+* @Chris53897 made their first contribution in https://github.com/spatie/phpunit-snapshot-assertions/pull/228
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.2.2...5.2.3
+
 ## 5.2.2 - 2025-08-19
 
 ### What's Changed
