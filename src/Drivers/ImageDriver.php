@@ -29,7 +29,7 @@ class ImageDriver implements Driver
     public function match($expected, $actual)
     {
         if (! class_exists(Pixelmatch::class)) {
-            throw new Exception('The spatie/pixelmatch package is not installed. Please install it to enable image comparison.');
+            throw new Exception('The spatie/pixelmatch-php package is not installed. Please install it to enable image comparison.');
         }
 
         $tempPath = sys_get_temp_dir();
