@@ -297,7 +297,6 @@ trait MatchesSnapshots
         $exceptionReflection = new ReflectionObject($exception);
 
         $messageReflection = $exceptionReflection->getProperty('message');
-        $messageReflection->setAccessible(true);
         $messageReflection->setValue($exception, $newMessage);
 
         throw $exception;
