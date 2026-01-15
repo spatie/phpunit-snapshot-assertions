@@ -21,6 +21,7 @@ class ImageDriverTest extends TestCase
 
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_an_image()
     {
@@ -29,6 +30,7 @@ class ImageDriverTest extends TestCase
         $this->assertEquals($data, file_get_contents($this->pathToImageA));
     }
 
+    /** @test */
     #[Test]
     public function it_can_determine_that_two_images_are_the_same()
     {
@@ -40,6 +42,7 @@ class ImageDriverTest extends TestCase
         $this->doesNotPerformAssertions();
     }
 
+    /** @test */
     #[Test]
     public function it_can_determine_that_two_images_are_not_same()
     {
@@ -51,6 +54,7 @@ class ImageDriverTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_will_determine_that_two_images_with_different_dimensions_are_different()
     {

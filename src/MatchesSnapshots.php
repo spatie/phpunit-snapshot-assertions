@@ -6,6 +6,7 @@ use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\PostCondition;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionObject;
+use Spatie\Snapshots\Concerns\PhpUnitCompatibility;
 use Spatie\Snapshots\Concerns\SnapshotDirectoryAware;
 use Spatie\Snapshots\Concerns\SnapshotIdAware;
 use Spatie\Snapshots\Drivers\HtmlDriver;
@@ -18,6 +19,7 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 trait MatchesSnapshots
 {
+    use PhpUnitCompatibility;
     use SnapshotDirectoryAware;
     use SnapshotIdAware;
 
@@ -25,12 +27,14 @@ trait MatchesSnapshots
 
     protected array $snapshotChanges = [];
 
+    /** @before */
     #[Before]
     public function setUpSnapshotIncrementor()
     {
         $this->snapshotIncrementor = 0;
     }
 
+    /** @postCondition */
     #[PostCondition]
     public function markTestIncompleteIfSnapshotsHaveChanged()
     {

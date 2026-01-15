@@ -24,6 +24,7 @@ class SnapshotTest extends TestCase
         $this->driver = $this->createMock(Driver::class);
     }
 
+    /** @test */
     #[Test]
     public function it_has_an_id()
     {
@@ -32,6 +33,7 @@ class SnapshotTest extends TestCase
         $this->assertEquals('abc', $snapshot->id());
     }
 
+    /** @test */
     #[Test]
     public function it_has_a_filename_based_on_its_id_and_its_drivers_extension()
     {
@@ -45,6 +47,7 @@ class SnapshotTest extends TestCase
         $this->assertEquals('abc.php', $snapshot->filename());
     }
 
+    /** @test */
     #[Test]
     public function it_has_a_filename_which_is_valid_on_all_systems()
     {

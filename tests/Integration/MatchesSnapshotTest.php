@@ -30,6 +30,7 @@ class MatchesSnapshotTest extends TestCase
         }
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_a_string()
     {
@@ -45,6 +46,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_an_array()
     {
@@ -60,6 +62,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_html()
     {
@@ -75,6 +78,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_xml()
     {
@@ -90,6 +94,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_json()
     {
@@ -105,6 +110,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_create_a_snapshot_from_a_file()
     {
@@ -120,6 +126,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_match_an_existing_string_snapshot()
     {
@@ -128,6 +135,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Foo');
     }
 
+    /** @test */
     #[Test]
     public function it_can_match_an_existing_html_snapshot()
     {
@@ -136,6 +144,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hello, world!</h1></body></html>');
     }
 
+    /** @test */
     #[Test]
     public function it_can_match_an_existing_xml_snapshot()
     {
@@ -144,6 +153,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Baz</bar></foo>');
     }
 
+    /** @test */
     #[Test]
     public function it_can_match_an_existing_json_snapshot()
     {
@@ -152,6 +162,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"foo","bar":"bar","baz":"baz"}');
     }
 
+    /** @test */
     #[Test]
     public function it_can_match_an_existing_file_hash_snapshot()
     {
@@ -160,6 +171,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileHashSnapshot(__DIR__.'/stubs/example_snapshots/snapshot.json');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_string_snapshot()
     {
@@ -170,6 +182,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Bar');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_html_snapshot()
     {
@@ -180,6 +193,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesHtmlSnapshot('<!doctype html><html lang="en"><head></head><body><h1>Hallo welt!</h1></body></html>');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_xml_snapshot()
     {
@@ -190,6 +204,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesXmlSnapshot('<foo><bar>Foo</bar></foo>');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_json_snapshot()
     {
@@ -200,6 +215,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesJsonSnapshot('{"foo":"baz","bar":"baz","baz":"foo"}');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_file_hash_snapshot()
     {
@@ -210,6 +226,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileHashSnapshot(__DIR__.'/stubs/example_snapshots/snapshot.json');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_file_snapshot()
     {
@@ -223,6 +240,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
     }
 
+    /** @test */
     #[Test]
     public function it_can_mismatch_a_file_snapshot_with_a_different_extension()
     {
@@ -236,6 +254,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/no_man.png');
     }
 
+    /** @test */
     #[Test]
     public function it_needs_a_file_extension_to_do_a_file_snapshot_assertion()
     {
@@ -254,6 +273,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot($filePath);
     }
 
+    /** @test */
     #[Test]
     public function it_persists_the_failed_file_after_mismatching_a_file_snapshot()
     {
@@ -274,6 +294,7 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileEquals($mismatchedFile, $persistedFailedFile);
     }
 
+    /** @test */
     #[Test]
     public function it_deletes_the_persisted_failed_file_before_a_file_snapshot_assertion()
     {
@@ -292,6 +313,7 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileDoesNotExist($persistedFailedFile);
     }
 
+    /** @test */
     #[Test]
     public function it_cleans_filenames_on_file_snapshot()
     {
@@ -309,6 +331,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/troubled_man.jpg');
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_string_snapshot()
     {
@@ -326,6 +349,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_html_snapshot()
     {
@@ -343,6 +367,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_xml_snapshot()
     {
@@ -360,6 +385,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_json_snapshot()
     {
@@ -377,6 +403,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_file_snapshot()
     {
@@ -394,6 +421,7 @@ class MatchesSnapshotTest extends TestCase
         );
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_file_snapshot_with_a_different_extension()
     {
@@ -417,6 +445,7 @@ class MatchesSnapshotTest extends TestCase
         $this->assertFileDoesNotExist($oldSnapshot);
     }
 
+    /** @test */
     #[Test]
     public function it_can_update_a_snapshot_with_env_var()
     {
@@ -505,7 +534,7 @@ class MatchesSnapshotTest extends TestCase
             $matchesSnapshotMock
                 ->expects($this->any())
                 ->method('getSnapshotId')
-                ->willReturn('MatchesSnapshotTest__'.$this->name().'__1');
+                ->willReturn('MatchesSnapshotTest__'.$this->getName(false).'__1');
         }
 
         $matchesSnapshotMock
@@ -521,6 +550,7 @@ class MatchesSnapshotTest extends TestCase
         return $matchesSnapshotMock;
     }
 
+    /** @test */
     #[Test]
     public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked()
     {
@@ -537,6 +567,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Bar');
     }
 
+    /** @test */
     #[Test]
     public function it_doesnt_create_a_file_snapshot_and_mismatches_if_asked()
     {
@@ -553,6 +584,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
     }
 
+    /** @test */
     #[Test]
     public function it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked_with_env_var()
     {
@@ -569,6 +601,7 @@ class MatchesSnapshotTest extends TestCase
         $mockTrait->assertMatchesSnapshot('Bar');
     }
 
+    /** @test */
     #[Test]
     public function it_doesnt_create_a_file_snapshot_and_mismatches_if_asked_with_env_var()
     {

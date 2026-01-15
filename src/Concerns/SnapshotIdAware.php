@@ -6,6 +6,8 @@ use ReflectionClass;
 
 trait SnapshotIdAware
 {
+    use PhpUnitCompatibility;
+
     /*
      * Determines the snapshot's id. By default, the test case's class and
      * method names are used.
