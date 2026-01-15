@@ -8,6 +8,7 @@ use Spatie\Snapshots\Drivers\TextDriver;
 
 class TextDriverTest extends TestCase
 {
+    /** @test */
     #[Test]
     public function it_can_serialize_laravel_route_list()
     {
@@ -28,6 +29,7 @@ class TextDriverTest extends TestCase
 EOF));
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_when_given_o_s_dependant_line_endings()
     {

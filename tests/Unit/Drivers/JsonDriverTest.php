@@ -11,6 +11,7 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class JsonDriverTest extends TestCase
 {
+    /** @test */
     #[Test]
     public function it_can_serialize_a_json_string_to_pretty_json()
     {
@@ -26,6 +27,7 @@ class JsonDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize('{"foo":"bar\/baz \ud83d\ude0a"}'));
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_a_json_hash_to_pretty_json()
     {
@@ -72,6 +74,7 @@ class JsonDriverTest extends TestCase
         ]));
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_a_json_array_to_pretty_json()
     {
@@ -89,6 +92,7 @@ class JsonDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize(['foo', 'bar', 'baz']));
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_a_empty_json_object_to_pretty_json()
     {
@@ -112,6 +116,7 @@ class JsonDriverTest extends TestCase
         ]));
     }
 
+    /** @test */
     #[Test]
     public function it_can_not_serialize_resources()
     {
@@ -124,6 +129,20 @@ class JsonDriverTest extends TestCase
         $driver->serialize($resource);
     }
 
+    /**
+     * @test
+     * @testWith ["{}" ,"{}" , true]
+     *           ["{}" ,"{\"data\":1}" , false]
+     *           ["{\"data\":1}" ,"{\"data\":1}" , true]
+     *           ["{\"data\":1}" ,"{\"data\":\"1\"}" , false]
+     *           ["true" ,"true" , true]
+     *           ["false" ,"false" , true]
+     *           ["null" ,"null" , true]
+     *           ["1" ,"1" , true]
+     *           ["1.1" ,"1.1" , true]
+     *           ["{\"empty\": []}" ,"{\"empty\":{}}" , false]
+     *           ["{\"url\": \"foo\\/bar😊\"}" ,"{\"url\":\"foo/bar\\ud83d\\ude0a\"}" , true]
+     */
     #[Test]
     #[TestWith(['{}', '{}', true])]
     #[TestWith(['{}', '{"data":1}', false])]

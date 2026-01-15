@@ -9,6 +9,7 @@ use Spatie\Snapshots\Exceptions\CantBeSerialized;
 
 class XmlDriverTest extends TestCase
 {
+    /** @test */
     #[Test]
     public function it_can_serialize_a_xml_string_to_pretty_xml()
     {
@@ -25,6 +26,7 @@ class XmlDriverTest extends TestCase
         $this->assertEquals($expected, $driver->serialize('<foo><bar>baz</bar></foo>'));
     }
 
+    /** @test */
     #[Test]
     public function it_can_only_serialize_strings()
     {

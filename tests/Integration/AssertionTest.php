@@ -18,6 +18,7 @@ class AssertionTest extends TestCase
         $this->setUpComparesSnapshotFiles();
     }
 
+    /** @test */
     #[Test]
     public function can_match_a_string_snapshot()
     {
@@ -26,6 +27,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesSnapshot($data);
     }
 
+    /** @test */
     #[Test]
     public function can_match_an_html_snapshot()
     {
@@ -34,6 +36,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesHtmlSnapshot($data);
     }
 
+    /** @test */
     #[Test]
     public function can_match_an_xml_snapshot()
     {
@@ -42,6 +45,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesXmlSnapshot($data);
     }
 
+    /** @test */
     #[Test]
     public function can_match_a_json_snapshot()
     {
@@ -50,6 +54,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesJsonSnapshot($data);
     }
 
+    /** @test */
     #[Test]
     public function can_match_an_array_snapshot()
     {
@@ -58,6 +63,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesJsonSnapshot($data);
     }
 
+    /** @test */
     #[Test]
     public function can_match_a_file_hash_snapshot()
     {
@@ -66,6 +72,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesFileHashSnapshot($filePath);
     }
 
+    /** @test */
     #[Test]
     public function can_match_a_file_snapshot()
     {
@@ -74,6 +81,7 @@ class AssertionTest extends TestCase
         $this->assertMatchesFileSnapshot($filePath);
     }
 
+    /** @test */
     #[Test]
     public function can_do_multiple_snapshot_assertions()
     {

@@ -9,6 +9,10 @@ use Spatie\Snapshots\Filename;
 
 class FilenameTest extends TestCase
 {
+    /**
+     * @test
+     * @dataProvider fileNameProvider
+     */
     #[Test]
     #[DataProvider('fileNameProvider')]
     public function it_creates_a_filename_which_is_valid_on_all_systems($name, $expected)

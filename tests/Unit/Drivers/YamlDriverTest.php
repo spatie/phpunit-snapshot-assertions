@@ -8,6 +8,7 @@ use Spatie\Snapshots\Drivers\YamlDriver;
 
 class YamlDriverTest extends TestCase
 {
+    /** @test */
     #[Test]
     public function it_can_serialize_a_yaml_string()
     {
@@ -22,6 +23,7 @@ class YamlDriverTest extends TestCase
         $this->assertEquals($yamlString, $driver->serialize($yamlString));
     }
 
+    /** @test */
     #[Test]
     public function it_can_serialize_a_yaml_array()
     {
