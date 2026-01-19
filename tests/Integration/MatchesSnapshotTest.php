@@ -7,10 +7,12 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Spatie\Snapshots\Concerns\PhpUnitCompatibility;
 
 class MatchesSnapshotTest extends TestCase
 {
     use ComparesSnapshotFiles;
+    use PhpUnitCompatibility;
 
     protected function setUp(): void
     {
@@ -534,7 +536,7 @@ class MatchesSnapshotTest extends TestCase
             $matchesSnapshotMock
                 ->expects($this->any())
                 ->method('getSnapshotId')
-                ->willReturn('MatchesSnapshotTest__'.$this->getName(false).'__1');
+                ->willReturn('MatchesSnapshotTest__'.$this->name().'__1');
         }
 
         $matchesSnapshotMock
