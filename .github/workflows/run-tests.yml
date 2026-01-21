@@ -43,11 +43,7 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/php.json"
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
-              run: |
-                  composer update \
-                    --prefer-dist --no-interaction \
-                    --${{ matrix.stability }} \
-                    --with phpunit/phpunit:^${{ matrix.phpunit }}
+              run: composer update --prefer-dist --no-interaction --${{ matrix.stability }} --with phpunit/phpunit:^${{ matrix.phpunit }}
 
             - name: Install dependencies
               run: bun install
