@@ -2,6 +2,17 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.3.0 - 2026-01-22
+
+### What's Changed
+
+- Add support for PHPUnit 9.6 by @alex-dev in https://github.com/spatie/phpunit-snapshot-assertions/pull/235
+- Add PHPUnit versioning to CI matrix to test against multiple PHPUnit versions
+- Add PhpUnitCompatibility trait for cross-version compatibility
+- Fix CI workflow to properly handle PHPUnit version constraints
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.2.3...5.3.0
+
 ## 5.2.3 - 2025-11-14
 
 ### What's Changed
