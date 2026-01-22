@@ -12,10 +12,6 @@ jobs:
                 php: ["8.5", "8.4", "8.3", "8.2", "8.1"]
                 phpunit: ["9.6", "10.0", "11.0", "12.0"]
                 stability: [prefer-lowest, prefer-stable]
-                include:
-                    - os: ubuntu-latest
-                      php: "8.5"
-                      stability: "no-suggest"
                 exclude:
                     - { php: "8.2", phpunit: "12.0" }
                     - { php: "8.1", phpunit: "12.0" }
