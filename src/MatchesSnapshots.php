@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots;
 
-use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\PostCondition;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionObject;
@@ -23,16 +22,7 @@ trait MatchesSnapshots
     use SnapshotDirectoryAware;
     use SnapshotIdAware;
 
-    protected int $snapshotIncrementor = 0;
-
     protected array $snapshotChanges = [];
-
-    /** @before */
-    #[Before]
-    public function setUpSnapshotIncrementor()
-    {
-        $this->snapshotIncrementor = 0;
-    }
 
     /** @postCondition */
     #[PostCondition]
@@ -173,10 +163,6 @@ trait MatchesSnapshots
 
     protected function doSnapshotAssertion(mixed $actual, Driver $driver, ?string $id = null)
     {
-        if ($id === null) {
-            $this->snapshotIncrementor++;
-        }
-
         $snapshot = Snapshot::forTestCase(
             $this->getSnapshotId($id),
             $this->getSnapshotDirectory(),
@@ -222,10 +208,6 @@ trait MatchesSnapshots
         }
 
         $fileSystem = Filesystem::inDirectory($this->getFileSnapshotDirectory());
-
-        if ($id === null) {
-            $this->snapshotIncrementor++;
-        }
 
         $snapshotId = $this->getSnapshotId($id).'.'.$fileExtension;
         $snapshotId = Filename::cleanFilename($snapshotId);
