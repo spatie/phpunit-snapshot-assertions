@@ -11,6 +11,7 @@ class FilenameTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider fileNameProvider
      */
     #[Test]
