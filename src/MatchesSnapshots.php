@@ -55,24 +55,24 @@ trait MatchesSnapshots
         $this->markTestIncomplete($formattedMessages);
     }
 
-    public function assertMatchesSnapshot($actual, ?Driver $driver = null): void
+    public function assertMatchesSnapshot($actual, ?Driver $driver = null, ?string $id = null): void
     {
         if (! is_null($driver)) {
-            $this->doSnapshotAssertion($actual, $driver);
+            $this->doSnapshotAssertion($actual, $driver, $id);
 
             return;
         }
 
         if (is_string($actual) || is_int($actual) || is_float($actual)) {
-            $this->doSnapshotAssertion($actual, new TextDriver);
+            $this->doSnapshotAssertion($actual, new TextDriver, $id);
 
             return;
         }
 
-        $this->doSnapshotAssertion($actual, new ObjectDriver);
+        $this->doSnapshotAssertion($actual, new ObjectDriver, $id);
     }
 
-    public function assertMatchesFileHashSnapshot(string $filePath): void
+    public function assertMatchesFileHashSnapshot(string $filePath, ?string $id = null): void
     {
         if (! file_exists($filePath)) {
             $this->fail('File does not exist');
@@ -80,53 +80,54 @@ trait MatchesSnapshots
 
         $actual = sha1_file($filePath);
 
-        $this->assertMatchesSnapshot($actual);
+        $this->assertMatchesSnapshot($actual, null, $id);
     }
 
-    public function assertMatchesFileSnapshot(string $file): void
+    public function assertMatchesFileSnapshot(string $file, ?string $id = null): void
     {
-        $this->doFileSnapshotAssertion($file);
+        $this->doFileSnapshotAssertion($file, $id);
     }
 
-    public function assertMatchesHtmlSnapshot(string $actual): void
+    public function assertMatchesHtmlSnapshot(string $actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new HtmlDriver);
+        $this->assertMatchesSnapshot($actual, new HtmlDriver, $id);
     }
 
-    public function assertMatchesJsonSnapshot($actual): void
+    public function assertMatchesJsonSnapshot($actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new JsonDriver);
+        $this->assertMatchesSnapshot($actual, new JsonDriver, $id);
     }
 
-    public function assertMatchesObjectSnapshot($actual): void
+    public function assertMatchesObjectSnapshot($actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new ObjectDriver);
+        $this->assertMatchesSnapshot($actual, new ObjectDriver, $id);
     }
 
-    public function assertMatchesTextSnapshot($actual): void
+    public function assertMatchesTextSnapshot($actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new TextDriver);
+        $this->assertMatchesSnapshot($actual, new TextDriver, $id);
     }
 
-    public function assertMatchesXmlSnapshot($actual): void
+    public function assertMatchesXmlSnapshot($actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new XmlDriver);
+        $this->assertMatchesSnapshot($actual, new XmlDriver, $id);
     }
 
-    public function assertMatchesYamlSnapshot($actual): void
+    public function assertMatchesYamlSnapshot($actual, ?string $id = null): void
     {
-        $this->assertMatchesSnapshot($actual, new YamlDriver);
+        $this->assertMatchesSnapshot($actual, new YamlDriver, $id);
     }
 
     public function assertMatchesImageSnapshot(
         $actual,
         float $threshold = 0.1,
-        bool $includeAa = true
+        bool $includeAa = true,
+        ?string $id = null
     ): void {
         $this->assertMatchesSnapshot($actual, new ImageDriver(
             $threshold,
             $includeAa,
-        ));
+        ), $id);
     }
 
     /*
@@ -170,12 +171,12 @@ trait MatchesSnapshots
             && getenv('CREATE_SNAPSHOTS') !== 'false';
     }
 
-    protected function doSnapshotAssertion(mixed $actual, Driver $driver)
+    protected function doSnapshotAssertion(mixed $actual, Driver $driver, ?string $id = null)
     {
         $this->snapshotIncrementor++;
 
         $snapshot = Snapshot::forTestCase(
-            $this->getSnapshotId(),
+            $this->getSnapshotId($id),
             $this->getSnapshotDirectory(),
             $driver
         );
@@ -206,7 +207,7 @@ trait MatchesSnapshots
         }
     }
 
-    protected function doFileSnapshotAssertion(string $filePath): void
+    protected function doFileSnapshotAssertion(string $filePath, ?string $id = null): void
     {
         if (! file_exists($filePath)) {
             $this->fail('File does not exist');
@@ -222,7 +223,7 @@ trait MatchesSnapshots
 
         $this->snapshotIncrementor++;
 
-        $snapshotId = $this->getSnapshotId().'.'.$fileExtension;
+        $snapshotId = $this->getSnapshotId($id).'.'.$fileExtension;
         $snapshotId = Filename::cleanFilename($snapshotId);
 
         // If $filePath has a different file extension than the snapshot, the test should fail
