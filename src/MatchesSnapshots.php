@@ -169,7 +169,9 @@ trait MatchesSnapshots
 
     protected function doSnapshotAssertion(mixed $actual, Driver $driver, ?string $id = null)
     {
-        $this->snapshotIncrementor++;
+        if ($id === null) {
+            $this->snapshotIncrementor++;
+        }
 
         $snapshot = Snapshot::forTestCase(
             $this->getSnapshotId($id),
@@ -217,7 +219,9 @@ trait MatchesSnapshots
 
         $fileSystem = Filesystem::inDirectory($this->getFileSnapshotDirectory());
 
-        $this->snapshotIncrementor++;
+        if ($id === null) {
+            $this->snapshotIncrementor++;
+        }
 
         $snapshotId = $this->getSnapshotId($id).'.'.$fileExtension;
         $snapshotId = Filename::cleanFilename($snapshotId);
