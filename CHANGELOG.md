@@ -2,6 +2,12 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.3.1 - 2026-02-08
+
+### What's Changed
+
+- Allow PHPUnit 13
+
 ## 5.3.0 - 2026-01-22
 
 ### What's Changed
