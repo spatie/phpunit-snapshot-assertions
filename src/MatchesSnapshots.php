@@ -4,6 +4,7 @@ namespace Spatie\Snapshots;
 
 use PHPUnit\Framework\Attributes\PostCondition;
 use PHPUnit\Framework\ExpectationFailedException;
+use ReflectionClass;
 use ReflectionObject;
 use Spatie\Snapshots\Concerns\PhpUnitCompatibility;
 use Spatie\Snapshots\Concerns\SnapshotDirectoryAware;
@@ -161,10 +162,23 @@ trait MatchesSnapshots
             && getenv('CREATE_SNAPSHOTS') !== 'false';
     }
 
+    protected function resolveSnapshotId(?string $id = null): string
+    {
+        if ($id !== null) {
+            return (new ReflectionClass($this))->getShortName().'__'.
+                $this->nameWithDataSet().'__'.
+                's-'.$id;
+        }
+
+        $this->snapshotIncrementor++;
+
+        return $this->getSnapshotId();
+    }
+
     protected function doSnapshotAssertion(mixed $actual, Driver $driver, ?string $id = null)
     {
         $snapshot = Snapshot::forTestCase(
-            $this->getSnapshotId($id),
+            $this->resolveSnapshotId($id),
             $this->getSnapshotDirectory(),
             $driver
         );
@@ -209,7 +223,7 @@ trait MatchesSnapshots
 
         $fileSystem = Filesystem::inDirectory($this->getFileSnapshotDirectory());
 
-        $snapshotId = $this->getSnapshotId($id).'.'.$fileExtension;
+        $snapshotId = $this->resolveSnapshotId($id).'.'.$fileExtension;
         $snapshotId = Filename::cleanFilename($snapshotId);
 
         // If $filePath has a different file extension than the snapshot, the test should fail
