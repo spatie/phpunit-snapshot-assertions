@@ -98,16 +98,16 @@ composer require --dev spatie/phpunit-snapshot-assertions
 
 To make snapshot assertions, use the `Spatie\Snapshots\MatchesSnapshots` trait in your test case class. This adds a set of assertion methods to the class:
 
-- `assertMatchesSnapshot($actual)`
-- `assertMatchesFileHashSnapshot($actual)`
-- `assertMatchesFileSnapshot($actual)`
-- `assertMatchesHtmlSnapshot($actual)`
-- `assertMatchesJsonSnapshot($actual)`
-- `assertMatchesObjectSnapshot($actual)`
-- `assertMatchesTextSnapshot($actual)`
-- `assertMatchesXmlSnapshot($actual)`
-- `assertMatchesYamlSnapshot($actual)`
-- `assertMatchesImageSnapshot($actual)`
+- `assertMatchesSnapshot($actual, $driver, $id)`
+- `assertMatchesFileHashSnapshot($filePath, $id)`
+- `assertMatchesFileSnapshot($file, $id)`
+- `assertMatchesHtmlSnapshot($actual, $id)`
+- `assertMatchesJsonSnapshot($actual, $id)`
+- `assertMatchesObjectSnapshot($actual, $id)`
+- `assertMatchesTextSnapshot($actual, $id)`
+- `assertMatchesXmlSnapshot($actual, $id)`
+- `assertMatchesYamlSnapshot($actual, $id)`
+- `assertMatchesImageSnapshot($actual, $threshold, $includeAa, $id)`
 
 ### Snapshot Testing 101
 
@@ -201,6 +201,17 @@ This assertion will pass if the given image is nearly identical to the snapshot 
 $this->assertMatchesImageSnapshot($imagePath, 0.1);
 ```
 
+
+### Named Snapshots
+
+By default, snapshots are identified by an auto-incrementing number. You can pass an explicit `$id` to any assertion method to use a named snapshot instead:
+
+```php
+$this->assertMatchesJsonSnapshot($order->toJson(), 'order-json');
+$this->assertMatchesTextSnapshot($output, 'cli-output');
+```
+
+Named snapshots use a `s-` prefix internally to avoid collisions with auto-incremented ids. Named and auto-incremented snapshots can be mixed freely within a single test — named snapshots don't affect the auto-increment counter.
 
 ### Customizing Snapshot Ids and Directories
 
