@@ -2,6 +2,13 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.3.2 - 2026-02-09
+
+### What's Changed
+
+- Fix BC break in `getSnapshotId()` from named snapshots feature — restored original no-parameter signature
+- Add README documentation for named snapshots
+
 ## 5.3.1 - 2026-02-08
 
 ### What's Changed
