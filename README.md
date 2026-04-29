@@ -169,12 +169,18 @@ FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
 
-When we expect a changed value, we need to tell the test runner to update the existing snapshots instead of failing the test. This is possible by adding  a`-d --update-snapshots` flag to the `phpunit` command, or setting the `UPDATE_SNAPSHOTS` env var to `true`.
+When we expect a changed value, we need to tell the test runner to update the existing snapshots instead of failing the test. The package ships a wrapper binary that runs PHPUnit with the right environment variable set:
 
 ```
-> ./vendor/bin/phpunit -d --update-snapshots
+> ./vendor/bin/update-snapshots
 
 OK (1 test, 1 assertion)
+```
+
+`vendor/bin/update-snapshots` accepts the same arguments as `phpunit`, so you can target a specific test:
+
+```
+> ./vendor/bin/update-snapshots tests/OrderTest.php
 ```
 
 As a result, our snapshot file returns "bar" instead of "foo".
@@ -182,6 +188,28 @@ As a result, our snapshot file returns "bar" instead of "foo".
 ```txt
 bar
 ```
+
+You can also set the `UPDATE_SNAPSHOTS` environment variable directly. This is useful in CI, or when you want to define a Composer script for your project.
+
+```
+> UPDATE_SNAPSHOTS=true ./vendor/bin/phpunit
+```
+
+A common pattern is to add an `update-snapshots` script to your project's `composer.json`:
+
+```json
+{
+    "scripts": {
+        "update-snapshots": "UPDATE_SNAPSHOTS=true vendor/bin/phpunit"
+    }
+}
+```
+
+You can then run `composer update-snapshots` (and pass extra arguments via `composer update-snapshots -- tests/OrderTest.php`).
+
+#### Why not `phpunit -d --update-snapshots`?
+
+Earlier versions of this package documented `phpunit -d --update-snapshots` as the way to enable updates. That syntax abuses PHPUnit's `-d` flag, which is designed to set `php.ini` values. Since [PHPUnit 12.5.12](https://github.com/sebastianbergmann/phpunit/commit/87f68b992979f9e4ad485be959b5e9d0c21597f2), failed `ini_set()` calls produce a visible `Failed to set "--update-snapshots=1"` warning, surfacing the misuse. The wrapper binary and the environment variable replace that approach. The legacy CLI argument still works for backwards compatibility, but produces the warning on PHPUnit 12.5.12 and later.
 
 ### File snapshots
 
@@ -311,21 +339,37 @@ $this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
 
 ### Usage in CI
 
-When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots.
+When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots, so missing snapshots cause the build to fail instead of being silently created.
 
-By using the `--without-creating-snapshots` parameter or by setting the `CREATE_SNAPSHOTS` env var to `false`, PHPUnit will fail if the snapshots don't exist.
+The package ships a wrapper binary that runs PHPUnit with the right environment variable set:
 
 ```bash
-> ./vendor/bin/phpunit -d --without-creating-snapshots
+> ./vendor/bin/without-creating-snapshots
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
-You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --no-create-snapshots` of PHPUnit's CLI arguments.
+You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.
 ```
+
+You can also set the `CREATE_SNAPSHOTS` environment variable directly. This is the preferred form for CI configuration and Composer scripts:
+
+```bash
+> CREATE_SNAPSHOTS=false ./vendor/bin/phpunit
+```
+
+```json
+{
+    "scripts": {
+        "test:ci": "CREATE_SNAPSHOTS=false vendor/bin/phpunit"
+    }
+}
+```
+
+> Earlier versions of this package documented `phpunit -d --without-creating-snapshots`. Since [PHPUnit 12.5.12](https://github.com/sebastianbergmann/phpunit/commit/87f68b992979f9e4ad485be959b5e9d0c21597f2), that syntax produces a `Failed to set "--without-creating-snapshots=1"` test runner warning because it abuses PHPUnit's `-d` flag (which is designed for `php.ini` values). The wrapper binary and the environment variable replace that approach.
 
 ### Usage with parallel testing
 
-If you want to run your test in parallel with a tool like [Paratest](https://github.com/paratestphp/paratest), ou with the `php artisan test --parallel` command of Laravel, you will have to use the environment variables.
+If you want to run your test in parallel with a tool like [Paratest](https://github.com/paratestphp/paratest), or with the `php artisan test --parallel` command of Laravel, you will have to use the environment variables.
 
 
 ```bash
@@ -333,7 +377,7 @@ If you want to run your test in parallel with a tool like [Paratest](https://git
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
-You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --no-create-snapshots` of PHPUnit's CLI arguments.
+You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.
 ```
 
 ### A note for Windows users

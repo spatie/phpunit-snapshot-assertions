@@ -137,16 +137,16 @@ trait MatchesSnapshots
      * Determines whether or not the snapshot should be updated instead of
      * matched.
      *
-     * Override this method it you want to use a different flag or mechanism
-     * than `-d --update-snapshots` or `UPDATE_SNAPSHOTS=true` env var.
+     * Override this method if you want to use a different flag or mechanism
+     * than `vendor/bin/update-snapshots` or the `UPDATE_SNAPSHOTS=true` env var.
      */
     protected function shouldUpdateSnapshots(): bool
     {
-        if (in_array('--update-snapshots', $_SERVER['argv'], true)) {
+        if (getenv('UPDATE_SNAPSHOTS') === 'true') {
             return true;
         }
 
-        return getenv('UPDATE_SNAPSHOTS') === 'true';
+        return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 
     /*
@@ -154,12 +154,16 @@ trait MatchesSnapshots
      * matched.
      *
      * Override this method if you want to use a different flag or mechanism
-     * than `-d --without-creating-snapshots` or `CREATE_SNAPSHOTS=false` env var.
+     * than `vendor/bin/without-creating-snapshots` or the `CREATE_SNAPSHOTS=false`
+     * env var.
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true)
-            && getenv('CREATE_SNAPSHOTS') !== 'false';
+        if (getenv('CREATE_SNAPSHOTS') === 'false') {
+            return false;
+        }
+
+        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
     protected function resolveSnapshotId(?string $id = null): string
@@ -296,8 +300,8 @@ trait MatchesSnapshots
     protected function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt($exception): void
     {
         $newMessage = $exception->getMessage()."\n\n".
-            'Snapshots can be updated by passing '.
-            '`-d --update-snapshots` through PHPUnit\'s CLI arguments.';
+            'Snapshots can be updated by running `vendor/bin/update-snapshots`, '.
+            'or by setting the `UPDATE_SNAPSHOTS=true` environment variable.';
 
         $exceptionReflection = new ReflectionObject($exception);
 
@@ -320,9 +324,9 @@ trait MatchesSnapshots
 
         $this->fail(
             "Snapshot \"$snapshotFileName\" does not exist.\n".
-            'You can automatically create it by removing '.
-            'the `CREATE_SNAPSHOTS=false` env var, or '.
-            '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
+            'You can automatically create it by running `vendor/bin/phpunit` '.
+            'instead of `vendor/bin/without-creating-snapshots`, or by removing '.
+            'the `CREATE_SNAPSHOTS=false` environment variable.'
         );
     }
 }

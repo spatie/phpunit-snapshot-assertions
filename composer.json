@@ -47,6 +47,10 @@
             "Spatie\\Snapshots\\Test\\": "tests"
         }
     },
+    "bin": [
+        "bin/update-snapshots",
+        "bin/without-creating-snapshots"
+    ],
     "scripts": {
         "test": "phpunit"
     },
