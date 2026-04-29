@@ -154,8 +154,7 @@ trait MatchesSnapshots
      * matched.
      *
      * Override this method if you want to use a different flag or mechanism
-     * than `vendor/bin/without-creating-snapshots` or the `CREATE_SNAPSHOTS=false`
-     * env var.
+     * than the `CREATE_SNAPSHOTS=false` env var.
      */
     protected function shouldCreateSnapshots(): bool
     {

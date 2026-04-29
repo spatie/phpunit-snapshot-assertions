@@ -341,20 +341,14 @@ $this->assertMatchesSnapshot($something->toYaml(), new MyYamlDriver());
 
 When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots, so missing snapshots cause the build to fail instead of being silently created.
 
-The package ships a wrapper binary that runs PHPUnit with the right environment variable set:
+Set the `CREATE_SNAPSHOTS=false` environment variable when invoking PHPUnit:
 
 ```bash
-> ./vendor/bin/without-creating-snapshots
+> CREATE_SNAPSHOTS=false ./vendor/bin/phpunit
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
 You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.
-```
-
-You can also set the `CREATE_SNAPSHOTS` environment variable directly. This is the preferred form for CI configuration and Composer scripts:
-
-```bash
-> CREATE_SNAPSHOTS=false ./vendor/bin/phpunit
 ```
 
 ```json
@@ -365,7 +359,7 @@ You can also set the `CREATE_SNAPSHOTS` environment variable directly. This is t
 }
 ```
 
-> Earlier versions of this package documented `phpunit -d --without-creating-snapshots`. Since [PHPUnit 12.5.12](https://github.com/sebastianbergmann/phpunit/commit/87f68b992979f9e4ad485be959b5e9d0c21597f2), that syntax produces a `Failed to set "--without-creating-snapshots=1"` test runner warning because it abuses PHPUnit's `-d` flag (which is designed for `php.ini` values). The wrapper binary and the environment variable replace that approach.
+> Earlier versions of this package documented `phpunit -d --without-creating-snapshots`. Since [PHPUnit 12.5.12](https://github.com/sebastianbergmann/phpunit/commit/87f68b992979f9e4ad485be959b5e9d0c21597f2), that syntax produces a `Failed to set "--without-creating-snapshots=1"` test runner warning because it abuses PHPUnit's `-d` flag (which is designed for `php.ini` values). The `CREATE_SNAPSHOTS=false` environment variable replaces that approach.
 
 ### Usage with parallel testing
 

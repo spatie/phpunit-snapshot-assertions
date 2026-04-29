@@ -48,8 +48,7 @@
         }
     },
     "bin": [
-        "bin/update-snapshots",
-        "bin/without-creating-snapshots"
+        "bin/update-snapshots"
     ],
     "scripts": {
         "test": "phpunit"

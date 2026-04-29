@@ -11,8 +11,38 @@
  * ini_set() calls produce a visible test runner warning, surfacing that misuse.
  */
 
-// Set in all three locations so getenv(), $_ENV[] and $_SERVER[] reads all see the value,
-// regardless of the user's `variables_order` ini setting.
+// Capture whatever the env var was before this script ran, so we can restore it
+// on shutdown. Without this, code running after PHPUnit (shutdown handlers, parent
+// processes that include this file) would observe a state mutation they didn't ask
+// for.
+$originalGetenv = getenv('UPDATE_SNAPSHOTS');
+$originalEnv = array_key_exists('UPDATE_SNAPSHOTS', $_ENV) ? $_ENV['UPDATE_SNAPSHOTS'] : null;
+$originalServer = array_key_exists('UPDATE_SNAPSHOTS', $_SERVER) ? $_SERVER['UPDATE_SNAPSHOTS'] : null;
+$originalEnvWasSet = array_key_exists('UPDATE_SNAPSHOTS', $_ENV);
+$originalServerWasSet = array_key_exists('UPDATE_SNAPSHOTS', $_SERVER);
+
+register_shutdown_function(static function () use ($originalGetenv, $originalEnv, $originalServer, $originalEnvWasSet, $originalServerWasSet): void {
+    if ($originalGetenv === false) {
+        putenv('UPDATE_SNAPSHOTS');
+    } else {
+        putenv('UPDATE_SNAPSHOTS='.$originalGetenv);
+    }
+
+    if ($originalEnvWasSet) {
+        $_ENV['UPDATE_SNAPSHOTS'] = $originalEnv;
+    } else {
+        unset($_ENV['UPDATE_SNAPSHOTS']);
+    }
+
+    if ($originalServerWasSet) {
+        $_SERVER['UPDATE_SNAPSHOTS'] = $originalServer;
+    } else {
+        unset($_SERVER['UPDATE_SNAPSHOTS']);
+    }
+});
+
+// Set in all three locations so getenv(), $_ENV[] and $_SERVER[] reads all see the
+// value, regardless of the user's `variables_order` ini setting.
 putenv('UPDATE_SNAPSHOTS=true');
 $_ENV['UPDATE_SNAPSHOTS'] = 'true';
 $_SERVER['UPDATE_SNAPSHOTS'] = 'true';
