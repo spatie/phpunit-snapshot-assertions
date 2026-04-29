@@ -2,6 +2,21 @@
 
 All notable changes to `phpunit-snapshot-assertions` will be documented in this file
 
+## 5.4.0 - 2026-04-29
+
+### What's Changed
+
+- Add `vendor/bin/update-snapshots` wrapper binary that sets `UPDATE_SNAPSHOTS=true` and runs PHPUnit. This replaces the previously documented `phpunit -d --update-snapshots` syntax, which abused PHPUnit's `-d` flag and produces a `Failed to set "--update-snapshots=1"` test runner warning since PHPUnit 12.5.12.
+- Drop the `phpunit -d --without-creating-snapshots` form from the README. Use the `CREATE_SNAPSHOTS=false` environment variable instead. The argv check is kept in `shouldCreateSnapshots()` for backwards compatibility.
+- The wrapper restores the prior `UPDATE_SNAPSHOTS` env var state on shutdown, so it does not leak a state mutation to any in-process code that runs after PHPUnit.
+- Reworded the "Snapshot does not exist" failure message and the "snapshots can be updated by..." prompt to point at the new approach.
+- `shouldUpdateSnapshots()` and `shouldCreateSnapshots()` now check the env var first, then fall back to the legacy CLI argument.
+- Fix tests on PHPUnit 12.5+, where mocks throwing `AssertionFailedError` are tracked as a test failure even when user code catches the exception. The `expectFail` helper now uses a plain `RuntimeException` carrying the expected message.
+
+Closes #242.
+
+**Full Changelog**: https://github.com/spatie/phpunit-snapshot-assertions/compare/5.3.2...5.4.0
+
 ## 5.3.2 - 2026-02-09
 
 ### What's Changed
