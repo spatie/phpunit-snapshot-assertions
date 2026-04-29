@@ -3,8 +3,7 @@
 
 /*
  * This wrapper sets the CREATE_SNAPSHOTS=false environment variable and then runs
- * PHPUnit with the original arguments, so missing snapshots cause the run to fail
- * instead of being created.
+ * PHPUnit, so missing snapshots cause the run to fail instead of being created.
  *
  * It exists because the previously documented syntax (`phpunit -d --without-creating-snapshots`)
  * abuses PHPUnit's `-d` flag, which is meant to set php.ini values. Since PHPUnit
@@ -12,26 +11,10 @@
  * ini_set() calls produce a visible test runner warning, surfacing that misuse.
  */
 
+// Set in all three locations so getenv(), $_ENV[] and $_SERVER[] reads all see the value,
+// regardless of the user's `variables_order` ini setting.
 putenv('CREATE_SNAPSHOTS=false');
 $_ENV['CREATE_SNAPSHOTS'] = 'false';
 $_SERVER['CREATE_SNAPSHOTS'] = 'false';
 
-$candidates = [];
-
-if (isset($GLOBALS['_composer_autoload_path'])) {
-    $candidates[] = dirname($GLOBALS['_composer_autoload_path']).'/phpunit/phpunit/phpunit';
-}
-
-$candidates[] = dirname(__DIR__, 3).'/phpunit/phpunit/phpunit';
-$candidates[] = dirname(__DIR__).'/vendor/phpunit/phpunit/phpunit';
-
-foreach ($candidates as $phpunit) {
-    if (file_exists($phpunit)) {
-        require $phpunit;
-
-        return;
-    }
-}
-
-fwrite(STDERR, 'Could not locate PHPUnit. Make sure phpunit/phpunit is installed.'.PHP_EOL);
-exit(1);
+require __DIR__.'/_run-phpunit.php';

@@ -324,9 +324,8 @@ trait MatchesSnapshots
 
         $this->fail(
             "Snapshot \"$snapshotFileName\" does not exist.\n".
-            'You can automatically create it by running `vendor/bin/phpunit` '.
-            'instead of `vendor/bin/without-creating-snapshots`, or by removing '.
-            'the `CREATE_SNAPSHOTS=false` environment variable.'
+            'You can enable snapshot creation by running `vendor/bin/phpunit` directly, '.
+            'or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.'
         );
     }
 }

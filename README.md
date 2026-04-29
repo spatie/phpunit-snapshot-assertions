@@ -348,7 +348,7 @@ The package ships a wrapper binary that runs PHPUnit with the right environment 
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
-You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.
+You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.
 ```
 
 You can also set the `CREATE_SNAPSHOTS` environment variable directly. This is the preferred form for CI configuration and Composer scripts:
@@ -377,7 +377,7 @@ If you want to run your test in parallel with a tool like [Paratest](https://git
 
 1) ExampleTest::test_it_matches_a_string
 Snapshot "ExampleTest__test_it_matches_a_string__1.txt" does not exist.
-You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.
+You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.
 ```
 
 ### A note for Windows users
