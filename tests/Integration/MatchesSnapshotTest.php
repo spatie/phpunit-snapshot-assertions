@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
-use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -478,13 +477,17 @@ class MatchesSnapshotTest extends TestCase
 
     private function expectFail(MockObject $matchesSnapshotMock, string $message)
     {
-        $this->expectException(AssertionFailedError::class);
+        // We throw a plain RuntimeException from the mock instead of
+        // AssertionFailedError because PHPUnit 12.5+ tracks AssertionFailedError
+        // thrown from a mock as a test failure even when user code catches it.
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage($message);
 
         $matchesSnapshotMock
             ->expects($this->once())
             ->method('fail')
             ->with($message)
-            ->willThrowException(new AssertionFailedError);
+            ->willThrowException(new \RuntimeException($message));
     }
 
     private function expectFailedMatchesSnapshotTest()
