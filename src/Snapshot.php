@@ -7,10 +7,10 @@ class Snapshot
     /** @var string */
     private $id;
 
-    /** @var \Spatie\Snapshots\Filesystem */
+    /** @var Filesystem */
     private $filesystem;
 
-    /** @var \Spatie\Snapshots\Driver */
+    /** @var Driver */
     private $driver;
 
     public function __construct(

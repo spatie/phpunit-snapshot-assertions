@@ -13,7 +13,7 @@ class Order
     /** @var bool */
     private $paid;
 
-    /** @var \App\OrderLine[] */
+    /** @var OrderLine[] */
     private $orderLines;
 
     public function __construct(int $id, string $email, bool $paid, array $orderLines)

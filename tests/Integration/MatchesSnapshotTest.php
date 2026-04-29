@@ -563,7 +563,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n".
-            "You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable."
+            'You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesSnapshot('Bar');
@@ -580,7 +580,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n".
-            "You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable."
+            'You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
@@ -597,7 +597,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked_with_env_var__1.txt\" does not exist.\n".
-            "You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable."
+            'You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesSnapshot('Bar');
@@ -614,7 +614,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked_with_env_var__1.jpg_failed.jpg\" does not exist.\n".
-            "You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable."
+            'You can automatically create it by running `vendor/bin/phpunit` instead of `vendor/bin/without-creating-snapshots`, or by removing the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
