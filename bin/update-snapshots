@@ -14,30 +14,22 @@
 // Capture whatever the env var was before this script ran, so we can restore it
 // on shutdown. Without this, code running after PHPUnit (shutdown handlers, parent
 // processes that include this file) would observe a state mutation they didn't ask
-// for.
+// for. Env values are always strings, so `null` unambiguously means "wasn't set".
 $originalGetenv = getenv('UPDATE_SNAPSHOTS');
-$originalEnv = array_key_exists('UPDATE_SNAPSHOTS', $_ENV) ? $_ENV['UPDATE_SNAPSHOTS'] : null;
-$originalServer = array_key_exists('UPDATE_SNAPSHOTS', $_SERVER) ? $_SERVER['UPDATE_SNAPSHOTS'] : null;
-$originalEnvWasSet = array_key_exists('UPDATE_SNAPSHOTS', $_ENV);
-$originalServerWasSet = array_key_exists('UPDATE_SNAPSHOTS', $_SERVER);
+$originalEnv = $_ENV['UPDATE_SNAPSHOTS'] ?? null;
+$originalServer = $_SERVER['UPDATE_SNAPSHOTS'] ?? null;
 
-register_shutdown_function(static function () use ($originalGetenv, $originalEnv, $originalServer, $originalEnvWasSet, $originalServerWasSet): void {
-    if ($originalGetenv === false) {
-        putenv('UPDATE_SNAPSHOTS');
-    } else {
-        putenv('UPDATE_SNAPSHOTS='.$originalGetenv);
-    }
+register_shutdown_function(static function () use ($originalGetenv, $originalEnv, $originalServer): void {
+    putenv($originalGetenv === false ? 'UPDATE_SNAPSHOTS' : 'UPDATE_SNAPSHOTS='.$originalGetenv);
 
-    if ($originalEnvWasSet) {
+    unset($_ENV['UPDATE_SNAPSHOTS'], $_SERVER['UPDATE_SNAPSHOTS']);
+
+    if ($originalEnv !== null) {
         $_ENV['UPDATE_SNAPSHOTS'] = $originalEnv;
-    } else {
-        unset($_ENV['UPDATE_SNAPSHOTS']);
     }
 
-    if ($originalServerWasSet) {
+    if ($originalServer !== null) {
         $_SERVER['UPDATE_SNAPSHOTS'] = $originalServer;
-    } else {
-        unset($_SERVER['UPDATE_SNAPSHOTS']);
     }
 });
 
