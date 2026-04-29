@@ -47,6 +47,9 @@
             "Spatie\\Snapshots\\Test\\": "tests"
         }
     },
+    "bin": [
+        "bin/update-snapshots"
+    ],
     "scripts": {
         "test": "phpunit"
     },

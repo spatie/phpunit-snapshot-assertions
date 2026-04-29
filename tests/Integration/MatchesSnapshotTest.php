@@ -2,7 +2,6 @@
 
 namespace Spatie\Snapshots\Test\Integration;
 
-use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -478,13 +477,17 @@ class MatchesSnapshotTest extends TestCase
 
     private function expectFail(MockObject $matchesSnapshotMock, string $message)
     {
-        $this->expectException(AssertionFailedError::class);
+        // We throw a plain RuntimeException from the mock instead of
+        // AssertionFailedError because PHPUnit 12.5+ tracks AssertionFailedError
+        // thrown from a mock as a test failure even when user code catches it.
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage($message);
 
         $matchesSnapshotMock
             ->expects($this->once())
             ->method('fail')
             ->with($message)
-            ->willThrowException(new AssertionFailedError);
+            ->willThrowException(new \RuntimeException($message));
     }
 
     private function expectFailedMatchesSnapshotTest()
@@ -563,7 +566,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked__1.txt\" does not exist.\n".
-            "You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --without-creating-snapshots` of PHPUnit's CLI arguments."
+            'You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesSnapshot('Bar');
@@ -580,7 +583,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked__1.jpg_failed.jpg\" does not exist.\n".
-            "You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --without-creating-snapshots` of PHPUnit's CLI arguments."
+            'You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');
@@ -597,7 +600,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_regular_snapshot_and_mismatches_if_asked_with_env_var__1.txt\" does not exist.\n".
-            "You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --without-creating-snapshots` of PHPUnit's CLI arguments."
+            'You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesSnapshot('Bar');
@@ -614,7 +617,7 @@ class MatchesSnapshotTest extends TestCase
         $this->expectFail(
             $mockTrait,
             "Snapshot \"MatchesSnapshotTest__it_doesnt_create_a_file_snapshot_and_mismatches_if_asked_with_env_var__1.jpg_failed.jpg\" does not exist.\n".
-            "You can automatically create it by removing the `CREATE_SNAPSHOTS=false` env var, or `-d --without-creating-snapshots` of PHPUnit's CLI arguments."
+            'You can enable snapshot creation by running `vendor/bin/phpunit` directly, or by unsetting the `CREATE_SNAPSHOTS=false` environment variable.'
         );
 
         $mockTrait->assertMatchesFileSnapshot(__DIR__.'/stubs/test_files/friendly_man.jpg');

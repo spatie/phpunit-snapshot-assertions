@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * This wrapper sets the UPDATE_SNAPSHOTS environment variable and then runs
+ * PHPUnit, so snapshots are updated for this run only.
+ *
+ * It exists because the previously documented syntax (`phpunit -d --update-snapshots`)
+ * abuses PHPUnit's `-d` flag, which is meant to set php.ini values. Since PHPUnit
+ * 12.5.12 (https://github.com/sebastianbergmann/phpunit/commit/87f68b9), failed
+ * ini_set() calls produce a visible test runner warning, surfacing that misuse.
+ */
+
+// Capture whatever the env var was before this script ran, so we can restore it
+// on shutdown. Without this, code running after PHPUnit (shutdown handlers, parent
+// processes that include this file) would observe a state mutation they didn't ask
+// for. Env values are always strings, so `null` unambiguously means "wasn't set".
+$originalGetenv = getenv('UPDATE_SNAPSHOTS');
+$originalEnv = $_ENV['UPDATE_SNAPSHOTS'] ?? null;
+$originalServer = $_SERVER['UPDATE_SNAPSHOTS'] ?? null;
+
+register_shutdown_function(static function () use ($originalGetenv, $originalEnv, $originalServer): void {
+    putenv($originalGetenv === false ? 'UPDATE_SNAPSHOTS' : 'UPDATE_SNAPSHOTS='.$originalGetenv);
+
+    unset($_ENV['UPDATE_SNAPSHOTS'], $_SERVER['UPDATE_SNAPSHOTS']);
+
+    if ($originalEnv !== null) {
+        $_ENV['UPDATE_SNAPSHOTS'] = $originalEnv;
+    }
+
+    if ($originalServer !== null) {
+        $_SERVER['UPDATE_SNAPSHOTS'] = $originalServer;
+    }
+});
+
+// Set in all three locations so getenv(), $_ENV[] and $_SERVER[] reads all see the
+// value, regardless of the user's `variables_order` ini setting.
+putenv('UPDATE_SNAPSHOTS=true');
+$_ENV['UPDATE_SNAPSHOTS'] = 'true';
+$_SERVER['UPDATE_SNAPSHOTS'] = 'true';
+
+require __DIR__.'/_run-phpunit.php';
