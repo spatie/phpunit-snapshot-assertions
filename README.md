@@ -80,7 +80,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/phpunit-snapshot-assertions.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/phpunit-snapshot-assertions)
+[<img src="https://spatie.be/github-ad-image/phpunit-snapshot-assertions.jpg" width="419px" />](https://spatie.be/github-ad-click/phpunit-snapshot-assertions)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
